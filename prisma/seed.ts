@@ -105,6 +105,26 @@ const DEMO_REVIEW_TEXT = [
   "Reordered three times now. Quality has stayed the same each time.",
 ];
 
+// ── Modes ─────────────────────────────────────────────────────
+
+/**
+ * `--catalog-only` seeds the catalogue and the admin account and nothing
+ * else: no demo customers, orders, reviews, bulk requests or enquiries.
+ * That is what you want on a production database — the storefront is fully
+ * stocked, and the admin dashboard starts from genuine zero.
+ */
+const CATALOG_ONLY = process.argv.includes("--catalog-only");
+
+/** Removes only the catalogue tables, leaving customers and trade alone. */
+async function resetCatalog() {
+  await prisma.wholesalePriceTier.deleteMany();
+  await prisma.inventoryTransaction.deleteMany({ where: { orderId: null } });
+  await prisma.inventory.deleteMany();
+  await prisma.productVariant.deleteMany();
+  await prisma.product.deleteMany();
+  await prisma.category.deleteMany();
+}
+
 // ── Reset ─────────────────────────────────────────────────────
 
 async function reset() {
@@ -141,8 +161,26 @@ interface VariantRef {
 
 async function main() {
   const startedAt = Date.now();
-  console.log("Seeding Shree Gopi Traders…");
-  await reset();
+  console.log(`Seeding Shree Gopi Traders${CATALOG_ONLY ? " (catalogue only)" : ""}…`);
+
+  if (CATALOG_ONLY) {
+    // Refuse to touch a store that has already traded — deleting a product
+    // that appears on an order would fail on the foreign key anyway, and
+    // silently mangling live data is worse than stopping.
+    const orders = await prisma.order.count();
+    if (orders > 0) {
+      console.error(
+        `\nRefusing to run: this database already has ${orders} order(s).\n` +
+          `Catalogue changes on a live store should be made through the admin panel,\n` +
+          `not by reseeding. Nothing was changed.\n`
+      );
+      process.exitCode = 1;
+      return;
+    }
+    await resetCatalog();
+  } else {
+    await reset();
+  }
 
   // ── Admin ───────────────────────────────────────────────────
   const adminEmail = process.env.ADMIN_EMAIL || "admin@shreegopitraders.com";
@@ -280,6 +318,13 @@ async function main() {
   console.log(
     `  ${CATALOG.length} categories / ${productCount} products / ${variantCount} variants / ${tierRows.length} wholesale tiers`
   );
+
+  if (CATALOG_ONLY) {
+    console.log(`\nCatalogue seeded in ${((Date.now() - startedAt) / 1000).toFixed(1)}s.`);
+    console.log("No demo customers, orders or reviews were created.");
+    console.log("Sign in at /admin/login and start trading.");
+    return;
+  }
 
   // ── Customers ───────────────────────────────────────────────
   const customerPasswordHash = await bcrypt.hash("Password123!", 10);
