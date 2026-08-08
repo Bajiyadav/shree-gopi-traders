@@ -266,6 +266,29 @@ data-integrity invariants.
 
 ---
 
+## Known issue — framework version
+
+`npm audit` reports **21 advisories against Next.js 14.2.35**. 14.2.35 is the
+newest release on the 14.x line, so there is no non-breaking fix; clearing them
+requires upgrading to Next 16 (`npm audit fix --force`), which is a major
+migration — React 19, async `cookies()` / `params` / `searchParams`, and
+`useFormState` → `useActionState` across every form component. That was left as
+a deliberate follow-up rather than an untested change at the end of the build.
+
+Mitigations already in place:
+
+- `images.remotePatterns` is **empty** — the previous `hostname: "**"` wildcard
+  was the exact configuration named in the Image Optimizer DoS advisory
+  (GHSA-9g9p-9gw9-jx7f). Every image the app ships is local.
+- No custom server, no i18n and no Pages Router, which rules out several of the
+  remaining advisories (request smuggling in rewrites, the i18n middleware
+  bypass, SSRF on custom servers).
+- `poweredByHeader` is off; `X-Content-Type-Options`, `X-Frame-Options`,
+  `Referrer-Policy` and `Permissions-Policy` are set on every response, and
+  authenticated routes are `private, no-store`.
+
+Plan the Next 16 upgrade as the first post-launch task.
+
 ## Not in V1 (architecture left ready)
 
 Razorpay / UPI / card payments, courier tracking APIs, PDF or GST invoice
