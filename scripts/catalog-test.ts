@@ -116,9 +116,9 @@ async function main() {
     { label: "Hair Care", slug: "professional-shampoo", categorySlug: "hair-care" },
     { label: "Hair Equipment", slug: "professional-hair-clipper", categorySlug: "hair-equipment" },
     { label: "Waxing", slug: "hard-wax-beans", categorySlug: "waxing" },
-    { label: "Nail Products", slug: "uv-led-nail-lamp", categorySlug: "nails" },
+    { label: "Nail Products", slug: "uv-led-nail-lamp", categorySlug: "nail-products" },
     { label: "Salon Furniture", slug: "hydraulic-salon-styling-chair", categorySlug: "salon-furniture" },
-    { label: "Consumables", slug: "nitrile-examination-gloves", categorySlug: "consumables" },
+    { label: "Consumables", slug: "nitrile-examination-gloves", categorySlug: "beauty-consumables" },
   ];
 
   for (const sample of samples) {

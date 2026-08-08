@@ -98,7 +98,7 @@ export default async function HomePage() {
   // Salon essentials — the consumables and hygiene stock that gets reordered
   // month after month, which is what keeps a B2B buyer coming back.
   const essentialCategories = categories.filter((c) =>
-    ["consumables", "cleaning-hygiene"].includes(c.slug)
+    ["beauty-consumables", "cleaning-hygiene"].includes(c.slug)
   );
   const essentialProducts = await prisma.product.findMany({
     where: { isActive: true, categoryId: { in: essentialCategories.map((c) => c.id) } },
@@ -344,7 +344,7 @@ export default async function HomePage() {
             description="Gloves, towels, capes, cotton and hygiene stock — the consumables you reorder every month."
             action={
               <Link
-                href="/categories/consumables"
+                href="/categories/beauty-consumables"
                 className="text-sm font-medium text-brand-700 hover:text-brand-800"
               >
                 View all →

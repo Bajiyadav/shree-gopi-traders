@@ -739,7 +739,7 @@ export const CATALOG: SeedCategory[] = [
   // ═══════════════════════════════════════════════════════════
   {
     name: "Nail Products",
-    slug: "nails",
+    slug: "nail-products",
     skuCode: "NL",
     description:
       "Polish, gels, extensions, acrylics, art supplies, drills and curing lamps for nail services.",
@@ -908,7 +908,7 @@ export const CATALOG: SeedCategory[] = [
   // ═══════════════════════════════════════════════════════════
   {
     name: "Beauty Consumables",
-    slug: "consumables",
+    slug: "beauty-consumables",
     skuCode: "BC",
     description:
       "Gloves, towels, capes, cotton, foils, tissues and disposables — the everyday running stock of a salon.",
