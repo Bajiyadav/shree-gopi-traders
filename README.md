@@ -52,8 +52,10 @@ Sign-ins created by the seed:
 | `npm run build` | Production build |
 | `npm run start` | Serve the production build |
 | `npm run lint` | ESLint (`next/core-web-vitals`) |
-| `npm run seed` | Reset + reseed demo data (destructive) |
+| `npm run seed` | Reset + reseed the catalogue and demo data (destructive) |
+| `npm run images` | Regenerate product placeholder images from the catalogue |
 | `npm run test:e2e` | End-to-end verification against the database |
+| `npm run test:catalog` | Catalogue verification (completeness, search, tiers) |
 | `npm run db:migrate` | `prisma migrate deploy` |
 | `npm run db:studio` | Prisma Studio |
 
@@ -77,6 +79,53 @@ Names only — never commit values. See `.env.example` for full descriptions.
 `AUTH_SECRET` must be 16+ characters (generate with `openssl rand -base64 32`).
 In production the app **refuses to start** without it rather than falling back
 to a development default.
+
+---
+
+## The product catalogue
+
+`prisma/catalog-data.ts` is the single source of truth for the seeded
+catalogue: **15 categories, 125 products, 301 variants, 1,123 wholesale
+tiers**. The app never imports it — the storefront and admin read everything
+from PostgreSQL. Editing that file and re-running `npm run seed` is how you
+change the catalogue.
+
+Each department declares a **tier profile** and a **stock profile**, so
+pricing and stock behave differently by product class rather than uniformly:
+
+| Profile | Tier bands | Max discount | Stock range | Low-stock at |
+|---|---|---|---|---|
+| consumable | 1–4 / 5–9 / 10–24 / 25+ | 22% | 100–1000 | 20 |
+| product | 1–4 / 5–9 / 10–24 / 25+ | 20% | 20–200 | 15 |
+| equipment | 1–4 / 5–9 / 10+ | 11% | 5–50 | 5 |
+| furniture | 1–2 / 3–5 / 6+ | 9% | 2–20 | 2 |
+| machine | 1–2 / 3–5 / 6+ | 10% | 2–15 | 2 |
+
+SKUs are `SGT-<DEPT>-<NNN>` at product level (`SGT-HC-001`) with an appended
+index per variant (`SGT-HC-001-2`). Searching a product SKU returns it.
+
+### Images
+
+`npm run images` generates 390 category-coded SVG placeholders into
+`public/products/<category-slug>/`, three per product, and the seed stores
+those paths on `Product.images`. They are **placeholders that name the
+product, not brand photography**.
+
+To use real photographs, drop them at the same paths — for example
+`public/products/hair-care/professional-shampoo.svg` becomes
+`…/professional-shampoo.jpg`, then update the extension in
+`productImages()` in `prisma/seed.ts` and reseed. No component changes are
+needed. Product images are also editable per product from the admin product
+editor, which takes one URL or path per line.
+
+### Brands and claims
+
+Brand names are generic house names (`SGT Professional`, `Salon Pro`,
+`Beauty Professional`, `Shree Gopi Professional`, `Generic Professional`).
+No real manufacturer is named or implied, and the storefront makes no
+authorized-distributor or "100% genuine" claims. Seeded reviews are demo
+content attributed to seeded demo accounts — they are not real customer
+feedback and should be cleared before launch.
 
 ---
 
@@ -166,9 +215,12 @@ a table view so no value is reachable only by hovering.
 prisma/
   schema.prisma          19 models (see below)
   migrations/            committed; deploy with `prisma migrate deploy`
-  seed.ts                deterministic demo data
+  catalog-data.ts        the product catalogue — 15 categories, 125 products
+  seed.ts                deterministic demo data built from catalog-data
 scripts/
   e2e-test.ts            end-to-end verification against a real database
+  catalog-test.ts        catalogue completeness, search, filters, tiers
+  generate-product-images.mjs   builds public/products/ placeholders
 src/
   app/
     (storefront)/        public + customer routes
