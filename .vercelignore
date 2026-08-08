@@ -1,0 +1,21 @@
+# Files the Vercel CLI must never upload with the source.
+#
+# Without this, `vercel deploy` ships the local .env into the build context.
+# Next.js only falls back to .env files for variables NOT already present in
+# the environment, so any variable you forget to configure in the Vercel
+# dashboard silently picks up your LOCAL development value instead of failing
+# loudly — which is how a placeholder phone number reached production.
+#
+# Production configuration must come from Vercel's environment variables only.
+.env
+.env.*
+!.env.example
+
+# Local build output and tooling — Vercel builds these itself.
+.next
+node_modules
+.git
+
+# Local-only scripts and test artefacts.
+/private
+*.log
