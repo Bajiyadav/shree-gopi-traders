@@ -3,7 +3,9 @@ import "./globals.css";
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.siteUrl),
+  // Omitted rather than guessed when no origin is configured — Next then
+  // emits relative URLs, which is safer than a confidently wrong origin.
+  metadataBase: siteConfig.siteUrl ? new URL(siteConfig.siteUrl) : undefined,
   title: {
     default: `${siteConfig.brandName} — ${siteConfig.tagline}`,
     template: `%s | ${siteConfig.brandName}`,

@@ -14,10 +14,9 @@ dist/
 
 # environment — NEVER commit real secrets
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+# The glob above covers every variant (.env.local, .env.production.local,
+# .env.staging.local, …) so a new environment name can never slip through.
 !.env.example
 
 # testing
