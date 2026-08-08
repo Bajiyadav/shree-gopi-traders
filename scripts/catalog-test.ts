@@ -213,7 +213,7 @@ async function main() {
   const glovesVariant = gloves.variants[0];
 
   const quantities = [1, 5, 10, 25];
-  const results = [];
+  const results: { qty: number; unit: number; tier: { minQty: number; maxQty: number | null } | null }[] = [];
   for (const qty of quantities) {
     const r = await resolveVariantPrice(glovesVariant.id, qty);
     results.push({ qty, unit: r.unitPrice.toNumber(), tier: r.tierApplied });

@@ -58,6 +58,8 @@ Sign-ins created by the seed:
 | `npm run test:catalog` | Catalogue verification (completeness, search, tiers) |
 | `npm run db:migrate` | `prisma migrate deploy` |
 | `npm run db:studio` | Prisma Studio |
+| `npm run admin:set-password` | Rotate the admin password (safe on production) |
+| `npm run demo:clear-reviews` | Remove seeded demo reviews and reset ratings |
 
 ---
 
@@ -315,6 +317,47 @@ transaction, cart clearing), the stock guard (5 − 3 = 2, then a second order o
 minimum order, expiry, unknown code), the inactive-product guard, the rolling
 12-month analytics cross-checked against independent SQL aggregates, and
 data-integrity invariants.
+
+---
+
+## Pre-launch checklist
+
+Run through this before the site takes a real order.
+
+1. **Set a production admin password.** Never reuse a development password.
+   ```bash
+   ADMIN_EMAIL=you@yourdomain.com \
+   ADMIN_PASSWORD='<generate: openssl rand -base64 24>' \
+   npm run admin:set-password
+   ```
+   This only writes to the `Admin` row, so it is safe against production —
+   unlike `npm run seed`, which is destructive. It refuses passwords under 12
+   characters or containing obvious words.
+
+2. **Remove the demo reviews.** The seeded review text is placeholder content,
+   not real customer feedback, and must not be presented as genuine.
+   ```bash
+   npm run demo:clear-reviews          # dry run — shows what would go
+   npm run demo:clear-reviews -- --yes # delete and recompute ratings
+   ```
+   It only targets accounts on the reserved `.example` domain plus the named
+   demo login, and it recomputes `ratingAvg`/`ratingCount` afterwards so no
+   product is left showing stars with nothing behind them.
+
+3. **Replace the placeholder images** — see the Images section above. The
+   folder names come from the category slugs, so check them against
+   `public/products/` before copying files in.
+
+4. **Decide on demo trading data.** The 12-month order history, 33 demo
+   customers and demo bulk requests make the admin dashboard look alive. Clear
+   them before launch if you want the analytics to reflect only real trade.
+
+5. **Confirm no secrets are tracked.**
+   ```bash
+   git ls-files | grep -E '^\.env$'   # must return nothing
+   ```
+
+6. **Plan the Next.js upgrade** as a separate, controlled task — see below.
 
 ---
 
