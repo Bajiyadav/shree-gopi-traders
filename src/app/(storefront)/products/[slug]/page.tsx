@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FileText, Package, ShieldCheck, Truck } from "lucide-react";
@@ -9,7 +8,8 @@ import { prisma } from "@/lib/prisma";
 import { siteConfig } from "@/lib/config";
 import { ProductGrid } from "@/components/products/ProductCard";
 import { PurchasePanel, type PanelVariant } from "@/components/products/PurchasePanel";
-import { Card, Rating, SectionHeading } from "@/components/ui";
+import { ProductGallery } from "@/components/products/ProductGallery";
+import { Badge, Card, Rating, SectionHeading } from "@/components/ui";
 import { WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatDate } from "@/lib/utils";
 
@@ -78,6 +78,12 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
     })),
   }));
 
+  // "Bulk pricing" means a tier actually cuts the price above qty 1 — not
+  // merely that tier rows exist.
+  const hasBulkPricing = product.variants.some((v) =>
+    v.wholesaleTiers.some((t) => t.minQty > 1 && Number(t.pricePerUnit) < Number(v.price))
+  );
+
   const images = product.images.length > 0 ? product.images : ["/images/categories/placeholder.svg"];
   const specs = (product.specs ?? {}) as Record<string, string>;
 
@@ -133,36 +139,16 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
         {/* Gallery */}
-        <div>
-          <div className="relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
-            <Image
-              src={images[0]}
-              alt={product.name}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
-          </div>
-          {images.length > 1 && (
-            <div className="mt-3 grid grid-cols-5 gap-3">
-              {images.slice(0, 5).map((img, i) => (
-                <div
-                  key={img + i}
-                  className="relative aspect-square overflow-hidden rounded-lg border border-slate-200 bg-slate-50"
-                >
-                  <Image src={img} alt="" fill sizes="20vw" className="object-cover" />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <ProductGallery images={images} alt={product.name} />
 
         {/* Buy box */}
         <div>
-          <p className="text-sm font-medium uppercase tracking-wide text-brand-700">
-            {product.brand ?? product.category.name}
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-sm font-medium uppercase tracking-wide text-brand-700">
+              {product.brand ?? product.category.name}
+            </p>
+            {hasBulkPricing && <Badge tone="brand">Bulk pricing available</Badge>}
+          </div>
           <h1 className="mt-1.5 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
             {product.name}
           </h1>
@@ -186,7 +172,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               { icon: Truck, title: "Cash on Delivery", body: "Free delivery above ₹5,000. ₹199 flat below." },
               { icon: Package, title: "Dispatch in 24–48 hrs", body: "Delivered in 3–7 working days." },
               { icon: FileText, title: "GST Invoice", body: "Add your GST number at checkout." },
-              { icon: ShieldCheck, title: "Genuine Products", body: "Sourced directly from brands." },
+              { icon: ShieldCheck, title: "Professional Grade", body: "Supplied in salon trade packs." },
             ].map((item) => (
               <div key={item.title} className="flex gap-3 rounded-lg border border-slate-200 p-3">
                 <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" aria-hidden="true" />

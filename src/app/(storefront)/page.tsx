@@ -95,6 +95,19 @@ export default async function HomePage() {
   });
   const equipment = await hydrateCards(equipmentProducts.map((p) => p.id));
 
+  // Salon essentials — the consumables and hygiene stock that gets reordered
+  // month after month, which is what keeps a B2B buyer coming back.
+  const essentialCategories = categories.filter((c) =>
+    ["consumables", "cleaning-hygiene"].includes(c.slug)
+  );
+  const essentialProducts = await prisma.product.findMany({
+    where: { isActive: true, categoryId: { in: essentialCategories.map((c) => c.id) } },
+    orderBy: { ratingCount: "desc" },
+    take: 4,
+    select: { id: true },
+  });
+  const essentials = await hydrateCards(essentialProducts.map((p) => p.id));
+
   return (
     <>
       {/* ── Hero ───────────────────────────────────────────── */}
@@ -287,8 +300,8 @@ export default async function HomePage() {
       {popular.length > 0 && (
         <section className="container-page py-14 sm:py-16">
           <SectionHeading
-            title="Popular Products"
-            description="What salons and parlours reorder most often."
+            title="Best Sellers"
+            description="What salons and parlours reorder most often — order in bulk and save."
             action={
               <Link
                 href="/products?sort=popular"
@@ -304,7 +317,7 @@ export default async function HomePage() {
 
       {/* ── Professional equipment ─────────────────────────── */}
       {equipment.length > 0 && (
-        <section className="border-t border-slate-200 bg-slate-50">
+        <section className="border-y border-slate-200 bg-slate-50">
           <div className="container-page py-14 sm:py-16">
             <SectionHeading
               title="Professional Equipment & Furniture"
@@ -320,6 +333,25 @@ export default async function HomePage() {
             />
             <ProductGrid products={equipment} />
           </div>
+        </section>
+      )}
+
+      {/* ── Salon essentials ───────────────────────────────── */}
+      {essentials.length > 0 && (
+        <section className="container-page py-14 sm:py-16">
+          <SectionHeading
+            title="Salon Essentials"
+            description="Gloves, towels, capes, cotton and hygiene stock — the consumables you reorder every month."
+            action={
+              <Link
+                href="/categories/consumables"
+                className="text-sm font-medium text-brand-700 hover:text-brand-800"
+              >
+                View all →
+              </Link>
+            }
+          />
+          <ProductGrid products={essentials} />
         </section>
       )}
 

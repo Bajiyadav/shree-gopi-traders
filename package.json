@@ -11,7 +11,9 @@
     "test:e2e": "NODE_OPTIONS=--conditions=react-server tsx scripts/e2e-test.ts",
     "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "images": "node scripts/generate-product-images.mjs",
+    "test:catalog": "NODE_OPTIONS=--conditions=react-server tsx scripts/catalog-test.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
