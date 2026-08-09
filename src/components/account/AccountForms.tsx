@@ -30,7 +30,6 @@ export interface ProfileDefaults {
   email: string;
   businessName: string;
   businessType: string;
-  gstNumber: string;
 }
 
 export function ProfileForm({ defaults }: { defaults: ProfileDefaults }) {
@@ -66,16 +65,6 @@ export function ProfileForm({ defaults }: { defaults: ProfileDefaults }) {
 
         <Field label="Business Name" htmlFor="businessName" error={err("businessName")} required>
           <Input id="businessName" name="businessName" defaultValue={defaults.businessName} required />
-        </Field>
-
-        <Field label="GST Number" htmlFor="gstNumber" error={err("gstNumber")}>
-          <Input
-            id="gstNumber"
-            name="gstNumber"
-            className="uppercase"
-            defaultValue={defaults.gstNumber}
-            placeholder="15-character GSTIN"
-          />
         </Field>
       </div>
 

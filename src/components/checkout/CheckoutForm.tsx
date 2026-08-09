@@ -15,7 +15,6 @@ export interface CheckoutDefaults {
   contactName: string;
   phone: string;
   email: string;
-  gstNumber: string;
   line1: string;
   line2: string;
   city: string;
@@ -95,22 +94,6 @@ export function CheckoutForm({
                 defaultValue={defaults.email}
                 autoComplete="email"
                 required
-              />
-            </Field>
-
-            <Field
-              label="GST Number"
-              htmlFor="gstNumber"
-              error={err("gstNumber")}
-              hint="Optional — add it to claim input credit"
-              className="sm:col-span-2"
-            >
-              <Input
-                id="gstNumber"
-                name="gstNumber"
-                defaultValue={defaults.gstNumber}
-                placeholder="15-character GSTIN"
-                className="uppercase"
               />
             </Field>
           </div>

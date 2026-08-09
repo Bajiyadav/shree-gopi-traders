@@ -100,28 +100,6 @@ export function RegisterForm({ next }: { next?: string }) {
           <Input id="email" name="email" type="email" autoComplete="email" required />
         </Field>
 
-        {/* GST registration is only compulsory above the CGST turnover
-            thresholds, so many smaller salons hold no GSTIN. Saying so here
-            stops people abandoning the form thinking they cannot register. */}
-        <Field
-          label="GST Number (optional)"
-          htmlFor="gstNumber"
-          error={err("gstNumber")}
-          hint="Only if your business is GST-registered — we print it on your invoices so you can claim input tax credit. Leave blank if you do not have one."
-          className="sm:col-span-2"
-        >
-          <Input
-            id="gstNumber"
-            name="gstNumber"
-            className="uppercase"
-            inputMode="text"
-            autoCapitalize="characters"
-            spellCheck={false}
-            maxLength={15}
-            placeholder="e.g. 27AAPFU0939F1ZV"
-          />
-        </Field>
-
         <Field
           label="Password"
           htmlFor="password"

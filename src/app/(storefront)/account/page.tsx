@@ -85,7 +85,6 @@ export default async function AccountPage() {
                   email: customer.email,
                   businessName: customer.businessProfile?.businessName ?? "",
                   businessType: customer.businessProfile?.businessType ?? "OTHER",
-                  gstNumber: customer.businessProfile?.gstNumber ?? "",
                 }}
               />
             </Card>

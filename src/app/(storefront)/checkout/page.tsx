@@ -68,7 +68,6 @@ export default async function CheckoutPage() {
           contactName: customer.name,
           phone: customer.phone,
           email: customer.email,
-          gstNumber: customer.businessProfile?.gstNumber ?? "",
           line1: defaultAddress?.line1 ?? "",
           line2: defaultAddress?.line2 ?? "",
           city: defaultAddress?.city ?? "",
