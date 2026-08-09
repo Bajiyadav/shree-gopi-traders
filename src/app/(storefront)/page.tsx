@@ -18,7 +18,7 @@ import {
 } from "@/lib/catalog";
 import { ProductGrid } from "@/components/products/ProductCard";
 import { ButtonLink, Card, Rating, SectionHeading } from "@/components/ui";
-import { WhatsAppBanner } from "@/components/layout/WhatsApp";
+import { WhatsAppBanner, WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatCurrency } from "@/lib/utils";
 
 export const revalidate = 300;
@@ -55,6 +55,40 @@ const BENEFITS = [
     body: "Talk to a real person on WhatsApp for product advice, rate cards and bulk quotations.",
   },
 ];
+
+/**
+ * Four things the store actually does, stated plainly.
+ *
+ * Deliberately absent: "100% Original / Genuine Products" and "Lowest Prices
+ * Guaranteed". This is a reseller — it cannot certify a manufacturer's
+ * authenticity, and it has no visibility into competitors' pricing. Both would
+ * be unverifiable claims presented as fact, and under the Consumer Protection
+ * Act 2019 an unsubstantiated superiority claim is a misleading advertisement.
+ * Tiered pricing, bulk quotes, tracked delivery and COD are all real features
+ * of this system and sell it honestly.
+ */
+const VALUE_PROPS = [
+  {
+    icon: BadgeIndianRupee,
+    title: "Wholesale Tier Pricing",
+    detail: "Per-unit rates fall as your order quantity rises. Every tier is listed on the product page.",
+  },
+  {
+    icon: Boxes,
+    title: "Bulk Order Quotes",
+    detail: "Need more than the listed tiers? Raise an enquiry and we'll quote your quantity.",
+  },
+  {
+    icon: Truck,
+    title: "Pan India Delivery",
+    detail: "Dispatched with a courier and tracking number you can follow from your account.",
+  },
+  {
+    icon: Headphones,
+    title: "Direct Support",
+    detail: "Message us on WhatsApp for stock checks, quotes or order updates.",
+  },
+] as const;
 
 export default async function HomePage() {
   const [categories, popular, newest, testimonials, stats] = await Promise.all([
@@ -111,51 +145,52 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Hero ───────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-slate-200 bg-slate-900">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 20% 20%, #14b8a6 0, transparent 45%), radial-gradient(circle at 80% 0%, #0f766e 0, transparent 40%)",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container-page relative grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-24">
+      <section className="border-b border-slate-200 bg-gradient-to-br from-brand-50 via-white to-slate-50">
+        <div className="container-page grid items-center gap-10 py-14 lg:grid-cols-2 lg:py-20">
           <div>
-            <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-brand-200 ring-1 ring-inset ring-white/20">
-              B2B Supply Partner for Beauty Businesses
-            </span>
-            <h1 className="mt-5 text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
-              {siteConfig.tagline}
+            <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem]">
+              Your One Stop
+              <br />
+              <span className="text-brand-700">Salon &amp; Beauty</span>
+              <br />
+              Supply Partner
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-              {siteConfig.supportingText} Order online at wholesale rates, pay cash on delivery,
-              and restock your salon without chasing five different suppliers.
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg">
+              {siteConfig.supportingText} Order at wholesale rates, pay cash on
+              delivery, and restock without chasing five different suppliers.
             </p>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/products" size="lg">
-                Shop Products
+                Shop Now
               </ButtonLink>
-              <ButtonLink
-                href="/categories"
-                size="lg"
-                variant="outline"
-                className="border-white/30 bg-white/5 text-white hover:bg-white/10 hover:border-white/50"
-              >
-                Explore Categories
-              </ButtonLink>
+              {siteConfig.whatsappNumber && (
+                <WhatsAppButton
+                  className="h-12 rounded-lg border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 hover:bg-slate-50"
+                  message={`Hello ${siteConfig.brandName}, I'd like to know more about your wholesale rates.`}
+                >
+                  Chat on WhatsApp
+                </WhatsAppButton>
+              )}
             </div>
 
+            {/* Counts, not claims — each is a live query against the catalogue.
+                Orders and businesses are shown only once there are some, so a
+                new store never advertises "0+ Orders Fulfilled". */}
             <dl className="mt-10 grid max-w-lg grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
               {[
                 { label: "Products", value: `${productCount}+` },
                 { label: "Categories", value: `${categoryCount}` },
-                { label: "Businesses Served", value: `${customerCount}+` },
-                { label: "Orders Fulfilled", value: `${orderCount}+` },
+                ...(customerCount > 0
+                  ? [{ label: "Businesses Served", value: `${customerCount}+` }]
+                  : []),
+                ...(orderCount > 0
+                  ? [{ label: "Orders Fulfilled", value: `${orderCount}+` }]
+                  : []),
               ].map((stat) => (
                 <div key={stat.label}>
-                  <dt className="text-xs uppercase tracking-wide text-slate-400">{stat.label}</dt>
-                  <dd className="mt-1 text-xl font-semibold text-white">{stat.value}</dd>
+                  <dt className="text-xs uppercase tracking-wide text-slate-500">{stat.label}</dt>
+                  <dd className="mt-1 text-2xl font-semibold text-slate-900">{stat.value}</dd>
                 </div>
               ))}
             </dl>
@@ -166,7 +201,7 @@ export default async function HomePage() {
               <Link
                 key={c.id}
                 href={`/categories/${c.slug}`}
-                className="group relative aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-white/10"
+                className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1 ring-slate-200 transition-shadow hover:shadow-lg"
               >
                 <Image
                   src={c.imageUrl || "/images/categories/placeholder.svg"}
@@ -176,12 +211,32 @@ export default async function HomePage() {
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                   priority
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 to-transparent p-3">
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/85 to-transparent p-3">
                   <p className="text-sm font-medium text-white">{c.name}</p>
                 </div>
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── What the store actually offers ─────────────────── */}
+      <section className="border-b border-slate-200 bg-white">
+        <div className="container-page grid gap-4 py-8 sm:grid-cols-2 lg:grid-cols-4">
+          {VALUE_PROPS.map(({ icon: Icon, title, detail }) => (
+            <div
+              key={title}
+              className="flex items-start gap-3 rounded-xl border border-slate-200 p-4"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <p className="text-sm font-semibold text-slate-900">{title}</p>
+                <p className="mt-0.5 text-xs leading-relaxed text-slate-600">{detail}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

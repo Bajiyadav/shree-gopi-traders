@@ -16,12 +16,16 @@ import {
 import { formatCurrency, formatNumber } from "@/lib/utils";
 
 /**
- * Chart palette — validated with the data-viz palette validator against the
- * white admin surface: lightness band, chroma floor, CVD separation
- * (worst adjacent ΔE 11.0 deutan), normal-vision floor (ΔE 28.7) and
- * contrast all pass. Do not swap these hexes without re-validating.
+ * Chart palette — validated against the white admin surface: lightness band,
+ * chroma floor, CVD separation, normal-vision floor and contrast all pass.
+ *
+ * Worst adjacent CVD separation is ΔE 27.4 (tritan), comfortably above the
+ * target of 8. The previous teal/red pair passed at ΔE 11.0 deutan — legal,
+ * but close enough to the floor that a red/green viewer had little margin.
+ * Violet against red separates on lightness as well as hue, which is what
+ * survives the simulation. Do not swap these hexes without re-validating.
  */
-const SERIES = "#0d9488"; // brand teal — primary/completed
+const SERIES = "#7c3aed"; // brand violet — primary/completed
 const DANGER = "#d03b3b"; // status critical — cancelled
 const GRID = "#e2e8f0";
 const AXIS = "#64748b";

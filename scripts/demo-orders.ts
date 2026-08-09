@@ -138,6 +138,29 @@ const BUSINESSES: [string, BusinessType][] = [
 const slugify = (s: string) =>
   s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
+
+/**
+ * Recomputes the denormalised rating columns from the surviving reviews.
+ * Only APPROVED reviews count, matching what the storefront displays.
+ */
+async function recomputeRatings(productIds: string[]) {
+  if (!productIds.length) return;
+  for (const productId of productIds) {
+    const agg = await prisma.review.aggregate({
+      where: { productId, status: "APPROVED" },
+      _avg: { rating: true },
+      _count: { _all: true },
+    });
+    await prisma.product.update({
+      where: { id: productId },
+      data: {
+        ratingAvg: Number((agg._avg.rating ?? 0).toFixed(2)),
+        ratingCount: agg._count._all,
+      },
+    });
+  }
+}
+
 // ── Clear ─────────────────────────────────────────────────────
 async function clearDemo() {
   // --fresh also takes the seed's own customers and orders, so a demo
@@ -162,7 +185,20 @@ async function clearDemo() {
   // Invoices, order items, deliveries and carts cascade. Reviews and bulk
   // order requests do not — they only restrict — so they go first.
   await prisma.inventoryTransaction.deleteMany({ where: { orderId: { in: orderIds } } });
+
+  // Product.ratingAvg and Product.ratingCount are denormalised copies of the
+  // review table. Deleting reviews without recomputing them leaves products
+  // advertising "4.0 stars, 12 reviews" with no reviews behind it — and the
+  // product page publishes those figures as schema.org aggregateRating, so a
+  // search engine would index the fabricated numbers too.
+  const reviewedProducts = await prisma.review.findMany({
+    where: { customerId: { in: ids } },
+    select: { productId: true },
+    distinct: ["productId"],
+  });
   await prisma.review.deleteMany({ where: { customerId: { in: ids } } });
+  await recomputeRatings(reviewedProducts.map((r) => r.productId));
+
   await prisma.bulkOrderRequest.deleteMany({ where: { customerId: { in: ids } } });
   await prisma.order.deleteMany({ where: { id: { in: orderIds } } });
   await prisma.customer.deleteMany({ where: { id: { in: ids } } });
