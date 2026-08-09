@@ -267,6 +267,14 @@ export default async function OrderDetailPage({
             </div>
           </Alert>
 
+          {["CONFIRMED","PROCESSING","PACKED","SHIPPED","OUT_FOR_DELIVERY","DELIVERED"].includes(
+            order.status
+          ) && (
+            <ButtonLink href={`/orders/${order.id}/invoice`} className="w-full">
+              View / Download Bill
+            </ButtonLink>
+          )}
+
           <ButtonLink href="/products" variant="outline" className="w-full">
             Continue Shopping
           </ButtonLink>

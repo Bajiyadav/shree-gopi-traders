@@ -354,6 +354,7 @@ model Order {
   deliveryInstructions String?
 
   delivery        Delivery?
+  invoice         Invoice?
 
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -382,6 +383,26 @@ model OrderItem {
   @@index([orderId])
   @@index([productId])
   @@index([productVariantId])
+}
+
+// ─────────────────────────────────────────────
+// INVOICES
+// ─────────────────────────────────────────────
+
+/// A bill issued against an order. Deliberately minimal: the Order and its
+/// OrderItems already hold immutable price snapshots, so an invoice never
+/// copies money figures — it only fixes an identifier and a date. That keeps
+/// the bill and the order mathematically incapable of disagreeing.
+model Invoice {
+  id            String   @id @default(cuid())
+  invoiceNumber String   @unique
+  orderId       String   @unique
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  invoiceDate   DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  @@index([invoiceNumber])
+  @@index([invoiceDate])
 }
 
 // ─────────────────────────────────────────────

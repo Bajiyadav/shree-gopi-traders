@@ -43,6 +43,12 @@ export interface MonthlyPoint {
   orders: number;
   completed: number;
   cancelled: number;
+  itemsSold: number;
+  avgOrderValue: number;
+  /** Percent change in revenue vs the previous month. null for the first
+   *  month, where there is no prior month — showing 0% there would imply
+   *  flat trade rather than "no basis for comparison". */
+  revenueGrowth: number | null;
 }
 
 /**
@@ -62,22 +68,136 @@ export async function getMonthlyRevenueAndOrders(
 
   const orders = await prisma.order.findMany({
     where: { createdAt: { gte: windowStart, lt: windowEnd } },
-    select: { total: true, createdAt: true, status: true },
+    select: {
+      total: true,
+      createdAt: true,
+      status: true,
+      items: { select: { quantity: true } },
+    },
   });
 
-  return months.map((m) => {
+  const series = months.map((m) => {
     const inMonth = orders.filter((o) => o.createdAt >= m.start && o.createdAt < m.end);
     const earning = inMonth.filter((o) => o.status !== "CANCELLED");
-    const revenue = earning.reduce((sum, o) => sum.add(o.total), new Prisma.Decimal(0));
+    const revenue = earning.reduce((sum, o) => sum.add(o.total), new Prisma.Decimal(0)).toNumber();
+    const itemsSold = earning.reduce(
+      (n, o) => n + o.items.reduce((q, i) => q + i.quantity, 0),
+      0
+    );
 
     return {
       month: m.label,
-      revenue: revenue.toNumber(),
+      revenue,
       orders: inMonth.length,
       completed: inMonth.filter((o) => o.status === "DELIVERED").length,
       cancelled: inMonth.filter((o) => o.status === "CANCELLED").length,
+      itemsSold,
+      avgOrderValue: earning.length ? revenue / earning.length : 0,
+      revenueGrowth: null as number | null,
     };
   });
+
+  // Month-over-month growth, computed after the series exists.
+  for (let i = 1; i < series.length; i++) {
+    const prev = series[i - 1].revenue;
+    // Growth from a zero base is undefined, not infinite.
+    series[i].revenueGrowth = prev > 0 ? ((series[i].revenue - prev) / prev) * 100 : null;
+  }
+
+  return series;
+}
+
+/**
+ * Wholesale tier analysis — how much trade actually happens at each quantity
+ * band, and what it saved customers.
+ *
+ * The band is derived from the quantity on the historical OrderItem, not from
+ * today's tier table, so re-pricing a product later cannot rewrite past
+ * analysis.
+ */
+export async function getWholesaleAnalysis(since: Date) {
+  const items = await prisma.orderItem.findMany({
+    where: { order: { createdAt: { gte: since }, status: { not: "CANCELLED" } } },
+    select: {
+      quantity: true,
+      listPrice: true,
+      unitPrice: true,
+      lineTotal: true,
+      orderId: true,
+    },
+  });
+
+  const BANDS = [
+    { label: "1 – 4 units", min: 1, max: 4 },
+    { label: "5 – 9 units", min: 5, max: 9 },
+    { label: "10 – 24 units", min: 10, max: 24 },
+    { label: "25+ units", min: 25, max: Number.MAX_SAFE_INTEGER },
+  ];
+
+  const rows = BANDS.map((band) => {
+    const inBand = items.filter((i) => i.quantity >= band.min && i.quantity <= band.max);
+    const revenue = inBand.reduce((s, i) => s.add(i.lineTotal), new Prisma.Decimal(0));
+    const savings = inBand.reduce(
+      (s, i) => s.add(i.listPrice.sub(i.unitPrice).mul(i.quantity)),
+      new Prisma.Decimal(0)
+    );
+    const listValue = inBand.reduce(
+      (s, i) => s.add(i.listPrice.mul(i.quantity)),
+      new Prisma.Decimal(0)
+    );
+    return {
+      label: band.label,
+      orders: new Set(inBand.map((i) => i.orderId)).size,
+      units: inBand.reduce((n, i) => n + i.quantity, 0),
+      revenue: revenue.toNumber(),
+      savings: savings.toNumber(),
+      avgDiscountPercent: listValue.gt(0)
+        ? savings.div(listValue).mul(100).toNumber()
+        : 0,
+    };
+  });
+
+  const totalUnits = rows.reduce((n, r) => n + r.units, 0);
+  const totalSavings = rows.reduce((n, r) => n + r.savings, 0);
+  const discountedUnits = rows.filter((r) => r.label !== "1 – 4 units").reduce((n, r) => n + r.units, 0);
+
+  return {
+    rows,
+    totalUnits,
+    totalSavings,
+    discountedUnits,
+    /** Share of units that actually moved at a wholesale (below-list) rate. */
+    tierPenetration: totalUnits ? (discountedUnits / totalUnits) * 100 : 0,
+  };
+}
+
+/** Cancelled-order analysis, kept separate so it never pollutes revenue. */
+export async function getCancellationAnalysis(since: Date) {
+  const [cancelled, total] = await Promise.all([
+    prisma.order.findMany({
+      where: { createdAt: { gte: since }, status: "CANCELLED" },
+      select: { total: true },
+    }),
+    prisma.order.count({ where: { createdAt: { gte: since } } }),
+  ]);
+
+  const value = cancelled.reduce((s, o) => s.add(o.total), new Prisma.Decimal(0)).toNumber();
+
+  return {
+    count: cancelled.length,
+    value,
+    rate: total ? (cancelled.length / total) * 100 : 0,
+    totalOrders: total,
+  };
+}
+
+/** Total units sold in a window — cancelled orders excluded. */
+export async function getItemsSold(since: Date) {
+  const agg = await prisma.orderItem.aggregate({
+    where: { order: { createdAt: { gte: since }, status: { not: "CANCELLED" } } },
+    _sum: { quantity: true },
+  });
+  return agg._sum.quantity ?? 0;
 }
 
 /** Headline dashboard cards: today / this month / last 12 months, for revenue and orders. */

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { updateOrderStatusAction } from "@/actions/orders";
 import { updateDeliveryAction } from "@/actions/delivery";
-import { Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
+import { ButtonLink, Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
 import { SubmitButton } from "@/components/ui/form";
 import { StatusBadge } from "@/components/ui/status";
 import { ManagedForm, StatusSelect } from "@/components/admin/common";
@@ -220,6 +220,28 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
         </div>
 
         <aside className="space-y-5">
+          <Card className="p-5">
+            <h2 className="text-base font-semibold">Billing</h2>
+            {["CONFIRMED","PROCESSING","PACKED","SHIPPED","OUT_FOR_DELIVERY","DELIVERED"].includes(
+              order.status
+            ) ? (
+              <>
+                <p className="mt-1 text-sm text-slate-500">
+                  The bill is generated from the order snapshot and cannot be edited.
+                </p>
+                <ButtonLink href={`/orders/${order.id}/invoice`} className="mt-3 w-full">
+                  Generate / View Bill
+                </ButtonLink>
+              </>
+            ) : (
+              <p className="mt-1 text-sm text-slate-500">
+                {order.status === "CANCELLED"
+                  ? "Cancelled orders are not billed."
+                  : "A bill can be issued once this order is confirmed."}
+              </p>
+            )}
+          </Card>
+
           <Card className="p-5">
             <h2 className="text-base font-semibold">Change Order Status</h2>
             <div className="mt-3">

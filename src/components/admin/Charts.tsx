@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Area,
   AreaChart,
@@ -72,6 +73,94 @@ export interface MonthlyPoint {
   orders: number;
   completed: number;
   cancelled: number;
+  itemsSold: number;
+  avgOrderValue: number;
+  revenueGrowth: number | null;
+}
+
+const METRICS = [
+  { key: "revenue", label: "Revenue", currency: true },
+  { key: "orders", label: "Orders", currency: false },
+  { key: "itemsSold", label: "Items Sold", currency: false },
+] as const;
+
+type MetricKey = (typeof METRICS)[number]["key"];
+
+/**
+ * One measure at a time, switched by the reader. Deliberately NOT a dual-axis
+ * chart: revenue and unit counts live on incompatible scales, and overlaying
+ * them invents a correlation the data does not contain.
+ */
+export function MetricChart({ data }: { data: MonthlyPoint[] }) {
+  const [metric, setMetric] = useState<MetricKey>("revenue");
+  const active = METRICS.find((m) => m.key === metric)!;
+  const format = (v: number) =>
+    active.currency ? formatCurrency(v, { decimals: false }) : formatNumber(v);
+
+  return (
+    <div>
+      <div className="mb-4 flex flex-wrap gap-1.5" role="group" aria-label="Chart measure">
+        {METRICS.map((m) => (
+          <button
+            key={m.key}
+            type="button"
+            onClick={() => setMetric(m.key)}
+            aria-pressed={metric === m.key}
+            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
+              metric === m.key
+                ? "bg-brand-700 text-white"
+                : "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50"
+            }`}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="h-72 w-full">
+        <ResponsiveContainer width="100%" height="100%">
+          <AreaChart data={data} margin={{ top: 8, right: 12, bottom: 4, left: 4 }}>
+            <CartesianGrid stroke={GRID} strokeDasharray="0" vertical={false} />
+            <XAxis dataKey="month" {...axisProps} interval="preserveStartEnd" />
+            <YAxis
+              {...axisProps}
+              width={56}
+              tickFormatter={(v) => (active.currency ? compactCurrency(Number(v)) : String(v))}
+            />
+            <Tooltip
+              cursor={{ stroke: GRID, strokeWidth: 1 }}
+              content={({ active: on, payload, label }) =>
+                on && payload?.length ? (
+                  <TooltipBox
+                    label={String(label)}
+                    rows={[
+                      {
+                        name: active.label,
+                        value: format(Number(payload[0].value)),
+                        color: SERIES,
+                      },
+                    ]}
+                  />
+                ) : null
+              }
+            />
+            <Area
+              type="monotone"
+              dataKey={metric}
+              stroke={SERIES}
+              strokeWidth={2}
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              fill={SERIES}
+              fillOpacity={0.1}
+              dot={false}
+              activeDot={{ r: 4, fill: SERIES, stroke: SURFACE, strokeWidth: 2 }}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
 }
 
 /** Revenue over the rolling 12 months. One series, so no legend box. */
@@ -187,7 +276,9 @@ export function MonthlyTable({ data }: { data: MonthlyPoint[] }) {
               <th className="py-2 text-left font-medium">Month</th>
               <th className="py-2 text-right font-medium">Revenue</th>
               <th className="py-2 text-right font-medium">Orders</th>
-              <th className="py-2 text-right font-medium">Completed</th>
+              <th className="py-2 text-right font-medium">Items</th>
+              <th className="py-2 text-right font-medium">AOV</th>
+              <th className="py-2 text-right font-medium">Growth</th>
               <th className="py-2 text-right font-medium">Cancelled</th>
             </tr>
           </thead>
@@ -199,7 +290,20 @@ export function MonthlyTable({ data }: { data: MonthlyPoint[] }) {
                   {formatCurrency(row.revenue, { decimals: false })}
                 </td>
                 <td className="py-2 text-right tabular-nums text-slate-700">{row.orders}</td>
-                <td className="py-2 text-right tabular-nums text-slate-700">{row.completed}</td>
+                <td className="py-2 text-right tabular-nums text-slate-700">{row.itemsSold}</td>
+                <td className="py-2 text-right tabular-nums text-slate-700">
+                  {formatCurrency(row.avgOrderValue, { decimals: false })}
+                </td>
+                <td className="py-2 text-right tabular-nums">
+                  {row.revenueGrowth === null ? (
+                    <span className="text-slate-400">N/A</span>
+                  ) : (
+                    <span className={row.revenueGrowth >= 0 ? "text-emerald-700" : "text-red-600"}>
+                      {row.revenueGrowth >= 0 ? "+" : ""}
+                      {row.revenueGrowth.toFixed(1)}%
+                    </span>
+                  )}
+                </td>
                 <td className="py-2 text-right tabular-nums text-slate-700">{row.cancelled}</td>
               </tr>
             ))}

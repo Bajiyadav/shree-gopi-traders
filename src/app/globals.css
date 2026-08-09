@@ -52,3 +52,55 @@
 .recharts-wrapper {
   max-width: 100%;
 }
+
+/* ── Print: invoices must come out as a clean A4 document ──────
+   The storefront header/footer, admin sidebar and every control are
+   removed, so what prints is only the bill. */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  /* Chrome/Safari drop background colours by default, which would erase
+     the table rules and the total bar. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Site chrome has no place on a business document. */
+  header,
+  footer,
+  nav,
+  aside,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .invoice-sheet {
+    max-width: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Never split a line item, the totals block, or the footer across pages. */
+  tr,
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+}

@@ -1,27 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { Prisma } from "@prisma/client";
-import { ShoppingBag } from "lucide-react";
+import { Download, ShoppingBag } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { updateOrderStatusAction } from "@/actions/orders";
-import { Card, EmptyState, PageHeader } from "@/components/ui";
+import { ButtonLink, Card, EmptyState, PageHeader } from "@/components/ui";
 import { StatusBadge } from "@/components/ui/status";
 import { FilterSelect, StatusSelect, Toolbar } from "@/components/admin/common";
+import {
+  DATE_RANGES,
+  ORDER_STATUSES as STATUS_OPTIONS,
+  PAYMENT_STATUSES,
+  buildOrderWhere,
+  parseOrderFilters,
+} from "@/lib/order-filters";
 import { Pagination } from "@/components/ui/pagination";
 import { formatCurrency, formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Orders" };
-
-const ORDER_STATUSES = [
-  "PENDING",
-  "CONFIRMED",
-  "PROCESSING",
-  "PACKED",
-  "SHIPPED",
-  "OUT_FOR_DELIVERY",
-  "DELIVERED",
-  "CANCELLED",
-] as const;
 
 const PAGE_SIZE = 20;
 
@@ -30,32 +25,15 @@ export default async function AdminOrdersPage({
 }: {
   searchParams: { q?: string; status?: string; payment?: string; page?: string };
 }) {
-  const q = searchParams.q?.trim();
-  const status = ORDER_STATUSES.includes(searchParams.status as never)
-    ? (searchParams.status as (typeof ORDER_STATUSES)[number])
-    : undefined;
+  const filters = parseOrderFilters(searchParams);
   const page = Math.max(1, Number(searchParams.page) || 1);
+  const where = buildOrderWhere(filters);
 
-  // Search spans order number, customer name/phone/email and business name.
-  const where: Prisma.OrderWhereInput = {
-    ...(status ? { status } : {}),
-    ...(q
-      ? {
-          OR: [
-            { orderNumber: { contains: q, mode: "insensitive" as const } },
-            { businessName: { contains: q, mode: "insensitive" as const } },
-            { customer: { name: { contains: q, mode: "insensitive" as const } } },
-            { customer: { email: { contains: q, mode: "insensitive" as const } } },
-            { customer: { phone: { contains: q } } },
-            {
-              customer: {
-                businessProfile: { businessName: { contains: q, mode: "insensitive" as const } },
-              },
-            },
-          ],
-        }
-      : {}),
-  };
+  // The export link carries the same query string, so "Export" always means
+  // "export exactly what I am looking at".
+  const exportQuery = new URLSearchParams(
+    Object.entries(searchParams).filter(([k, v]) => v && k !== "page") as [string, string][]
+  ).toString();
 
   const [orders, total] = await Promise.all([
     prisma.order.findMany({
@@ -82,20 +60,49 @@ export default async function AdminOrdersPage({
       <PageHeader
         title="Orders"
         description={`${total} order${total === 1 ? "" : "s"} matching the current filters`}
+        action={
+          <ButtonLink
+            href={`/admin/orders/export${exportQuery ? `?${exportQuery}` : ""}`}
+            variant="outline"
+            prefetch={false}
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </ButtonLink>
+        }
       />
 
       <Toolbar
         action="/admin/orders"
-        searchValue={q}
-        searchPlaceholder="Search order number, customer, phone or business…"
+        searchValue={filters.q}
+        searchPlaceholder="Search order number, customer, phone, business or SKU…"
       >
         <FilterSelect
           name="status"
-          value={status}
-          options={ORDER_STATUSES}
+          value={filters.status}
+          options={STATUS_OPTIONS}
           placeholder="All statuses"
           label="Filter by status"
         />
+        <FilterSelect
+          name="payment"
+          value={filters.payment}
+          options={PAYMENT_STATUSES}
+          placeholder="All payments"
+          label="Filter by payment status"
+        />
+        <select
+          name="range"
+          defaultValue={filters.range ?? ""}
+          className="input-base w-auto min-w-40"
+          aria-label="Filter by date range"
+        >
+          {DATE_RANGES.map((r) => (
+            <option key={r.value} value={r.value}>
+              {r.label}
+            </option>
+          ))}
+        </select>
       </Toolbar>
 
       {orders.length === 0 ? (
@@ -159,7 +166,7 @@ export default async function AdminOrdersPage({
                         action={updateOrderStatusAction}
                         fields={{ orderId: order.id }}
                         name="status"
-                        options={ORDER_STATUSES}
+                        options={STATUS_OPTIONS}
                         current={order.status}
                       />
                     </td>

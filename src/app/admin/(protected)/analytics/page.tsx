@@ -2,16 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { IndianRupee, ShoppingBag, Users } from "lucide-react";
 import {
+  getCancellationAnalysis,
   getCustomerAnalytics,
+  getItemsSold,
   getMonthlyRevenueAndOrders,
   getOrderStatusBreakdown,
   getTopCategories,
   getTopProducts,
+  getWholesaleAnalysis,
   getWindowSummary,
   resolveAnalyticsWindow,
 } from "@/lib/analytics";
 import { prisma } from "@/lib/prisma";
-import { MonthlyTable, OrdersChart, RevenueChart } from "@/components/admin/Charts";
+import { MetricChart, MonthlyTable, OrdersChart } from "@/components/admin/Charts";
 import { StatCard } from "@/components/admin/StatCard";
 import { Card, PageHeader } from "@/components/ui";
 import { formatCompactCurrency, formatCurrency, formatDate, formatNumber, humanize } from "@/lib/utils";
@@ -60,6 +63,9 @@ export default async function AdminAnalyticsPage({
     statusBreakdown,
     inventoryStats,
     productCount,
+    itemsSold,
+    wholesale,
+    cancellation,
   ] = await Promise.all([
     getWindowSummary(since),
     // The 12-month series is always the rolling window ending this month —
@@ -75,6 +81,9 @@ export default async function AdminAnalyticsPage({
       FROM "Inventory"
     `,
     prisma.product.count({ where: { isActive: true } }),
+    getItemsSold(since),
+    getWholesaleAnalysis(since),
+    getCancellationAnalysis(since),
   ]);
 
   const statusMap = new Map(statusBreakdown.map((s) => [s.status, s.count]));
@@ -127,7 +136,7 @@ export default async function AdminAnalyticsPage({
         <StatCard
           label="Avg Order Value"
           value={formatCurrency(windowSummary.avgOrderValue, { decimals: false })}
-          sublabel="Cancelled orders excluded"
+          sublabel={`${formatNumber(itemsSold)} items sold`}
         />
         <StatCard
           label="Buying Customers"
@@ -159,12 +168,13 @@ export default async function AdminAnalyticsPage({
       {/* Rolling 12-month charts */}
       <div className="mt-6 grid gap-5 xl:grid-cols-2">
         <Card className="p-5">
-          <h2 className="text-base font-semibold">Revenue — rolling 12 months</h2>
+          <h2 className="text-base font-semibold">Rolling 12 months</h2>
           <p className="mt-0.5 text-sm text-slate-500">
             Recomputed from today&rsquo;s date on every load — the window always ends this month.
+            Switch the measure below; the data table carries every figure.
           </p>
           <div className="mt-4">
-            <RevenueChart data={monthly} />
+            <MetricChart data={monthly} />
           </div>
           <MonthlyTable data={monthly} />
         </Card>
@@ -311,6 +321,80 @@ export default async function AdminAnalyticsPage({
             </div>
           )}
         </Card>
+      </div>
+
+      {/* Wholesale tier analysis — the core question for a B2B store:
+          how much trade actually moves at a discounted quantity band. */}
+      <div className="mt-6 grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
+        <Card className="p-5">
+          <h2 className="text-base font-semibold">Wholesale Tier Analysis ({rangeLabel})</h2>
+          <p className="mt-0.5 text-sm text-slate-500">
+            Bands are fixed reporting ranges applied to the quantity on each historical order
+            line, so re-pricing a product later cannot rewrite past analysis. They are not
+            per-product tier definitions — furniture and machines start discounting at 3 units,
+            and a marked-down product is discounted at any quantity, so the lowest band still
+            shows some saving.
+          </p>
+          <div className="table-scroll mt-4">
+            <table className="w-full min-w-[36rem] text-sm">
+              <thead className="text-xs uppercase tracking-wide text-slate-500">
+                <tr>
+                  <th className="py-2 text-left font-medium">Quantity band</th>
+                  <th className="py-2 text-right font-medium">Orders</th>
+                  <th className="py-2 text-right font-medium">Units</th>
+                  <th className="py-2 text-right font-medium">Revenue</th>
+                  <th className="py-2 text-right font-medium">Customer savings</th>
+                  <th className="py-2 text-right font-medium">Avg discount</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {wholesale.rows.map((row) => (
+                  <tr key={row.label}>
+                    <td className="py-2.5 text-slate-700">{row.label}</td>
+                    <td className="py-2.5 text-right tabular-nums text-slate-600">{row.orders}</td>
+                    <td className="py-2.5 text-right tabular-nums text-slate-600">
+                      {formatNumber(row.units)}
+                    </td>
+                    <td className="py-2.5 text-right font-medium tabular-nums text-slate-900">
+                      {formatCurrency(row.revenue, { decimals: false })}
+                    </td>
+                    <td className="py-2.5 text-right tabular-nums text-emerald-700">
+                      {row.savings > 0 ? formatCurrency(row.savings, { decimals: false }) : "—"}
+                    </td>
+                    <td className="py-2.5 text-right tabular-nums text-slate-600">
+                      {row.avgDiscountPercent > 0 ? `${row.avgDiscountPercent.toFixed(1)}%` : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </Card>
+
+        <div className="space-y-4">
+          <StatCard
+            label="Wholesale Savings Passed On"
+            value={formatCompactCurrency(wholesale.totalSavings)}
+            sublabel={`across ${formatNumber(wholesale.totalUnits)} units`}
+            tone="success"
+          />
+          <StatCard
+            label="Tier Penetration"
+            value={`${wholesale.tierPenetration.toFixed(1)}%`}
+            sublabel="of units bought at a wholesale rate"
+            tone="brand"
+          />
+          <StatCard
+            label={`Cancelled (${rangeLabel})`}
+            value={formatNumber(cancellation.count)}
+            sublabel={`${formatCurrency(cancellation.value, { decimals: false })} value · ${cancellation.rate.toFixed(1)}% of orders`}
+            tone={cancellation.rate > 10 ? "danger" : "default"}
+          />
+          <p className="px-1 text-xs leading-relaxed text-slate-500">
+            Cancelled orders are shown here for analysis only. They are excluded from revenue,
+            average order value, product and category sales, and customer spend everywhere else.
+          </p>
+        </div>
       </div>
 
       <Card className="mt-6 p-5">
