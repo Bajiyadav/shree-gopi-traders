@@ -23,7 +23,8 @@
  * here, and remote Cloudinary URLs already set on a product are left alone —
  * this script only ever manages local files.
  */
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { PrismaClient } from "@prisma/client";
 
@@ -38,6 +39,10 @@ const slugify = (s: string) =>
 
 /** Web path → file on disk. */
 const onDisk = (webPath: string) => existsSync(join(PUBLIC, webPath.replace(/^\//, "")));
+
+/** Content hash, so a gallery slot that repeats an earlier one can be dropped. */
+const contentOf = (webPath: string) =>
+  createHash("sha256").update(readFileSync(join(PUBLIC, webPath.replace(/^\//, "")))).digest("hex");
 
 async function main() {
   const dbName = (process.env.DATABASE_URL ?? "").match(/\/([^/?]+)(\?|$)/)?.[1] ?? "local";
@@ -71,13 +76,22 @@ async function main() {
     let photos = 0, drawings = 0;
     const missing: string[] = [];
 
+    // Slots whose file is byte-identical to one already chosen are skipped.
+    // The supplied photographs are the same shot copied into all three slots;
+    // listing them would give the shopper a gallery of three identical
+    // thumbnails, which reads as a fault rather than as a gallery.
+    const seen = new Set<string>();
     for (const slot of SLOTS) {
       const suffix = slot === 1 ? "" : `-${slot}`;
       const png = `${base}${suffix}.png`;
       const svg = `${base}${suffix}.svg`;
-      if (onDisk(png)) { next.push(png); photos++; }
-      else if (onDisk(svg)) { next.push(svg); drawings++; }
-      else if (slot === 1) missing.push(`${base}.png or .svg`);
+      const pick = onDisk(png) ? png : onDisk(svg) ? svg : null;
+      if (!pick) { if (slot === 1) missing.push(`${base}.png or .svg`); continue; }
+      const hash = contentOf(pick);
+      if (seen.has(hash)) continue;
+      seen.add(hash);
+      next.push(pick);
+      if (pick.endsWith(".png")) photos++; else drawings++;
     }
 
     if (!next.length) {
