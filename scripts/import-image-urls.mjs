@@ -23,10 +23,15 @@
  * Only res.cloudinary.com URLs are accepted. next.config.js allows that single
  * host, so any other domain would render as a broken image — better to reject
  * it here, loudly, than to discover it in production.
+ *
+ * If you have image FILES rather than URLs, use `images:cloudinary` instead:
+ * it uploads them and then does everything this script does.
  */
 import { readFileSync, existsSync } from "node:fs";
 import { PrismaClient } from "@prisma/client";
-import { CATALOG } from "../prisma/catalog-data.ts";
+import {
+  ALLOWED_HOST, buildProductIndex, resolveKey, optimise, mergeSlots, MATCH_RANK,
+} from "./lib/product-index.mjs";
 
 const args = process.argv.slice(2);
 const APPLY = args.includes("--apply");
@@ -38,56 +43,7 @@ if (!FILE || !existsSync(FILE)) {
   process.exit(1);
 }
 
-const ALLOWED_HOST = "res.cloudinary.com";
-
-const slugify = (s) =>
-  s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-
-// Mirrors the shape routing used by the image generator.
-const SHAPE_RULES = [
-  [/dryer/i, "hair-dryer"], [/straighten|flat.?iron|crimper|curler|curling/i, "flat-iron"],
-  [/clipper|trimmer|shaving machine/i, "clipper"], [/scissor|shear/i, "scissors"],
-  [/razor|blade/i, "razor"],
-  [/chair|bed|station|stool|mirror unit|cabinet|table/i, "chair"], [/trolley/i, "trolley"],
-  [/steamer|steriliz|sterilis|machine|hot towel|magnifying|high frequency|foot spa|heater/i, "machine"],
-  [/uv\/led|uv lamp|led lamp|nail lamp/i, "lamp"],
-  [/nail polish|gel polish|top coat|nail glue/i, "polish"],
-  [/palette|eyeshadow/i, "palette"], [/lipstick|lip colour|lip color/i, "lipstick"],
-  [/towel/i, "towels"], [/glove|cap|sheet|strip|tissue|cotton|foil|apron|cape/i, "box"],
-  [/brush|comb/i, "brush-set"],
-  [/bowl|manicure kit|pedicure kit|cutter|cuticle|file|tips|nail art|drill/i, "tools"],
-  [/spray|toner|rose water|disinfect|sanitiz|sanitis|cleaner|after shave/i, "spray-bottle"],
-  [/serum|oil|dropper/i, "dropper"],
-  [/jar|wax|pomade|mask|spa cream|massage cream|pack|scrub|powder|acrylic|bleach|beans/i, "jar"],
-  [/cream|gel|lotion|moisturi|cleanser|concealer|foundation|mascara|eyeliner/i, "tube"],
-  [/kit|set|liner/i, "carton"],
-];
-const shapeFor = (name) => SHAPE_RULES.find(([re]) => re.test(name))?.[1] ?? "pump-bottle";
-
-/**
- * Cloudinary serves a modern format and sensible quality when asked. Injecting
- * f_auto,q_auto costs nothing and typically halves the bytes; if the URL
- * already carries transformations we leave it alone.
- */
-function optimise(url) {
-  if (!url.includes("/upload/")) return url;
-  if (/\/upload\/[^/]*[fq]_auto/.test(url)) return url;
-  return url.replace("/upload/", "/upload/f_auto,q_auto/");
-}
-
-// ── Build the product index ───────────────────────────────────
-const products = [];
-for (const category of CATALOG) {
-  for (const [pi, product] of category.products.entries()) {
-    products.push({
-      name: product.name,
-      slug: slugify(product.name),
-      sku: `SGT-${category.skuCode}-${String(pi + 1).padStart(3, "0")}`,
-      categorySlug: category.slug,
-      shape: shapeFor(product.name),
-    });
-  }
-}
+const products = buildProductIndex();
 
 // ── Parse the mapping ─────────────────────────────────────────
 const lines = readFileSync(FILE, "utf8")
@@ -113,22 +69,14 @@ for (const line of lines) {
     continue;
   }
 
-  const slotMatch = rawKey.match(/-([23])$/);
-  const slot = slotMatch ? Number(slotMatch[1]) : 1;
-  const key = slugify(slotMatch ? rawKey.slice(0, -2) : rawKey);
-
-  let targets = products.filter((p) => p.slug === key);
-  let how = "product slug";
-  if (!targets.length) { targets = products.filter((p) => slugify(p.sku) === key); how = "SKU"; }
-  if (!targets.length) { targets = products.filter((p) => p.shape === key); how = "packaging type"; }
-  if (!targets.length) { targets = products.filter((p) => p.categorySlug === key); how = "category"; }
-  if (!targets.length) { unmatched.push(`${rawKey}  (matches no product, SKU, type or category)`); continue; }
+  const match = resolveKey(rawKey, products);
+  if (!match) { unmatched.push(`${rawKey}  (matches no product, SKU, type or category)`); continue; }
+  const { targets, how, slot } = match;
 
   for (const t of targets) {
     const entry = plan.get(t.slug) ?? { how, slots: {} };
     // A more specific key wins if two rules touch the same product/slot.
-    const rank = { "product slug": 0, SKU: 1, "packaging type": 2, category: 3 };
-    if (!entry.slots[slot] || rank[how] < rank[entry.slots[slot].how]) {
+    if (!entry.slots[slot] || MATCH_RANK[how] < MATCH_RANK[entry.slots[slot].how]) {
       entry.slots[slot] = { url: optimise(url), how };
     }
     plan.set(t.slug, entry);
@@ -159,13 +107,12 @@ for (const [slug, entry] of plan) {
   const product = bySlug.get(slug);
   if (!product) continue;
   // Merge by slot so a main-image-only mapping keeps the existing gallery.
-  const next = [...product.images];
-  for (const [slot, { url }] of Object.entries(entry.slots)) {
-    next[Number(slot) - 1] = url;
-  }
-  const cleaned = next.filter(Boolean);
-  if (JSON.stringify(cleaned) !== JSON.stringify(product.images)) {
-    writes.push({ slug, name: product.name, images: cleaned, how: entry.how });
+  const slots = Object.fromEntries(
+    Object.entries(entry.slots).map(([slot, { url }]) => [slot, url])
+  );
+  const next = mergeSlots(product.images, slots);
+  if (JSON.stringify(next) !== JSON.stringify(product.images)) {
+    writes.push({ slug, name: product.name, images: next, how: entry.how });
   }
 }
 
@@ -190,10 +137,6 @@ for (const w of writes) {
   written++;
 }
 
-const remaining = await prisma.product.count({
-  where: { NOT: { images: { hasSome: [`https://${ALLOWED_HOST}`] } } },
-});
-void remaining;
 
 console.log(`\nUpdated ${written} product(s).`);
 console.log("Only Product.images changed — no prices, stock, variants or orders were touched.");

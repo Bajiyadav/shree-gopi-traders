@@ -178,6 +178,39 @@ npm run images:urls -- mapping.csv          # dry run — shows what would chang
 npm run images:urls -- mapping.csv --apply  # write Product.images
 ```
 
+If you have image **files** rather than URLs, `images:cloudinary` does the
+upload for you and then does everything above. Name each file after the
+product it belongs to and put them all in one folder:
+
+```
+downloads/
+  SGT-HC-002.jpg                 → the product with that SKU
+  professional-shampoo.jpg       → the product with that slug
+  professional-hair-dryer-2.png  → gallery slot 2 of that product
+  jar.png                        → every product packaged as a jar
+  hair-care.jpg                  → every product in that category
+```
+
+```bash
+npm run images:cloudinary -- ./downloads          # dry run
+npm run images:cloudinary -- ./downloads --apply  # upload, then write URLs
+```
+
+Credentials come from `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` /
+`CLOUDINARY_API_SECRET` in `.env.local` (see `.env.example`). The secret signs
+the upload server-side; none of the three carries a `NEXT_PUBLIC_` prefix, so
+Next cannot inline them into browser JavaScript, and the storefront never calls
+Cloudinary's API at all — it only loads the delivery URLs.
+
+Files under 600px on the long edge are rejected. A product card renders around
+400px and the detail view around 800px, so anything smaller is a thumbnail
+rather than product photography — usually a search-result image copied by
+mistake. Google Images results (`encrypted-tbn0.gstatic.com/...`) are cached
+thumbnails of roughly 300px and cannot be used: they are not the original
+image, they expire, and the host is not allowed by `next.config.js`. Open the
+source page the result points to, check its licence, download the full-size
+file from there, and put that in the folder.
+
 `f_auto,q_auto` is injected automatically (skipped if the URL already carries
 transformations). Slots you do not supply keep whatever the product already
 has, so a main-image-only mapping leaves the gallery intact. Only
