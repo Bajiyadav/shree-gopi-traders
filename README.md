@@ -277,6 +277,30 @@ deactivated.
 
 ---
 
+### Neon connection strings — required parameters
+
+Both URLs need parameters beyond what the Neon dashboard hands you, or the app
+fails intermittently in ways that look like unrelated bugs:
+
+```
+DATABASE_URL = postgresql://…-pooler…/neondb?sslmode=require&pgbouncer=true&connect_timeout=20
+DIRECT_URL   = postgresql://…/neondb?sslmode=require&connect_timeout=20
+```
+
+| Parameter | Why |
+|---|---|
+| `pgbouncer=true` | **Pooled URL only.** Neon's pooled endpoint is PgBouncer in transaction mode, where Prisma's prepared statements break. |
+| `connect_timeout=20` | Neon autosuspends idle compute. A cold start takes ~3s locally and longer from a Vercel region; Prisma's 5s default times out and reports "Can't reach database server". |
+| `sslmode=require` | Enforces TLS. |
+| ~~`channel_binding=require`~~ | Remove it. Prisma's query engine does not negotiate SCRAM channel binding, and TLS is already enforced by `sslmode`. |
+
+The failure mode is nasty because it is *intermittent and partial*: statically
+rendered pages keep serving from the last good build while every dynamic page —
+the whole admin panel — returns 500. If the storefront works but `/admin`
+throws, check these parameters first.
+
+---
+
 ## Deploying to Vercel
 
 1. Create a PostgreSQL database (Neon, Supabase or Vercel Postgres).
