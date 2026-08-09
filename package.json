@@ -25,8 +25,8 @@
     "pricing:discount": "tsx scripts/apply-discounts.ts",
     "demo:reviews": "tsx scripts/demo-reviews.ts",
     "images:sync": "tsx scripts/sync-product-images.ts",
-    "images:brand": "node scripts/imaging/brand-images.mjs",
-    "images:audit": "node scripts/imaging/audit-images.mjs"
+    "images:brand": "node scripts/imaging/apply-sgt-badge.mjs",
+    "images:verify": "node scripts/imaging/verify-images.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

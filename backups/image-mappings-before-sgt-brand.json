@@ -1,0 +1,1713 @@
+{
+ "takenFor": "production",
+ "counts": {
+  "products": 125,
+  "variants": 301,
+  "tiers": 1123,
+  "inventory": 301,
+  "customers": 0,
+  "orders": 0,
+  "orderItems": 0,
+  "admins": 1
+ },
+ "products": [
+  {
+   "id": "cmslgd37t00e1b48jq0gh0s7x",
+   "name": "Acrylic Powder & Liquid Set",
+   "slug": "acrylic-powder-liquid-set",
+   "sku": "SGT-NL-005",
+   "oldImages": [
+    "/products/nail-products/acrylic-powder-liquid-set.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/acrylic-powder-liquid-set.svg",
+    "/products/nail-products/acrylic-powder-liquid-set-2.svg",
+    "/products/nail-products/acrylic-powder-liquid-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgismi00m8b48jywvapcs0",
+   "name": "After Shave Lotion",
+   "slug": "after-shave-lotion",
+   "sku": "SGT-BS-005",
+   "oldImages": [
+    "/products/barber-supplies/after-shave-lotion.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/after-shave-lotion.svg",
+    "/products/barber-supplies/after-shave-lotion-2.svg",
+    "/products/barber-supplies/after-shave-lotion-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg90ur0085b48jxl2xbvq4",
+   "name": "Aloe Vera Gel",
+   "slug": "aloe-vera-gel",
+   "sku": "SGT-SK-006",
+   "oldImages": [
+    "/products/skin-care/aloe-vera-gel.png"
+   ],
+   "newImages": [
+    "/products/skin-care/aloe-vera-gel.png"
+   ]
+  },
+  {
+   "id": "cmslgb45h00b7b48jjed1uw0u",
+   "name": "Aloe Vera Soft Wax",
+   "slug": "aloe-vera-soft-wax",
+   "sku": "SGT-WX-006",
+   "oldImages": [
+    "/products/waxing/aloe-vera-soft-wax.png"
+   ],
+   "newImages": [
+    "/products/waxing/aloe-vera-soft-wax.png"
+   ]
+  },
+  {
+   "id": "cmslg3sci000db48jz6a5mv51",
+   "name": "Anti-Dandruff Shampoo",
+   "slug": "anti-dandruff-shampoo",
+   "sku": "SGT-HC-002",
+   "oldImages": [
+    "/products/hair-care/anti-dandruff-shampoo.png"
+   ],
+   "newImages": [
+    "/products/hair-care/anti-dandruff-shampoo.png"
+   ]
+  },
+  {
+   "id": "cmslg4o2k001rb48jdtjwgjnn",
+   "name": "Argan Hair Serum",
+   "slug": "argan-hair-serum",
+   "sku": "SGT-HC-008",
+   "oldImages": [
+    "/products/hair-care/argan-hair-serum.svg"
+   ],
+   "newImages": [
+    "/products/hair-care/argan-hair-serum.svg",
+    "/products/hair-care/argan-hair-serum-2.svg",
+    "/products/hair-care/argan-hair-serum-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg5dwn002ub48j3le9vpc4",
+   "name": "Barber Hair Pomade",
+   "slug": "barber-hair-pomade",
+   "sku": "SGT-HS-003",
+   "oldImages": [
+    "/products/hair-styling/barber-hair-pomade.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/barber-hair-pomade.png"
+   ]
+  },
+  {
+   "id": "cmslgj13500mkb48jslsw7w2x",
+   "name": "Barber Neck Strips",
+   "slug": "barber-neck-strips",
+   "sku": "SGT-BS-007",
+   "oldImages": [
+    "/products/barber-supplies/barber-neck-strips.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/barber-neck-strips.svg",
+    "/products/barber-supplies/barber-neck-strips-2.svg",
+    "/products/barber-supplies/barber-neck-strips-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgj55l00mqb48jpviy07fj",
+   "name": "Barber Spray Bottle",
+   "slug": "barber-spray-bottle",
+   "sku": "SGT-BS-008",
+   "oldImages": [
+    "/products/barber-supplies/barber-spray-bottle.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/barber-spray-bottle.svg",
+    "/products/barber-supplies/barber-spray-bottle-2.svg",
+    "/products/barber-supplies/barber-spray-bottle-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgcqfl00djb48j0vdoxxgt",
+   "name": "Base & Top Coat Set",
+   "slug": "base-top-coat-set",
+   "sku": "SGT-NL-002",
+   "oldImages": [
+    "/products/nail-products/base-top-coat-set.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/base-top-coat-set.svg",
+    "/products/nail-products/base-top-coat-set-2.svg",
+    "/products/nail-products/base-top-coat-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgiwyo00meb48j3fkwyc3l",
+   "name": "Beard Oil",
+   "slug": "beard-oil",
+   "sku": "SGT-BS-006",
+   "oldImages": [
+    "/products/barber-supplies/beard-oil.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/beard-oil.svg",
+    "/products/barber-supplies/beard-oil-2.svg",
+    "/products/barber-supplies/beard-oil-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg9ri7009ab48j6yvarki8",
+   "name": "Bridal Facial Kit",
+   "slug": "bridal-facial-kit",
+   "sku": "SGT-FP-003",
+   "oldImages": [
+    "/products/facial-products/bridal-facial-kit.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/bridal-facial-kit.svg",
+    "/products/facial-products/bridal-facial-kit-2.svg",
+    "/products/facial-products/bridal-facial-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgaun500atb48jblmim0qw",
+   "name": "Chocolate Wax",
+   "slug": "chocolate-wax",
+   "sku": "SGT-WX-004",
+   "oldImages": [
+    "/products/waxing/chocolate-wax.png"
+   ],
+   "newImages": [
+    "/products/waxing/chocolate-wax.png"
+   ]
+  },
+  {
+   "id": "cmslgg6xb00ilb48jjtslt5ly",
+   "name": "Colour Mixing Bowl & Brush Set",
+   "slug": "colour-mixing-bowl-brush-set",
+   "sku": "SGT-BC-010",
+   "oldImages": [
+    "/products/beauty-consumables/colour-mixing-bowl-brush-set.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/colour-mixing-bowl-brush-set.svg",
+    "/products/beauty-consumables/colour-mixing-bowl-brush-set-2.svg",
+    "/products/beauty-consumables/colour-mixing-bowl-brush-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslge2m000fib48juokw758w",
+   "name": "Compact Powder",
+   "slug": "compact-powder",
+   "sku": "SGT-MU-003",
+   "oldImages": [
+    "/products/makeup/compact-powder.svg"
+   ],
+   "newImages": [
+    "/products/makeup/compact-powder.svg",
+    "/products/makeup/compact-powder-2.svg",
+    "/products/makeup/compact-powder-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgfs9c00hzb48j3kjpylws",
+   "name": "Cotton Rolls & Pads",
+   "slug": "cotton-rolls-pads",
+   "sku": "SGT-BC-007",
+   "oldImages": [
+    "/products/beauty-consumables/cotton-rolls-pads.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/cotton-rolls-pads.svg",
+    "/products/beauty-consumables/cotton-rolls-pads-2.svg",
+    "/products/beauty-consumables/cotton-rolls-pads-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgc1pi00ckb48jqcc3dd7o",
+   "name": "Cuticle Pusher & Cutter Set",
+   "slug": "cuticle-pusher-cutter-set",
+   "sku": "SGT-MP-004",
+   "oldImages": [
+    "/products/manicure-pedicure/cuticle-pusher-cutter-set.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/cuticle-pusher-cutter-set.svg",
+    "/products/manicure-pedicure/cuticle-pusher-cutter-set-2.svg",
+    "/products/manicure-pedicure/cuticle-pusher-cutter-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg9xb4009gb48j0zjmp6n5",
+   "name": "De-Tan Facial Kit",
+   "slug": "de-tan-facial-kit",
+   "sku": "SGT-FP-004",
+   "oldImages": [
+    "/products/facial-products/de-tan-facial-kit.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/de-tan-facial-kit.svg",
+    "/products/facial-products/de-tan-facial-kit-2.svg",
+    "/products/facial-products/de-tan-facial-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg6db9004bb48jsen8lq4b",
+   "name": "Developer Cream",
+   "slug": "developer-cream",
+   "sku": "SGT-HT-003",
+   "oldImages": [
+    "/products/hair-color-treatment/developer-cream.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/developer-cream.svg",
+    "/products/hair-color-treatment/developer-cream-2.svg",
+    "/products/hair-color-treatment/developer-cream-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg9m4y0092b48judqcd238",
+   "name": "Diamond Facial Kit",
+   "slug": "diamond-facial-kit",
+   "sku": "SGT-FP-002",
+   "oldImages": [
+    "/products/facial-products/diamond-facial-kit.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/diamond-facial-kit.svg",
+    "/products/facial-products/diamond-facial-kit-2.svg",
+    "/products/facial-products/diamond-facial-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgg1rf00idb48jzb5l2wab",
+   "name": "Disposable Bed Sheets",
+   "slug": "disposable-bed-sheets",
+   "sku": "SGT-BC-009",
+   "oldImages": [
+    "/products/beauty-consumables/disposable-bed-sheets.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/disposable-bed-sheets.svg",
+    "/products/beauty-consumables/disposable-bed-sheets-2.svg",
+    "/products/beauty-consumables/disposable-bed-sheets-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgjw8x00ntb48j5if03zaw",
+   "name": "Disposable Cleaning Cloths",
+   "slug": "disposable-cleaning-cloths",
+   "sku": "SGT-CH-006",
+   "oldImages": [
+    "/products/cleaning-hygiene/disposable-cleaning-cloths.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/disposable-cleaning-cloths.svg",
+    "/products/cleaning-hygiene/disposable-cleaning-cloths-2.svg",
+    "/products/cleaning-hygiene/disposable-cleaning-cloths-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgfo2x00htb48jl479l1o2",
+   "name": "Disposable Hair Caps",
+   "slug": "disposable-hair-caps",
+   "sku": "SGT-BC-006",
+   "oldImages": [
+    "/products/beauty-consumables/disposable-hair-caps.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/disposable-hair-caps.svg",
+    "/products/beauty-consumables/disposable-hair-caps-2.svg",
+    "/products/beauty-consumables/disposable-hair-caps-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgf5mu00h3b48jniyk05i9",
+   "name": "Disposable Latex Gloves",
+   "slug": "disposable-latex-gloves",
+   "sku": "SGT-BC-002",
+   "oldImages": [
+    "/products/beauty-consumables/disposable-latex-gloves.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/disposable-latex-gloves.svg",
+    "/products/beauty-consumables/disposable-latex-gloves-2.svg",
+    "/products/beauty-consumables/disposable-latex-gloves-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgff1k00hhb48jbtkgzh3m",
+   "name": "Disposable Salon Towels",
+   "slug": "disposable-salon-towels",
+   "sku": "SGT-BC-004",
+   "oldImages": [
+    "/products/beauty-consumables/disposable-salon-towels.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/disposable-salon-towels.svg",
+    "/products/beauty-consumables/disposable-salon-towels-2.svg",
+    "/products/beauty-consumables/disposable-salon-towels-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgbe8f00bnb48j3q3p7wlg",
+   "name": "Disposable Wax Spatulas",
+   "slug": "disposable-wax-spatulas",
+   "sku": "SGT-WX-008",
+   "oldImages": [
+    "/products/waxing/disposable-wax-spatulas.png"
+   ],
+   "newImages": [
+    "/products/waxing/disposable-wax-spatulas.png"
+   ]
+  },
+  {
+   "id": "cmslgcdsk00d0b48jm3qm4d8b",
+   "name": "Electric Foot Spa Tub",
+   "slug": "electric-foot-spa-tub",
+   "sku": "SGT-MP-007",
+   "oldImages": [
+    "/products/manicure-pedicure/electric-foot-spa-tub.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/electric-foot-spa-tub.svg",
+    "/products/manicure-pedicure/electric-foot-spa-tub-2.svg",
+    "/products/manicure-pedicure/electric-foot-spa-tub-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgjs3d00nnb48j6a24f6yt",
+   "name": "Equipment Cleaning Brush Set",
+   "slug": "equipment-cleaning-brush-set",
+   "sku": "SGT-CH-005",
+   "oldImages": [
+    "/products/cleaning-hygiene/equipment-cleaning-brush-set.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/equipment-cleaning-brush-set.svg",
+    "/products/cleaning-hygiene/equipment-cleaning-brush-set-2.svg",
+    "/products/cleaning-hygiene/equipment-cleaning-brush-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg9b0a008lb48j2pgoh65s",
+   "name": "Face Scrub",
+   "slug": "face-scrub",
+   "sku": "SGT-SK-008",
+   "oldImages": [
+    "/products/skin-care/face-scrub.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/face-scrub.svg",
+    "/products/skin-care/face-scrub-2.svg",
+    "/products/skin-care/face-scrub-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg8ra7007rb48jtvjcbk0j",
+   "name": "Face Toner",
+   "slug": "face-toner",
+   "sku": "SGT-SK-004",
+   "oldImages": [
+    "/products/skin-care/face-toner.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/face-toner.svg",
+    "/products/skin-care/face-toner-2.svg",
+    "/products/skin-care/face-toner-3.svg"
+   ]
+  },
+  {
+   "id": "cmslga7dd009wb48j725t2ub3",
+   "name": "Facial Massage Cream",
+   "slug": "facial-massage-cream",
+   "sku": "SGT-FP-006",
+   "oldImages": [
+    "/products/facial-products/facial-massage-cream.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/facial-massage-cream.svg",
+    "/products/facial-products/facial-massage-cream-2.svg",
+    "/products/facial-products/facial-massage-cream-3.svg"
+   ]
+  },
+  {
+   "id": "cmslga2cj009ob48j1l6fmed6",
+   "name": "Fruit Facial Kit",
+   "slug": "fruit-facial-kit",
+   "sku": "SGT-FP-005",
+   "oldImages": [
+    "/products/facial-products/fruit-facial-kit.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/fruit-facial-kit.svg",
+    "/products/facial-products/fruit-facial-kit-2.svg",
+    "/products/facial-products/fruit-facial-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg9h35008ub48j7h0c8iy1",
+   "name": "Gold Facial Kit",
+   "slug": "gold-facial-kit",
+   "sku": "SGT-FP-001",
+   "oldImages": [
+    "/products/facial-products/gold-facial-kit.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/gold-facial-kit.svg",
+    "/products/facial-products/gold-facial-kit-2.svg",
+    "/products/facial-products/gold-facial-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg695p0045b48je9q63g1e",
+   "name": "Hair Bleach Powder",
+   "slug": "hair-bleach-powder",
+   "sku": "SGT-HT-002",
+   "oldImages": [
+    "/products/hair-color-treatment/hair-bleach-powder.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/hair-bleach-powder.svg",
+    "/products/hair-color-treatment/hair-bleach-powder-2.svg",
+    "/products/hair-color-treatment/hair-bleach-powder-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg6vwr0053b48j7cxgxx1t",
+   "name": "Hair Botox Treatment",
+   "slug": "hair-botox-treatment",
+   "sku": "SGT-HT-007",
+   "oldImages": [
+    "/products/hair-color-treatment/hair-botox-treatment.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/hair-botox-treatment.svg",
+    "/products/hair-color-treatment/hair-botox-treatment-2.svg",
+    "/products/hair-color-treatment/hair-botox-treatment-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg6j7m004lb48jif9gjeks",
+   "name": "Hair Color Remover",
+   "slug": "hair-color-remover",
+   "sku": "SGT-HT-004",
+   "oldImages": [
+    "/products/hair-color-treatment/hair-color-remover.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/hair-color-remover.svg",
+    "/products/hair-color-treatment/hair-color-remover-2.svg",
+    "/products/hair-color-treatment/hair-color-remover-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgfxkm00i7b48jp30vkgri",
+   "name": "Hair Coloring Aluminium Foil",
+   "slug": "hair-coloring-aluminium-foil",
+   "sku": "SGT-BC-008",
+   "oldImages": [
+    "/products/beauty-consumables/hair-coloring-aluminium-foil.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/hair-coloring-aluminium-foil.svg",
+    "/products/beauty-consumables/hair-coloring-aluminium-foil-2.svg",
+    "/products/beauty-consumables/hair-coloring-aluminium-foil-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg42i0000tb48j9e3ghuhh",
+   "name": "Hair Fall Control Shampoo",
+   "slug": "hair-fall-control-shampoo",
+   "sku": "SGT-HC-004",
+   "oldImages": [
+    "/products/hair-care/hair-fall-control-shampoo.png"
+   ],
+   "newImages": [
+    "/products/hair-care/hair-fall-control-shampoo.png"
+   ]
+  },
+  {
+   "id": "cmslg4t44001zb48jxedsgdfs",
+   "name": "Hair Growth Oil",
+   "slug": "hair-growth-oil",
+   "sku": "SGT-HC-009",
+   "oldImages": [
+    "/products/hair-care/hair-growth-oil.png"
+   ],
+   "newImages": [
+    "/products/hair-care/hair-growth-oil.png"
+   ]
+  },
+  {
+   "id": "cmslg706x0059b48jb1vdr386",
+   "name": "Hair Perm Lotion & Neutralizer",
+   "slug": "hair-perm-lotion-neutralizer",
+   "sku": "SGT-HT-008",
+   "oldImages": [
+    "/products/hair-color-treatment/hair-perm-lotion-neutralizer.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/hair-perm-lotion-neutralizer.svg",
+    "/products/hair-color-treatment/hair-perm-lotion-neutralizer-2.svg",
+    "/products/hair-color-treatment/hair-perm-lotion-neutralizer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg6rqp004xb48jzjxmo7no",
+   "name": "Hair Smoothening Cream",
+   "slug": "hair-smoothening-cream",
+   "sku": "SGT-HT-006",
+   "oldImages": [
+    "/products/hair-color-treatment/hair-smoothening-cream.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/hair-smoothening-cream.svg",
+    "/products/hair-color-treatment/hair-smoothening-cream-2.svg",
+    "/products/hair-color-treatment/hair-smoothening-cream-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg5v5d003ib48jquowq2ob",
+   "name": "Hair Volumizing Powder",
+   "slug": "hair-volumizing-powder",
+   "sku": "SGT-HS-007",
+   "oldImages": [
+    "/products/hair-styling/hair-volumizing-powder.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/hair-volumizing-powder.png"
+   ]
+  },
+  {
+   "id": "cmslgjjp300nbb48j9jnc35ko",
+   "name": "Hand Sanitizer Gel",
+   "slug": "hand-sanitizer-gel",
+   "sku": "SGT-CH-003",
+   "oldImages": [
+    "/products/cleaning-hygiene/hand-sanitizer-gel.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/hand-sanitizer-gel.svg",
+    "/products/cleaning-hygiene/hand-sanitizer-gel-2.svg",
+    "/products/cleaning-hygiene/hand-sanitizer-gel-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgapln00alb48jhqovpktm",
+   "name": "Hard Wax Beans",
+   "slug": "hard-wax-beans",
+   "sku": "SGT-WX-003",
+   "oldImages": [
+    "/products/waxing/hard-wax-beans.png"
+   ],
+   "newImages": [
+    "/products/waxing/hard-wax-beans.png"
+   ]
+  },
+  {
+   "id": "cmslg5qqb003cb48j0twr87zz",
+   "name": "Heat Protection Spray",
+   "slug": "heat-protection-spray",
+   "sku": "SGT-HS-006",
+   "oldImages": [
+    "/products/hair-styling/heat-protection-spray.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/heat-protection-spray.png"
+   ]
+  },
+  {
+   "id": "cmslghsol00kvb48jao21v2jq",
+   "name": "High Frequency Facial Machine",
+   "slug": "high-frequency-facial-machine",
+   "sku": "SGT-PE-003",
+   "oldImages": [
+    "/products/professional-equipment/high-frequency-facial-machine.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/high-frequency-facial-machine.svg",
+    "/products/professional-equipment/high-frequency-facial-machine-2.svg",
+    "/products/professional-equipment/high-frequency-facial-machine-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgi02600l5b48jx4ernnwl",
+   "name": "Hot Towel Cabinet",
+   "slug": "hot-towel-cabinet",
+   "sku": "SGT-PE-005",
+   "oldImages": [
+    "/products/professional-equipment/hot-towel-cabinet.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/hot-towel-cabinet.svg",
+    "/products/professional-equipment/hot-towel-cabinet-2.svg",
+    "/products/professional-equipment/hot-towel-cabinet-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg8n45007lb48j0gv9b9om",
+   "name": "Hyaluronic Acid Serum",
+   "slug": "hyaluronic-acid-serum",
+   "sku": "SGT-SK-003",
+   "oldImages": [
+    "/products/skin-care/hyaluronic-acid-serum.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/hyaluronic-acid-serum.svg",
+    "/products/skin-care/hyaluronic-acid-serum-2.svg",
+    "/products/skin-care/hyaluronic-acid-serum-3.svg"
+   ]
+  },
+  {
+   "id": "cmslggcg100isb48jlp7g3kg4",
+   "name": "Hydraulic Salon Styling Chair",
+   "slug": "hydraulic-salon-styling-chair",
+   "sku": "SGT-FR-001",
+   "oldImages": [
+    "/products/salon-furniture/hydraulic-salon-styling-chair.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/hydraulic-salon-styling-chair.svg",
+    "/products/salon-furniture/hydraulic-salon-styling-chair-2.svg",
+    "/products/salon-furniture/hydraulic-salon-styling-chair-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgjfjo00n5b48jrb2rm02f",
+   "name": "Instrument Disinfectant Solution",
+   "slug": "instrument-disinfectant-solution",
+   "sku": "SGT-CH-002",
+   "oldImages": [
+    "/products/cleaning-hygiene/instrument-disinfectant-solution.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/instrument-disinfectant-solution.svg",
+    "/products/cleaning-hygiene/instrument-disinfectant-solution-2.svg",
+    "/products/cleaning-hygiene/instrument-disinfectant-solution-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg4isx001jb48joeqsw1n8",
+   "name": "Keratin Repair Conditioner",
+   "slug": "keratin-repair-conditioner",
+   "sku": "SGT-HC-007",
+   "oldImages": [
+    "/products/hair-care/keratin-repair-conditioner.png"
+   ],
+   "newImages": [
+    "/products/hair-care/keratin-repair-conditioner.png"
+   ]
+  },
+  {
+   "id": "cmslg3xfn000lb48jwf1m8ql8",
+   "name": "Keratin Smooth Shampoo",
+   "slug": "keratin-smooth-shampoo",
+   "sku": "SGT-HC-003",
+   "oldImages": [
+    "/products/hair-care/keratin-smooth-shampoo.png"
+   ],
+   "newImages": [
+    "/products/hair-care/keratin-smooth-shampoo.png"
+   ]
+  },
+  {
+   "id": "cmslg6nlg004rb48jh91gk1s2",
+   "name": "Keratin Treatment",
+   "slug": "keratin-treatment",
+   "sku": "SGT-HT-005",
+   "oldImages": [
+    "/products/hair-color-treatment/keratin-treatment.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/keratin-treatment.svg",
+    "/products/hair-color-treatment/keratin-treatment-2.svg",
+    "/products/hair-color-treatment/keratin-treatment-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgec3m00fwb48j7bkirdcg",
+   "name": "Liquid Matte Lipstick",
+   "slug": "liquid-matte-lipstick",
+   "sku": "SGT-MU-005",
+   "oldImages": [
+    "/products/makeup/liquid-matte-lipstick.svg"
+   ],
+   "newImages": [
+    "/products/makeup/liquid-matte-lipstick.svg",
+    "/products/makeup/liquid-matte-lipstick-2.svg",
+    "/products/makeup/liquid-matte-lipstick-3.svg"
+   ]
+  },
+  {
+   "id": "cmslghvyf00kzb48j3lfq9otn",
+   "name": "Magnifying Lamp",
+   "slug": "magnifying-lamp",
+   "sku": "SGT-PE-004",
+   "oldImages": [
+    "/products/professional-equipment/magnifying-lamp.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/magnifying-lamp.svg",
+    "/products/professional-equipment/magnifying-lamp-2.svg",
+    "/products/professional-equipment/magnifying-lamp-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgept300ggb48jkxe2bxct",
+   "name": "Makeup Primer",
+   "slug": "makeup-primer",
+   "sku": "SGT-MU-008",
+   "oldImages": [
+    "/products/makeup/makeup-primer.svg"
+   ],
+   "newImages": [
+    "/products/makeup/makeup-primer.svg",
+    "/products/makeup/makeup-primer-2.svg",
+    "/products/makeup/makeup-primer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgh5p400jyb48j0fsqun8b",
+   "name": "Manicure Table",
+   "slug": "manicure-table",
+   "sku": "SGT-FR-007",
+   "oldImages": [
+    "/products/salon-furniture/manicure-table.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/manicure-table.svg",
+    "/products/salon-furniture/manicure-table-2.svg",
+    "/products/salon-furniture/manicure-table-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg53qx002eb48jcp7x39oh",
+   "name": "Matte Hair Wax",
+   "slug": "matte-hair-wax",
+   "sku": "SGT-HS-001",
+   "oldImages": [
+    "/products/hair-styling/matte-hair-wax.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/matte-hair-wax.png"
+   ]
+  },
+  {
+   "id": "cmslg47sm0011b48jqrlh4kk4",
+   "name": "Moisturizing Shampoo",
+   "slug": "moisturizing-shampoo",
+   "sku": "SGT-HC-005",
+   "oldImages": [
+    "/products/hair-care/moisturizing-shampoo.png"
+   ],
+   "newImages": [
+    "/products/hair-care/moisturizing-shampoo.png"
+   ]
+  },
+  {
+   "id": "cmslgi4fx00lbb48jrvzw1176",
+   "name": "Multifunction Beauty Machine",
+   "slug": "multifunction-beauty-machine",
+   "sku": "SGT-PE-006",
+   "oldImages": [
+    "/products/professional-equipment/multifunction-beauty-machine.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/multifunction-beauty-machine.svg",
+    "/products/professional-equipment/multifunction-beauty-machine-2.svg",
+    "/products/professional-equipment/multifunction-beauty-machine-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgd89x00e9b48jo9j2hrhm",
+   "name": "Nail Art Brush & Tool Kit",
+   "slug": "nail-art-brush-tool-kit",
+   "sku": "SGT-NL-006",
+   "oldImages": [
+    "/products/nail-products/nail-art-brush-tool-kit.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/nail-art-brush-tool-kit.svg",
+    "/products/nail-products/nail-art-brush-tool-kit-2.svg",
+    "/products/nail-products/nail-art-brush-tool-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgdm1g00etb48jucypgsdd",
+   "name": "Nail Files & Buffer Pack",
+   "slug": "nail-files-buffer-pack",
+   "sku": "SGT-NL-009",
+   "oldImages": [
+    "/products/nail-products/nail-files-buffer-pack.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/nail-files-buffer-pack.svg",
+    "/products/nail-products/nail-files-buffer-pack-2.svg",
+    "/products/nail-products/nail-files-buffer-pack-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgcuml00dpb48jziturj64",
+   "name": "Nail Primer & Dehydrator",
+   "slug": "nail-primer-dehydrator",
+   "sku": "SGT-NL-003",
+   "oldImages": [
+    "/products/nail-products/nail-primer-dehydrator.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/nail-primer-dehydrator.svg",
+    "/products/nail-products/nail-primer-dehydrator-2.svg",
+    "/products/nail-products/nail-primer-dehydrator-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgezfj00gtb48j82ha1po2",
+   "name": "Nitrile Examination Gloves",
+   "slug": "nitrile-examination-gloves",
+   "sku": "SGT-BC-001",
+   "oldImages": [
+    "/products/beauty-consumables/nitrile-examination-gloves.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/nitrile-examination-gloves.svg",
+    "/products/beauty-consumables/nitrile-examination-gloves-2.svg",
+    "/products/beauty-consumables/nitrile-examination-gloves-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgb96d00bfb48j5gbq7p26",
+   "name": "Non-Woven Wax Strips",
+   "slug": "non-woven-wax-strips",
+   "sku": "SGT-WX-007",
+   "oldImages": [
+    "/products/waxing/non-woven-wax-strips.png"
+   ],
+   "newImages": [
+    "/products/waxing/non-woven-wax-strips.png"
+   ]
+  },
+  {
+   "id": "cmslgc9jw00cub48jb54kpkan",
+   "name": "Pedicure Bowl",
+   "slug": "pedicure-bowl",
+   "sku": "SGT-MP-006",
+   "oldImages": [
+    "/products/manicure-pedicure/pedicure-bowl.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/pedicure-bowl.svg",
+    "/products/manicure-pedicure/pedicure-bowl-2.svg",
+    "/products/manicure-pedicure/pedicure-bowl-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg747n005fb48jijbe8qf0",
+   "name": "Post-Color Treatment Cream",
+   "slug": "post-color-treatment-cream",
+   "sku": "SGT-HT-009",
+   "oldImages": [
+    "/products/hair-color-treatment/post-color-treatment-cream.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/post-color-treatment-cream.svg",
+    "/products/hair-color-treatment/post-color-treatment-cream-2.svg",
+    "/products/hair-color-treatment/post-color-treatment-cream-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgbjiz00bvb48jnpui0xu1",
+   "name": "Pre & Post Wax Lotion Set",
+   "slug": "pre-post-wax-lotion-set",
+   "sku": "SGT-WX-009",
+   "oldImages": [
+    "/products/waxing/pre-post-wax-lotion-set.png"
+   ],
+   "newImages": [
+    "/products/waxing/pre-post-wax-lotion-set.png"
+   ]
+  },
+  {
+   "id": "cmslggj1h00j0b48js6ju0lgk",
+   "name": "Professional Barber Chair",
+   "slug": "professional-barber-chair",
+   "sku": "SGT-FR-002",
+   "oldImages": [
+    "/products/salon-furniture/professional-barber-chair.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/professional-barber-chair.svg",
+    "/products/salon-furniture/professional-barber-chair-2.svg",
+    "/products/salon-furniture/professional-barber-chair-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgilcq00lyb48jenukboho",
+   "name": "Professional Barber Scissors",
+   "slug": "professional-barber-scissors",
+   "sku": "SGT-BS-003",
+   "oldImages": [
+    "/products/barber-supplies/professional-barber-scissors.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/professional-barber-scissors.svg",
+    "/products/barber-supplies/professional-barber-scissors-2.svg",
+    "/products/barber-supplies/professional-barber-scissors-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg88bt0070b48jytweocy7",
+   "name": "Professional Comb Set",
+   "slug": "professional-comb-set",
+   "sku": "SGT-HE-009",
+   "oldImages": [
+    "/products/hair-equipment/professional-comb-set.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-comb-set.svg",
+    "/products/hair-equipment/professional-comb-set-2.svg",
+    "/products/hair-equipment/professional-comb-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgdxju00fab48jcw25b93c",
+   "name": "Professional Concealer",
+   "slug": "professional-concealer",
+   "sku": "SGT-MU-002",
+   "oldImages": [
+    "/products/makeup/professional-concealer.svg"
+   ],
+   "newImages": [
+    "/products/makeup/professional-concealer.svg",
+    "/products/makeup/professional-concealer-2.svg",
+    "/products/makeup/professional-concealer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg4cva0019b48jzjfuzgz2",
+   "name": "Professional Conditioner",
+   "slug": "professional-conditioner",
+   "sku": "SGT-HC-006",
+   "oldImages": [
+    "/products/hair-care/professional-conditioner.png"
+   ],
+   "newImages": [
+    "/products/hair-care/professional-conditioner.png"
+   ]
+  },
+  {
+   "id": "cmslge7ns00fqb48jh5zjpvc1",
+   "name": "Professional Eyeshadow Palette",
+   "slug": "professional-eyeshadow-palette",
+   "sku": "SGT-MU-004",
+   "oldImages": [
+    "/products/makeup/professional-eyeshadow-palette.svg"
+   ],
+   "newImages": [
+    "/products/makeup/professional-eyeshadow-palette.svg",
+    "/products/makeup/professional-eyeshadow-palette-2.svg",
+    "/products/makeup/professional-eyeshadow-palette-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg8dl80077b48jd9o7ucoq",
+   "name": "Professional Face Cleanser",
+   "slug": "professional-face-cleanser",
+   "sku": "SGT-SK-001",
+   "oldImages": [
+    "/products/skin-care/professional-face-cleanser.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/professional-face-cleanser.svg",
+    "/products/skin-care/professional-face-cleanser-2.svg",
+    "/products/skin-care/professional-face-cleanser-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgabst00a2b48jgsj13q8e",
+   "name": "Professional Face Pack",
+   "slug": "professional-face-pack",
+   "sku": "SGT-FP-007",
+   "oldImages": [
+    "/products/facial-products/professional-face-pack.svg"
+   ],
+   "newImages": [
+    "/products/facial-products/professional-face-pack.svg",
+    "/products/facial-products/professional-face-pack-2.svg",
+    "/products/facial-products/professional-face-pack-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgh0om00jqb48jrlh8ziog",
+   "name": "Professional Facial Bed",
+   "slug": "professional-facial-bed",
+   "sku": "SGT-FR-006",
+   "oldImages": [
+    "/products/salon-furniture/professional-facial-bed.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/professional-facial-bed.svg",
+    "/products/salon-furniture/professional-facial-bed-2.svg",
+    "/products/salon-furniture/professional-facial-bed-3.svg"
+   ]
+  },
+  {
+   "id": "cmslghk7z00kjb48jgndyj5ir",
+   "name": "Professional Facial Steamer",
+   "slug": "professional-facial-steamer",
+   "sku": "SGT-PE-001",
+   "oldImages": [
+    "/products/professional-equipment/professional-facial-steamer.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/professional-facial-steamer.svg",
+    "/products/professional-equipment/professional-facial-steamer-2.svg",
+    "/products/professional-equipment/professional-facial-steamer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgc54i00cob48j3oiw70e2",
+   "name": "Professional Foot File",
+   "slug": "professional-foot-file",
+   "sku": "SGT-MP-005",
+   "oldImages": [
+    "/products/manicure-pedicure/professional-foot-file.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/professional-foot-file.svg",
+    "/products/manicure-pedicure/professional-foot-file-2.svg",
+    "/products/manicure-pedicure/professional-foot-file-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgcj5l00d7b48jlnregt10",
+   "name": "Professional Gel Nail Polish",
+   "slug": "professional-gel-nail-polish",
+   "sku": "SGT-NL-001",
+   "oldImages": [
+    "/products/nail-products/professional-gel-nail-polish.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/professional-gel-nail-polish.svg",
+    "/products/nail-products/professional-gel-nail-polish-2.svg",
+    "/products/nail-products/professional-gel-nail-polish-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg8433006ub48j2luuzt00",
+   "name": "Professional Hair Brush Set",
+   "slug": "professional-hair-brush-set",
+   "sku": "SGT-HE-008",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-brush-set.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-brush-set.svg",
+    "/products/hair-equipment/professional-hair-brush-set-2.svg",
+    "/products/hair-equipment/professional-hair-brush-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg7n0d0066b48jp2q27l2x",
+   "name": "Professional Hair Clipper",
+   "slug": "professional-hair-clipper",
+   "sku": "SGT-HE-004",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-clipper.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-clipper.svg",
+    "/products/hair-equipment/professional-hair-clipper-2.svg",
+    "/products/hair-equipment/professional-hair-clipper-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg60dw003pb48jws4k7mo8",
+   "name": "Professional Hair Color Cream",
+   "slug": "professional-hair-color-cream",
+   "sku": "SGT-HT-001",
+   "oldImages": [
+    "/products/hair-color-treatment/professional-hair-color-cream.svg"
+   ],
+   "newImages": [
+    "/products/hair-color-treatment/professional-hair-color-cream.svg",
+    "/products/hair-color-treatment/professional-hair-color-cream-2.svg",
+    "/products/hair-color-treatment/professional-hair-color-cream-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg7hz1005yb48j7v50ntvf",
+   "name": "Professional Hair Curler",
+   "slug": "professional-hair-curler",
+   "sku": "SGT-HE-003",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-curler.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-curler.svg",
+    "/products/hair-equipment/professional-hair-curler-2.svg",
+    "/products/hair-equipment/professional-hair-curler-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg79gs005mb48jsrb5t2f4",
+   "name": "Professional Hair Dryer",
+   "slug": "professional-hair-dryer",
+   "sku": "SGT-HE-001",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-dryer.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-dryer.svg",
+    "/products/hair-equipment/professional-hair-dryer-2.svg",
+    "/products/hair-equipment/professional-hair-dryer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg58tx002mb48j8520h6ip",
+   "name": "Professional Hair Gel",
+   "slug": "professional-hair-gel",
+   "sku": "SGT-HS-002",
+   "oldImages": [
+    "/products/hair-styling/professional-hair-gel.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/professional-hair-gel.png"
+   ]
+  },
+  {
+   "id": "cmslg7vj7006ib48jnk12sas2",
+   "name": "Professional Hair Scissors",
+   "slug": "professional-hair-scissors",
+   "sku": "SGT-HE-006",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-scissors.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-scissors.svg",
+    "/products/hair-equipment/professional-hair-scissors-2.svg",
+    "/products/hair-equipment/professional-hair-scissors-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg4y7v0027b48jup5yx27f",
+   "name": "Professional Hair Spa Cream",
+   "slug": "professional-hair-spa-cream",
+   "sku": "SGT-HC-010",
+   "oldImages": [
+    "/products/hair-care/professional-hair-spa-cream.png"
+   ],
+   "newImages": [
+    "/products/hair-care/professional-hair-spa-cream.png"
+   ]
+  },
+  {
+   "id": "cmslg5iax0030b48jqojr1d9e",
+   "name": "Professional Hair Spray",
+   "slug": "professional-hair-spray",
+   "sku": "SGT-HS-004",
+   "oldImages": [
+    "/products/hair-styling/professional-hair-spray.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/professional-hair-spray.png"
+   ]
+  },
+  {
+   "id": "cmslgi7nx00lfb48jlhgyevtr",
+   "name": "Professional Hair Steamer",
+   "slug": "professional-hair-steamer",
+   "sku": "SGT-PE-007",
+   "oldImages": [
+    "/products/professional-equipment/professional-hair-steamer.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/professional-hair-steamer.svg",
+    "/products/professional-equipment/professional-hair-steamer-2.svg",
+    "/products/professional-equipment/professional-hair-steamer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg7dty005sb48jo08rufp2",
+   "name": "Professional Hair Straightener",
+   "slug": "professional-hair-straightener",
+   "sku": "SGT-HE-002",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-straightener.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-straightener.svg",
+    "/products/hair-equipment/professional-hair-straightener-2.svg",
+    "/products/hair-equipment/professional-hair-straightener-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg7rdt006cb48js1or84hy",
+   "name": "Professional Hair Trimmer",
+   "slug": "professional-hair-trimmer",
+   "sku": "SGT-HE-005",
+   "oldImages": [
+    "/products/hair-equipment/professional-hair-trimmer.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/professional-hair-trimmer.svg",
+    "/products/hair-equipment/professional-hair-trimmer-2.svg",
+    "/products/hair-equipment/professional-hair-trimmer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgds9300f2b48j4g470i3s",
+   "name": "Professional HD Foundation",
+   "slug": "professional-hd-foundation",
+   "sku": "SGT-MU-001",
+   "oldImages": [
+    "/products/makeup/professional-hd-foundation.svg"
+   ],
+   "newImages": [
+    "/products/makeup/professional-hd-foundation.svg",
+    "/products/makeup/professional-hd-foundation-2.svg",
+    "/products/makeup/professional-hd-foundation-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgeu2200gmb48jpnwp6z51",
+   "name": "Professional Makeup Brush Set",
+   "slug": "professional-makeup-brush-set",
+   "sku": "SGT-MU-009",
+   "oldImages": [
+    "/products/makeup/professional-makeup-brush-set.svg"
+   ],
+   "newImages": [
+    "/products/makeup/professional-makeup-brush-set.svg",
+    "/products/makeup/professional-makeup-brush-set-2.svg",
+    "/products/makeup/professional-makeup-brush-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgbotn00c2b48j3jkaptg8",
+   "name": "Professional Manicure Kit",
+   "slug": "professional-manicure-kit",
+   "sku": "SGT-MP-001",
+   "oldImages": [
+    "/products/manicure-pedicure/professional-manicure-kit.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/professional-manicure-kit.svg",
+    "/products/manicure-pedicure/professional-manicure-kit-2.svg",
+    "/products/manicure-pedicure/professional-manicure-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg8wix007zb48jhlozimvv",
+   "name": "Professional Moisturizer",
+   "slug": "professional-moisturizer",
+   "sku": "SGT-SK-005",
+   "oldImages": [
+    "/products/skin-care/professional-moisturizer.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/professional-moisturizer.svg",
+    "/products/skin-care/professional-moisturizer-2.svg",
+    "/products/skin-care/professional-moisturizer-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgbxh600ceb48j0720xrmf",
+   "name": "Professional Nail Cutter Set",
+   "slug": "professional-nail-cutter-set",
+   "sku": "SGT-MP-003",
+   "oldImages": [
+    "/products/manicure-pedicure/professional-nail-cutter-set.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/professional-nail-cutter-set.svg",
+    "/products/manicure-pedicure/professional-nail-cutter-set-2.svg",
+    "/products/manicure-pedicure/professional-nail-cutter-set-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgdch300efb48jugkiok4v",
+   "name": "Professional Nail Drill",
+   "slug": "professional-nail-drill",
+   "sku": "SGT-NL-007",
+   "oldImages": [
+    "/products/nail-products/professional-nail-drill.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/professional-nail-drill.svg",
+    "/products/nail-products/professional-nail-drill-2.svg",
+    "/products/nail-products/professional-nail-drill-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgcxx900dtb48jjyr750qx",
+   "name": "Professional Nail Tips",
+   "slug": "professional-nail-tips",
+   "sku": "SGT-NL-004",
+   "oldImages": [
+    "/products/nail-products/professional-nail-tips.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/professional-nail-tips.svg",
+    "/products/nail-products/professional-nail-tips-2.svg",
+    "/products/nail-products/professional-nail-tips-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgbt2s00c8b48j2nw7fiym",
+   "name": "Professional Pedicure Kit",
+   "slug": "professional-pedicure-kit",
+   "sku": "SGT-MP-002",
+   "oldImages": [
+    "/products/manicure-pedicure/professional-pedicure-kit.svg"
+   ],
+   "newImages": [
+    "/products/manicure-pedicure/professional-pedicure-kit.svg",
+    "/products/manicure-pedicure/professional-pedicure-kit-2.svg",
+    "/products/manicure-pedicure/professional-pedicure-kit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg3m6o0003b48jrx8gnwru",
+   "name": "Professional Shampoo",
+   "slug": "professional-shampoo",
+   "sku": "SGT-HC-001",
+   "oldImages": [
+    "/products/hair-care/professional-shampoo.png"
+   ],
+   "newImages": [
+    "/products/hair-care/professional-shampoo.png"
+   ]
+  },
+  {
+   "id": "cmslgioki00m2b48j7ix5p4fd",
+   "name": "Professional Shaving Cream",
+   "slug": "professional-shaving-cream",
+   "sku": "SGT-BS-004",
+   "oldImages": [
+    "/products/barber-supplies/professional-shaving-cream.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/professional-shaving-cream.svg",
+    "/products/barber-supplies/professional-shaving-cream-2.svg",
+    "/products/barber-supplies/professional-shaving-cream-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgicsv00lmb48j9lx5606f",
+   "name": "Professional Straight Razor",
+   "slug": "professional-straight-razor",
+   "sku": "SGT-BS-001",
+   "oldImages": [
+    "/products/barber-supplies/professional-straight-razor.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/professional-straight-razor.svg",
+    "/products/barber-supplies/professional-straight-razor-2.svg",
+    "/products/barber-supplies/professional-straight-razor-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgah2100a9b48jws1gd242",
+   "name": "Professional Wax Heater",
+   "slug": "professional-wax-heater",
+   "sku": "SGT-WX-001",
+   "oldImages": [
+    "/products/waxing/professional-wax-heater.png"
+   ],
+   "newImages": [
+    "/products/waxing/professional-wax-heater.png"
+   ]
+  },
+  {
+   "id": "cmslgih4v00lsb48jhiutuv2y",
+   "name": "Replacement Razor Blades",
+   "slug": "replacement-razor-blades",
+   "sku": "SGT-BS-002",
+   "oldImages": [
+    "/products/barber-supplies/replacement-razor-blades.svg"
+   ],
+   "newImages": [
+    "/products/barber-supplies/replacement-razor-blades.svg",
+    "/products/barber-supplies/replacement-razor-blades-2.svg",
+    "/products/barber-supplies/replacement-razor-blades-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgazp600b1b48jeowldiz7",
+   "name": "Rica Style Liposoluble Wax",
+   "slug": "rica-style-liposoluble-wax",
+   "sku": "SGT-WX-005",
+   "oldImages": [
+    "/products/waxing/rica-style-liposoluble-wax.png"
+   ],
+   "newImages": [
+    "/products/waxing/rica-style-liposoluble-wax.png"
+   ]
+  },
+  {
+   "id": "cmslgal7x00afb48j90l6blse",
+   "name": "Roll-On Wax Heater",
+   "slug": "roll-on-wax-heater",
+   "sku": "SGT-WX-002",
+   "oldImages": [
+    "/products/waxing/roll-on-wax-heater.png"
+   ],
+   "newImages": [
+    "/products/waxing/roll-on-wax-heater.png"
+   ]
+  },
+  {
+   "id": "cmslg95wm008db48jyqg11ubk",
+   "name": "Rose Water Toner",
+   "slug": "rose-water-toner",
+   "sku": "SGT-SK-007",
+   "oldImages": [
+    "/products/skin-care/rose-water-toner.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/rose-water-toner.svg",
+    "/products/skin-care/rose-water-toner-2.svg",
+    "/products/skin-care/rose-water-toner-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgf9vk00h9b48j38pgmk9g",
+   "name": "Salon Cotton Towels",
+   "slug": "salon-cotton-towels",
+   "sku": "SGT-BC-003",
+   "oldImages": [
+    "/products/beauty-consumables/salon-cotton-towels.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/salon-cotton-towels.svg",
+    "/products/beauty-consumables/salon-cotton-towels-2.svg",
+    "/products/beauty-consumables/salon-cotton-towels-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgk0jv00nzb48jbvsa4ch4",
+   "name": "Salon Dustbin Liners",
+   "slug": "salon-dustbin-liners",
+   "sku": "SGT-CH-007",
+   "oldImages": [
+    "/products/cleaning-hygiene/salon-dustbin-liners.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/salon-dustbin-liners.svg",
+    "/products/cleaning-hygiene/salon-dustbin-liners-2.svg",
+    "/products/cleaning-hygiene/salon-dustbin-liners-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgjo0s00nhb48jeai9bptl",
+   "name": "Salon Floor Cleaner",
+   "slug": "salon-floor-cleaner",
+   "sku": "SGT-CH-004",
+   "oldImages": [
+    "/products/cleaning-hygiene/salon-floor-cleaner.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/salon-floor-cleaner.svg",
+    "/products/cleaning-hygiene/salon-floor-cleaner-2.svg",
+    "/products/cleaning-hygiene/salon-floor-cleaner-3.svg"
+   ]
+  },
+  {
+   "id": "cmslggn7g00j6b48j0nvjm2ew",
+   "name": "Salon Shampoo Station",
+   "slug": "salon-shampoo-station",
+   "sku": "SGT-FR-003",
+   "oldImages": [
+    "/products/salon-furniture/salon-shampoo-station.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/salon-shampoo-station.svg",
+    "/products/salon-furniture/salon-shampoo-station-2.svg",
+    "/products/salon-furniture/salon-shampoo-station-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgh9zo00k4b48jvs8p7vym",
+   "name": "Salon Stool",
+   "slug": "salon-stool",
+   "sku": "SGT-FR-008",
+   "oldImages": [
+    "/products/salon-furniture/salon-stool.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/salon-stool.svg",
+    "/products/salon-furniture/salon-stool-2.svg",
+    "/products/salon-furniture/salon-stool-3.svg"
+   ]
+  },
+  {
+   "id": "cmslghf1900kcb48jq4qplbw4",
+   "name": "Salon Storage Cabinet",
+   "slug": "salon-storage-cabinet",
+   "sku": "SGT-FR-009",
+   "oldImages": [
+    "/products/salon-furniture/salon-storage-cabinet.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/salon-storage-cabinet.svg",
+    "/products/salon-furniture/salon-storage-cabinet-2.svg",
+    "/products/salon-furniture/salon-storage-cabinet-3.svg"
+   ]
+  },
+  {
+   "id": "cmslggr9k00jcb48jcktp3xw7",
+   "name": "Salon Styling Station Mirror Unit",
+   "slug": "salon-styling-station-mirror-unit",
+   "sku": "SGT-FR-004",
+   "oldImages": [
+    "/products/salon-furniture/salon-styling-station-mirror-unit.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/salon-styling-station-mirror-unit.svg",
+    "/products/salon-furniture/salon-styling-station-mirror-unit-2.svg",
+    "/products/salon-furniture/salon-styling-station-mirror-unit-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgjam600mxb48j3x7yxn3r",
+   "name": "Salon Surface Disinfectant",
+   "slug": "salon-surface-disinfectant",
+   "sku": "SGT-CH-001",
+   "oldImages": [
+    "/products/cleaning-hygiene/salon-surface-disinfectant.svg"
+   ],
+   "newImages": [
+    "/products/cleaning-hygiene/salon-surface-disinfectant.svg",
+    "/products/cleaning-hygiene/salon-surface-disinfectant-2.svg",
+    "/products/cleaning-hygiene/salon-surface-disinfectant-3.svg"
+   ]
+  },
+  {
+   "id": "cmslggvjo00jib48jnfpfftyq",
+   "name": "Salon Trolley",
+   "slug": "salon-trolley",
+   "sku": "SGT-FR-005",
+   "oldImages": [
+    "/products/salon-furniture/salon-trolley.svg"
+   ],
+   "newImages": [
+    "/products/salon-furniture/salon-trolley.svg",
+    "/products/salon-furniture/salon-trolley-2.svg",
+    "/products/salon-furniture/salon-trolley-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg80ki006qb48jgvpo9w00",
+   "name": "Thinning Scissors",
+   "slug": "thinning-scissors",
+   "sku": "SGT-HE-007",
+   "oldImages": [
+    "/products/hair-equipment/thinning-scissors.svg"
+   ],
+   "newImages": [
+    "/products/hair-equipment/thinning-scissors.svg",
+    "/products/hair-equipment/thinning-scissors-2.svg",
+    "/products/hair-equipment/thinning-scissors-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgdgxf00elb48jumdkrboy",
+   "name": "UV/LED Nail Lamp",
+   "slug": "uv-led-nail-lamp",
+   "sku": "SGT-NL-008",
+   "oldImages": [
+    "/products/nail-products/uv-led-nail-lamp.svg"
+   ],
+   "newImages": [
+    "/products/nail-products/uv-led-nail-lamp.svg",
+    "/products/nail-products/uv-led-nail-lamp-2.svg",
+    "/products/nail-products/uv-led-nail-lamp-3.svg"
+   ]
+  },
+  {
+   "id": "cmslghojz00kpb48ji68eeijw",
+   "name": "UV Tool Sterilizer Cabinet",
+   "slug": "uv-tool-sterilizer-cabinet",
+   "sku": "SGT-PE-002",
+   "oldImages": [
+    "/products/professional-equipment/uv-tool-sterilizer-cabinet.svg"
+   ],
+   "newImages": [
+    "/products/professional-equipment/uv-tool-sterilizer-cabinet.svg",
+    "/products/professional-equipment/uv-tool-sterilizer-cabinet-2.svg",
+    "/products/professional-equipment/uv-tool-sterilizer-cabinet-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg8ixy007fb48jidf5348b",
+   "name": "Vitamin C Face Serum",
+   "slug": "vitamin-c-face-serum",
+   "sku": "SGT-SK-002",
+   "oldImages": [
+    "/products/skin-care/vitamin-c-face-serum.svg"
+   ],
+   "newImages": [
+    "/products/skin-care/vitamin-c-face-serum.svg",
+    "/products/skin-care/vitamin-c-face-serum-2.svg",
+    "/products/skin-care/vitamin-c-face-serum-3.svg"
+   ]
+  },
+  {
+   "id": "cmslg5mj20036b48jja063673",
+   "name": "Volumizing Hair Mousse",
+   "slug": "volumizing-hair-mousse",
+   "sku": "SGT-HS-005",
+   "oldImages": [
+    "/products/hair-styling/volumizing-hair-mousse.png"
+   ],
+   "newImages": [
+    "/products/hair-styling/volumizing-hair-mousse.png"
+   ]
+  },
+  {
+   "id": "cmslgemb500gcb48jcpp5tude",
+   "name": "Volumizing Mascara",
+   "slug": "volumizing-mascara",
+   "sku": "SGT-MU-007",
+   "oldImages": [
+    "/products/makeup/volumizing-mascara.svg"
+   ],
+   "newImages": [
+    "/products/makeup/volumizing-mascara.svg",
+    "/products/makeup/volumizing-mascara-2.svg",
+    "/products/makeup/volumizing-mascara-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgei2t00g6b48juie891ci",
+   "name": "Waterproof Eyeliner",
+   "slug": "waterproof-eyeliner",
+   "sku": "SGT-MU-006",
+   "oldImages": [
+    "/products/makeup/waterproof-eyeliner.svg"
+   ],
+   "newImages": [
+    "/products/makeup/waterproof-eyeliner.svg",
+    "/products/makeup/waterproof-eyeliner-2.svg",
+    "/products/makeup/waterproof-eyeliner-3.svg"
+   ]
+  },
+  {
+   "id": "cmslgfji900hnb48jsppslky1",
+   "name": "Waterproof Salon Cape",
+   "slug": "waterproof-salon-cape",
+   "sku": "SGT-BC-005",
+   "oldImages": [
+    "/products/beauty-consumables/waterproof-salon-cape.svg"
+   ],
+   "newImages": [
+    "/products/beauty-consumables/waterproof-salon-cape.svg",
+    "/products/beauty-consumables/waterproof-salon-cape-2.svg",
+    "/products/beauty-consumables/waterproof-salon-cape-3.svg"
+   ]
+  }
+ ]
+}
