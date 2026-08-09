@@ -113,33 +113,43 @@ if (LIVE) {
     const html = await pageRes.text();
     const inHtml = html.includes(encodeURIComponent(url)) || html.includes(url);
 
-    // Raw asset.
+    // Raw asset — what a customer gets if they open the file directly.
     const rawRes = await fetch(`${LIVE}${url}`);
     const rawBuf = Buffer.from(await rawRes.arrayBuffer());
 
-    // What the optimizer actually serves.
-    const optUrl = `${LIVE}/_next/image?url=${encodeURIComponent(url)}&w=640&q=75`;
-    const optRes = await fetch(optUrl);
-    const optBuf = Buffer.from(await optRes.arrayBuffer());
+    let ok = false, sig = null, format = "?", servedUrl = url, mime = rawRes.headers.get("content-type");
 
-    let ok = false, sig = null;
-    try {
-      const m = await sharp(optBuf).metadata();
-      sig = await badgeSignature(await sharp(optBuf).png().toBuffer(), m.width, m.height);
-      ok = await hasBadgePixels(await sharp(optBuf).png().toBuffer(), m.width, m.height);
-    } catch { /* falls through as not ok */ }
+    if (url.endsWith(".svg")) {
+      // Next.js does not rasterise SVG through the optimizer (dangerouslyAllowSVG
+      // is off, correctly — an SVG can carry script). So the vector source IS
+      // what production serves, and the badge is verified in that source.
+      format = "svg";
+      ok = hasBadgeVector(rawBuf.toString("utf8"));
+    } else {
+      // Follow the optimizer and test the bytes it actually emits.
+      servedUrl = `${LIVE}/_next/image?url=${encodeURIComponent(url)}&w=640&q=75`;
+      const optRes = await fetch(servedUrl);
+      const optBuf = Buffer.from(await optRes.arrayBuffer());
+      mime = optRes.headers.get("content-type");
+      try {
+        const m = await sharp(optBuf).metadata();
+        format = m.format;
+        const asPng = await sharp(optBuf).png().toBuffer();
+        sig = await badgeSignature(asPng, m.width, m.height);
+        ok = await hasBadgePixels(asPng, m.width, m.height);
+      } catch { /* stays not ok */ }
+    }
 
     liveChecked++;
     if (ok) liveBranded++;
-    else note(`LIVE ${p.slug}: optimizer output has no SGT ORIGINAL`);
+    else note(`LIVE ${p.slug}: served ${format} has no SGT ORIGINAL`);
     if (pageRes.status !== 200) note(`LIVE ${p.slug}: HTTP ${pageRes.status}`);
     if (!inHtml) note(`LIVE ${p.slug}: HTML does not reference ${url}`);
 
     liveRows.push({
-      product: p.name, http: pageRes.status,
-      format: (await sharp(optBuf).metadata().catch(() => ({}))).format ?? "?",
-      url, raw: rawRes.status, mime: optRes.headers.get("content-type"),
-      plate: sig ? (sig.plate * 100).toFixed(0) + "%" : "—", ok, inHtml,
+      product: p.name, http: pageRes.status, format, url, servedUrl,
+      raw: rawRes.status, mime,
+      plate: sig ? (sig.plate * 100).toFixed(0) + "%" : "vector", ok, inHtml,
     });
   }
 }
@@ -161,9 +171,10 @@ console.log(`
 if (LIVE) {
   console.log(`
   LIVE (${LIVE})
-  ${"Product".padEnd(26)}${"HTTP".padEnd(6)}${"Fmt".padEnd(6)}${"plate".padEnd(7)}SGT ORIGINAL`);
+  ${"Product".padEnd(26)}${"HTTP".padEnd(6)}${"Fmt".padEnd(6)}${"raw".padEnd(5)}${"plate".padEnd(8)}SGT ORIGINAL`);
   for (const r of liveRows) {
-    console.log(`  ${r.product.slice(0, 24).padEnd(26)}${String(r.http).padEnd(6)}${String(r.format).padEnd(6)}${r.plate.padEnd(7)}${r.ok ? "VERIFIED IN PIXELS" : "NOT FOUND"}`);
+    const how = r.format === "svg" ? "VERIFIED IN SVG SOURCE" : "VERIFIED IN PIXELS";
+    console.log(`  ${r.product.slice(0, 24).padEnd(26)}${String(r.http).padEnd(6)}${String(r.format).padEnd(6)}${String(r.raw).padEnd(5)}${r.plate.padEnd(8)}${r.ok ? how : "NOT FOUND"}`);
   }
   console.log(`\n  Live images checked: ${liveChecked}   branded: ${liveBranded}`);
 }
