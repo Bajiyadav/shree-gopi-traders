@@ -156,6 +156,47 @@ deploy and the new images are live.
 
 ---
 
+### Hosted images (Cloudinary)
+
+Images can live on a CDN instead of in the repo. `next.config.js` allows
+**exactly one** remote host, `res.cloudinary.com` — never a wildcard, which
+would turn the Image Optimizer into an open proxy. Any other domain renders as
+a broken image, so the importer rejects it up front.
+
+Write a mapping file, one `key,url` per line:
+
+```
+# key = product slug | SKU | packaging type | category slug
+professional-shampoo,https://res.cloudinary.com/<cloud>/image/upload/v1/shampoo.jpg
+professional-shampoo-2,https://res.cloudinary.com/<cloud>/image/upload/v1/shampoo-b.jpg
+SGT-HC-002,https://res.cloudinary.com/<cloud>/image/upload/v1/dandruff.jpg
+jar,https://res.cloudinary.com/<cloud>/image/upload/v1/generic-jar.jpg
+```
+
+```bash
+npm run images:urls -- mapping.csv          # dry run — shows what would change
+npm run images:urls -- mapping.csv --apply  # write Product.images
+```
+
+`f_auto,q_auto` is injected automatically (skipped if the URL already carries
+transformations). Slots you do not supply keep whatever the product already
+has, so a main-image-only mapping leaves the gallery intact. Only
+`Product.images` is written — prices, SKUs, stock, variants and orders are
+untouched, and no reseed is involved.
+
+The script reports which database it is pointed at. To target production,
+run it with the production `DATABASE_URL` and check the dry run first.
+
+**On sourcing:** a Google Images search returns copyrighted brand and retailer
+photography by default. If you use it, filter to
+**Tools → Usage Rights → Creative Commons** and verify the licence on the
+source page — or start from Openverse, Pexels or Unsplash, where everything is
+already cleared. Real brand packaging must not appear on this store: the
+catalogue sells generic house-brand SKUs, so a photo of a named brand would
+misrepresent what is being sold.
+
+---
+
 ### Brands and claims
 
 Brand names are generic house names (`SGT Professional`, `Salon Pro`,

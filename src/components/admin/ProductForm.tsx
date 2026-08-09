@@ -126,7 +126,7 @@ export function ProductForm({
               label="Image URLs"
               htmlFor="images"
               error={error("images")}
-              hint="One per line. Local paths like /images/categories/hair-care.svg work too."
+              hint="One per line. Local paths (/products/hair-care/shampoo.svg) or Cloudinary URLs (https://res.cloudinary.com/…). Other remote hosts are blocked."
               className="sm:col-span-2"
             >
               <Textarea id="images" name="images" rows={3} defaultValue={values.images} />

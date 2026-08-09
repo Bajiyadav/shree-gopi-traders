@@ -5,11 +5,13 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    // No remote image hosts are allowed. Every image the app ships is local
-    // (see public/images), so a wildcard `remotePatterns` would only widen the
-    // attack surface of the Image Optimizer for no benefit.
-    // To use a CDN later, add that ONE hostname here — never "**".
-    remotePatterns: [],
+    // Exactly one remote host: our Cloudinary delivery domain. Never "**" —
+    // a wildcard turns the Image Optimizer into an open proxy that anyone can
+    // point at any URL, which is the configuration named in GHSA-9g9p-9gw9-jx7f.
+    // Add a second entry only for a host we actually control.
+    remotePatterns: [
+      { protocol: "https", hostname: "res.cloudinary.com", pathname: "/**" },
+    ],
     formats: ["image/webp"],
   },
 
