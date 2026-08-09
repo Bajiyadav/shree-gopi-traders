@@ -24,7 +24,9 @@
     "demo:orders": "tsx scripts/demo-orders.ts",
     "pricing:discount": "tsx scripts/apply-discounts.ts",
     "demo:reviews": "tsx scripts/demo-reviews.ts",
-    "images:sync": "tsx scripts/sync-product-images.ts"
+    "images:sync": "tsx scripts/sync-product-images.ts",
+    "images:brand": "node scripts/imaging/brand-images.mjs",
+    "images:audit": "node scripts/imaging/audit-images.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -51,6 +53,7 @@
     "eslint-config-next": "^14.2.0",
     "postcss": "^8.5.26",
     "prisma": "^5.22.0",
+    "sharp": "^0.35.3",
     "tailwindcss": "^3.4.19",
     "tsx": "^4.16.0",
     "typescript": "^5.9.3"
