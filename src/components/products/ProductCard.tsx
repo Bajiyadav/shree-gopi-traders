@@ -28,6 +28,10 @@ export function ProductCard({ product }: { product: CatalogCard }) {
           {off > 0 && <Badge tone="danger">{off}% OFF</Badge>}
           {product.hasWholesale && <Badge tone="brand">Wholesale</Badge>}
         </div>
+        <div className="absolute right-2 bottom-2 z-10 flex items-center gap-1 rounded-md bg-slate-900/85 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-amber-400 backdrop-blur-sm shadow-sm border border-amber-400/30">
+          <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+          SGT
+        </div>
         {outOfStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/70">
             <span className="rounded-full bg-slate-900 px-3 py-1 text-xs font-medium text-white">

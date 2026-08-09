@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
  */
 export function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
   const [active, setActive] = useState(0);
-  const gallery = images.length > 0 ? images : ["/images/categories/placeholder.svg"];
+  const uniqueImages = Array.from(new Set(images.filter(Boolean)));
+  const gallery = uniqueImages.length > 0 ? uniqueImages : ["/images/categories/placeholder.svg"];
   const current = gallery[Math.min(active, gallery.length - 1)];
 
   return (
@@ -24,6 +25,10 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
           className="object-cover"
           priority
         />
+        <div className="absolute right-3 bottom-3 z-10 flex items-center gap-1.5 rounded-lg bg-slate-900/85 px-2.5 py-1 text-xs font-bold tracking-wider text-amber-400 backdrop-blur-md shadow-md border border-amber-400/40">
+          <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></span>
+          SGT VERIFIED
+        </div>
       </div>
 
       {gallery.length > 1 && (
