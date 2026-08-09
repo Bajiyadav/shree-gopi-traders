@@ -24,13 +24,13 @@ export function ProductCard({ product }: { product: CatalogCard }) {
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
+        <div className="absolute left-2 top-2 z-20 flex flex-col items-start gap-1">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-900/90 px-2 py-1 text-[11px] font-black tracking-widest text-amber-400 shadow-md border border-amber-400/50 backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+            SGT VERIFIED
+          </span>
           {off > 0 && <Badge tone="danger">{off}% OFF</Badge>}
           {product.hasWholesale && <Badge tone="brand">Wholesale</Badge>}
-        </div>
-        <div className="absolute right-2 bottom-2 z-10 flex items-center gap-1 rounded-md bg-slate-900/85 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-amber-400 backdrop-blur-sm shadow-sm border border-amber-400/30">
-          <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-          SGT
         </div>
         {outOfStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-white/70">
