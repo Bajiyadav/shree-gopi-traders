@@ -432,3 +432,49 @@ export function resolveAnalyticsWindow(
       return customStart ?? new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
   }
 }
+
+/**
+ * What the shelves are worth.
+ *
+ * For a trading business, stock is where most of the working capital sits, and
+ * the dashboard had no figure for it — revenue and orders say nothing about
+ * how much cash is currently on the racks.
+ *
+ * Valued at the price a single unit sells for, since that is the only price
+ * this system knows. It is a selling-price valuation, not a cost valuation:
+ * accounts value closing stock at the lower of cost and net realisable value,
+ * and purchase cost is not recorded here. Useful for judging exposure and
+ * reorder pressure, not for filing.
+ */
+export async function getInventorySummary() {
+  const rows = await prisma.inventory.findMany({
+    where: { productVariant: { isActive: true, product: { isActive: true } } },
+    select: {
+      stock: true,
+      lowStockThreshold: true,
+      productVariant: { select: { price: true, salePrice: true } },
+    },
+  });
+
+  let units = 0;
+  let value = new Prisma.Decimal(0);
+  let outOfStock = 0;
+  let lowStock = 0;
+
+  for (const r of rows) {
+    const stock = Math.max(0, r.stock);
+    units += stock;
+    const unit = r.productVariant.salePrice ?? r.productVariant.price;
+    value = value.add(unit.mul(stock));
+    if (r.stock <= 0) outOfStock++;
+    else if (r.stock <= r.lowStockThreshold) lowStock++;
+  }
+
+  return {
+    units,
+    value: value.toNumber(),
+    skus: rows.length,
+    outOfStock,
+    lowStock,
+  };
+}

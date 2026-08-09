@@ -35,6 +35,19 @@ const CLEAR = process.argv.includes("--clear");
 const FRESH = process.argv.includes("--fresh");
 
 /**
+ * Optional annual revenue target, e.g. --annual-revenue=2800000.
+ *
+ * Without it the generator makes distributor-scale orders. With it, each month
+ * keeps taking orders until that month's share of the target is met, so the
+ * year lands on a figure that matches a business plan instead of dwarfing it.
+ * Order counts then fall out of the order sizes rather than being guessed.
+ */
+const ANNUAL_REVENUE = Number(
+  process.argv.find((a) => a.startsWith("--annual-revenue="))?.split("=")[1] ?? NaN
+);
+const TARGETED = Number.isFinite(ANNUAL_REVENUE) && ANNUAL_REVENUE > 0;
+
+/**
  * RFC 2606 reserves `.example` so it can never belong to anyone. The `demo.`
  * label narrows it further to accounts THIS script created, so `--clear`
  * cannot reach the customers `npm run seed` makes on the same reserved domain.
@@ -350,6 +363,22 @@ async function generate() {
   let orderCount = 0, itemCount = 0, cancelled = 0, invoiceCount = 0;
   let revenue = 0;
 
+  /**
+   * Month weights, normalised to sum to 1.
+   *
+   * growth and season are both centred above 1, so using them directly as
+   * multipliers on annual/12 inflated the year by about a third rather than
+   * shaping it. Normalising keeps the curve and hits the total.
+   */
+  const monthWeights: number[] = [];
+  for (let m = 11; m >= 0; m--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - m, 1);
+    const g = 1 + (11 - m) * 0.055;
+    const partial = m === 0 ? Math.min(1, now.getDate() / 28) : 1;
+    monthWeights.push(g * (SEASON[d.getMonth()] ?? 1) * partial);
+  }
+  const weightSum = monthWeights.reduce((a, b) => a + b, 0);
+
   const BILLABLE = new Set(["CONFIRMED", "PROCESSING", "PACKED", "SHIPPED", "OUT_FOR_DELIVERY", "DELIVERED"]);
 
   for (let monthsAgo = 11; monthsAgo >= 0; monthsAgo--) {
@@ -360,7 +389,16 @@ async function generate() {
     const monthOrders = Math.round(randomInt(26, 38) * growth * season);
     const maxDay = isCurrentMonth ? Math.max(1, now.getDate()) : 28;
 
-    for (let i = 0; i < monthOrders; i++) {
+    // Each month gets its normalised share of the annual target, so the
+    // growth and seasonality curves shape the year without inflating it.
+    const monthTarget = TARGETED
+      ? ANNUAL_REVENUE * (monthWeights[11 - monthsAgo] / weightSum)
+      : Infinity;
+    let monthRevenue = 0;
+    const HARD_CAP = 400; // never spin forever if orders come out tiny
+
+    for (let i = 0; i < (TARGETED ? HARD_CAP : monthOrders); i++) {
+      if (TARGETED && monthRevenue >= monthTarget) break;
       const createdAt = new Date(
         monthDate.getFullYear(), monthDate.getMonth(), randomInt(1, maxDay),
         randomInt(9, 20), randomInt(0, 59)
@@ -372,8 +410,11 @@ async function generate() {
 
       // 2–7 distinct lines per order.
       const chosen = new Map<string, (typeof variants)[number]>();
-      for (let n = 0, target = randomInt(2, 7); n < target; n++) {
-        const v = randomFrom(variants);
+      for (let n = 0, target = randomInt(2, TARGETED ? 5 : 7); n < target; n++) {
+        let v = randomFrom(variants);
+        // A salon buys a styling chair once, not every month. Re-draw most
+        // big-ticket picks so furniture does not dominate every basket.
+        if (TARGETED && Number(v.price) > 4000 && !chance(0.12)) v = randomFrom(variants);
         chosen.set(v.id, v);
       }
 
@@ -389,13 +430,24 @@ async function generate() {
          * as a buying pattern and swung monthly revenue by over 100% on a
          * flat order count.
          */
+        // A targeted run models a single salon restocking for the month.
+        // The untargeted run models a distributor filling a warehouse.
         const quantity = Math.max(
           moq,
-          listPrice > 10000 ? randomInt(1, 3)          // chairs, stations, beds
-            : listPrice > 4000 ? randomInt(1, 5)       // dryers, steamers, trolleys
-            : listPrice > 1500 ? randomInt(2, 10)      // clippers, kits, tools
-            : listPrice > 400 ? randomInt(5, 30)       // salon-size bottles, colours
-            : randomInt(12, 90)                        // consumables, gloves, cotton
+          TARGETED
+            ? (listPrice > 10000 ? 1                   // a chair, occasionally
+                : listPrice > 4000 ? randomInt(1, 2)
+                : listPrice > 1500 ? randomInt(1, 4)
+                : listPrice > 400 ? randomInt(2, 10)
+                // Gloves, cotton and tissue go by the box. This band has to
+                // reach past 25 or the top wholesale tier is never exercised
+                // and the price ladder's best rate is decoration.
+                : randomInt(6, 45))
+            : (listPrice > 10000 ? randomInt(1, 3)     // chairs, stations, beds
+                : listPrice > 4000 ? randomInt(1, 5)   // dryers, steamers, trolleys
+                : listPrice > 1500 ? randomInt(2, 10)  // clippers, kits, tools
+                : listPrice > 400 ? randomInt(5, 30)   // salon-size bottles, colours
+                : randomInt(12, 90))                   // consumables, gloves, cotton
         );
         const unitPrice = priceAt(v, quantity);
         const lineTotal = Math.round(unitPrice * quantity * 100) / 100;
@@ -501,6 +553,7 @@ async function generate() {
       itemCount += items.length;
       if (status !== "CANCELLED") {
         revenue += total;
+        monthRevenue += total;
         for (const it of items) {
           if (!it.v.inventory) continue;
           transactions.push({
@@ -518,10 +571,53 @@ async function generate() {
 
   await prisma.inventoryTransaction.createMany({ data: transactions });
 
+  /**
+   * Stock, sized to the business rather than to a warehouse.
+   *
+   * The seed stocks a distributor. Against a targeted year that left the
+   * dashboard reporting crores of stock behind lakhs of sales — over a century
+   * of inventory, which makes every other figure on the page look invented.
+   *
+   * Sized here at roughly two months of cost of goods, which is what a shop
+   * that reorders monthly actually carries. Bands are by unit price because a
+   * salon supplier holds one spare styling chair and two hundred pairs of
+   * gloves, not the same count of each.
+   */
+  if (TARGETED) {
+    // Target roughly three months of cost of goods on the shelves, which is
+    // what a shop reordering monthly carries. Guessing unit counts by hand got
+    // this wrong twice — crores of stock behind lakhs of sales — so the depth
+    // is solved for instead of assumed.
+    const TARGET_STOCK_VALUE = ANNUAL_REVENUE * (1 - 0.24) * (3 / 12);
+
+    // Relative depth by unit price: one spare styling chair, a crate of gloves.
+    const depth = (price: number) =>
+      price > 10000 ? 1 : price > 4000 ? 2 : price > 1500 ? 5 : price > 400 ? 14 : 45;
+
+    const unitValue = (v: (typeof variants)[number]) => Number(v.salePrice ?? v.price);
+    const atWeightOne = variants.reduce((sum, v) => sum + depth(Number(v.price)) * unitValue(v), 0);
+    const factor = atWeightOne > 0 ? TARGET_STOCK_VALUE / atWeightOne : 1;
+
+    let stocked = 0, value = 0;
+    for (const v of variants) {
+      if (!v.inventory) continue;
+      // At least one of everything, so the catalogue is never all "out of stock".
+      const stock = Math.max(1, Math.round(depth(Number(v.price)) * factor));
+      await prisma.inventory.update({ where: { id: v.inventory.id }, data: { stock } });
+      stocked++;
+      value += stock * unitValue(v);
+    }
+    console.log(
+      `  Restocked ${stocked} variant(s) — Rs ${Math.round(value).toLocaleString("en-IN")} on hand ` +
+      `(~${(value / (ANNUAL_REVENUE * 0.76) * 12).toFixed(1)} months of cost of goods).`
+    );
+  }
+
   const money = (n: number) =>
     `Rs ${n.toLocaleString("en-IN", { maximumFractionDigits: 0 })}`;
 
   console.log(`
+  Target      : ${TARGETED ? `Rs ${ANNUAL_REVENUE.toLocaleString("en-IN")} a year` : "distributor scale (no target)"}
   Customers   : ${customers.length}
   Orders      : ${orderCount}  (${cancelled} cancelled)
   Order items : ${itemCount}

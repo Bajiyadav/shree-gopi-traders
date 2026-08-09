@@ -34,7 +34,18 @@ function section(title: string) {
 
 const TEST_EMAIL = "catalog-test@shreegopitraders.test";
 
+/** Stock the order test topped up, so it can be put back afterwards. */
+let restoreStock: { inventoryId: string; stock: number } | null = null;
+
 async function cleanup() {
+  // Put back any shelf the order test topped up, before anything else.
+  if (restoreStock) {
+    await prisma.inventory.update({
+      where: { id: restoreStock.inventoryId },
+      data: { stock: restoreStock.stock },
+    });
+    restoreStock = null;
+  }
   const customer = await prisma.customer.findUnique({ where: { email: TEST_EMAIL } });
   if (!customer) return;
   const orders = await prisma.order.findMany({ where: { customerId: customer.id }, select: { id: true } });
@@ -252,8 +263,21 @@ async function main() {
     },
   });
 
-  const stockBefore = glovesVariant.inventory!.stock;
   const orderQty = 25;
+
+  // The test needs 25 units to exercise the 25+ tier, so it guarantees them
+  // rather than assuming the catalogue happens to be deeply stocked. It used
+  // to rely on ambient stock and broke the moment inventory was sized to a
+  // real shop. Restored at the end alongside the rest of the fixture.
+  const stockAtStart = glovesVariant.inventory!.stock;
+  if (stockAtStart < orderQty) {
+    restoreStock = { inventoryId: glovesVariant.inventory!.id, stock: stockAtStart };
+    await prisma.inventory.update({
+      where: { id: glovesVariant.inventory!.id },
+      data: { stock: orderQty + 10 },
+    });
+  }
+  const stockBefore = Math.max(stockAtStart, orderQty + 10);
   const expectedUnit = results[3].unit;
 
   const cart = await prisma.cart.create({ data: { customerId: customer.id } });

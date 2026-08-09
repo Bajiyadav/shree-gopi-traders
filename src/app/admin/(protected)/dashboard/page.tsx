@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import {
   AlertTriangle,
+  Boxes,
   ClipboardList,
   IndianRupee,
   Package,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import {
   getDashboardSummary,
+  getInventorySummary,
   getMonthlyRevenueAndOrders,
   getTopCategories,
   getTopProducts,
@@ -28,7 +30,7 @@ export default async function AdminDashboardPage() {
   const since12mo = new Date();
   since12mo.setMonth(since12mo.getMonth() - 12);
 
-  const [summary, monthly, topProducts, topCategories, recentOrders, lowStock, bulkRequests] =
+  const [summary, monthly, topProducts, topCategories, recentOrders, lowStock, bulkRequests, inventory] =
     await Promise.all([
       getDashboardSummary(),
       getMonthlyRevenueAndOrders(),
@@ -56,6 +58,7 @@ export default async function AdminDashboardPage() {
         orderBy: { createdAt: "desc" },
         take: 5,
       }),
+      getInventorySummary(),
     ]);
 
   const maxProductRevenue = Math.max(...topProducts.map((p) => p.revenue), 1);
@@ -130,6 +133,23 @@ export default async function AdminDashboardPage() {
           href="/admin/inventory?filter=low"
         />
       </div>
+
+      {/* For a trading business most of the working capital sits on the racks,
+          and nothing on this page said how much. */}
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard
+          label="Stock on Hand"
+          value={formatCompactCurrency(inventory.value)}
+          sublabel={`${formatNumber(inventory.units)} units across ${formatNumber(inventory.skus)} SKUs`}
+          icon={Boxes}
+          href="/admin/inventory"
+        />
+      </div>
+      <p className="mt-2 text-xs text-slate-500">
+        Stock is valued at the single-unit selling rate — the only price this system
+        holds. It is not a cost valuation and should not be used as a closing-stock
+        figure for accounts.
+      </p>
 
       {/* Charts */}
       <div className="mt-6 grid gap-5 xl:grid-cols-2">
