@@ -69,11 +69,26 @@ export async function hasBadgePixels(buffer, W, H) {
   return plateOk && detailOk;
 }
 
-/** SVG check — the badge must be present as real vector text, not a comment. */
+/**
+ * SVG check — the badge must be present as real vector content.
+ *
+ * Tests the rendered text, not a particular markup shape. "SGT ORIGINAL" may
+ * be one text node or two; either satisfies the requirement, and a verifier
+ * that insisted on one shape would fail a badge that is plainly there.
+ */
 export function hasBadgeVector(xml) {
   if (!xml.includes('id="sgt-brand-tag"')) return false;
-  const block = xml.slice(xml.indexOf('id="sgt-brand-tag"'));
-  const end = block.indexOf("</g>");
-  const g = end === -1 ? block : block.slice(0, end);
-  return />\s*SGT\s*</.test(g) && />\s*ORIGINAL\s*</.test(g) && /<rect/.test(g);
+  const start = xml.indexOf('id="sgt-brand-tag"');
+  // Walk to the matching close, tolerating nested groups.
+  let depth = 1, i = xml.indexOf(">", start) + 1, end = xml.length;
+  while (i < xml.length && depth > 0) {
+    const open = xml.indexOf("<g", i), close = xml.indexOf("</g>", i);
+    if (close === -1) break;
+    if (open !== -1 && open < close) { depth++; i = open + 2; }
+    else { depth--; end = close; i = close + 4; }
+  }
+  const group = xml.slice(start, end);
+  if (!/<rect/.test(group)) return false;
+  const text = group.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").toUpperCase();
+  return text.includes("SGT") && text.includes("ORIGINAL");
 }
