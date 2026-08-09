@@ -105,11 +105,16 @@ export async function createOrderForCustomer(
             where: { id: line.productVariantId },
             include: {
               inventory: true,
-              product: { select: { allowBackorder: true, name: true, isActive: true } },
+              product: { select: { allowBackorder: true, name: true, isActive: true, moq: true } },
             },
           });
           if (!variant || !variant.isActive || !variant.product.isActive) {
             throw new OrderError("A product in your cart is no longer available");
+          }
+          if (line.quantity < variant.product.moq) {
+            throw new OrderError(
+              `${variant.product.name} has a minimum order quantity of ${variant.product.moq}.`
+            );
           }
           const stock = variant.inventory?.stock ?? 0;
           if (!variant.product.allowBackorder && stock < line.quantity) {

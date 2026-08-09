@@ -16,7 +16,8 @@
     "test:catalog": "NODE_OPTIONS=--conditions=react-server tsx scripts/catalog-test.ts",
     "admin:set-password": "NODE_OPTIONS=--conditions=react-server tsx scripts/set-admin-password.ts",
     "demo:clear-reviews": "NODE_OPTIONS=--conditions=react-server tsx scripts/clear-demo-reviews.ts",
-    "seed:catalog": "tsx prisma/seed.ts --catalog-only"
+    "seed:catalog": "tsx prisma/seed.ts --catalog-only",
+    "images:import": "node scripts/import-product-images.mjs"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

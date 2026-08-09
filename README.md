@@ -120,6 +120,42 @@ To use real photographs, drop them at the same paths — for example
 needed. Product images are also editable per product from the admin product
 editor, which takes one URL or path per line.
 
+### Supplying real product images
+
+The catalogue ships with generated vector **illustrations**, not photographs.
+To replace them:
+
+1. Produce images — your own photos, licensed stock, or an AI generator. Square,
+   product centred on a plain light background, product filling ~70–85% of frame.
+   Keep them generic: no real brand marks (see Brands and claims above).
+
+2. Name each file after what it should match. Most specific wins:
+
+   | Filename | Matches |
+   |---|---|
+   | `professional-shampoo.png` | that one product |
+   | `SGT-HC-001.png` | the product with that SKU |
+   | `pump-bottle.png` | every product drawn as a pump bottle |
+   | `hair-care.png` | every product in that category |
+
+   Add `-2` / `-3` for the second and third gallery slots.
+   Packaging types: `pump-bottle`, `tube`, `jar`, `dropper`, `spray-bottle`,
+   `carton`, `hair-dryer`, `flat-iron`, `clipper`, `scissors`, `razor`, `chair`,
+   `trolley`, `machine`, `lamp`, `polish`, `palette`, `lipstick`, `towels`,
+   `box`, `brush-set`, `tools`.
+
+3. Import:
+   ```bash
+   npm run images:import -- ~/my-images          # dry run — shows the plan
+   npm run images:import -- ~/my-images --apply  # convert to WebP and copy
+   ```
+
+Roughly 22 images — one per packaging type — covers the whole catalogue. The
+database already stores these paths, so no reseed is required; rebuild and
+deploy and the new images are live.
+
+---
+
 ### Brands and claims
 
 Brand names are generic house names (`SGT Professional`, `Salon Pro`,

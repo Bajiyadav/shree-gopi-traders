@@ -9,6 +9,7 @@ import { siteConfig } from "@/lib/config";
 import { ProductGrid } from "@/components/products/ProductCard";
 import { PurchasePanel, type PanelVariant } from "@/components/products/PurchasePanel";
 import { ProductGallery } from "@/components/products/ProductGallery";
+import { ProductTabs } from "@/components/products/ProductTabs";
 import { Badge, Card, Rating, SectionHeading } from "@/components/ui";
 import { WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatDate } from "@/lib/utils";
@@ -163,6 +164,9 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               variants={variants}
               isSignedIn={Boolean(customerId)}
               allowBackorder={product.allowBackorder}
+              moq={product.moq}
+              productName={product.name}
+              sku={product.sku}
             />
           </div>
 
@@ -207,69 +211,23 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
         </div>
       </div>
 
-      {/* Description + specs */}
-      <div className="mt-14 grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-2">
-          <h2 className="text-lg font-semibold">Product Description</h2>
-          <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-700">
-            {product.description ?? "No description available for this product."}
-          </p>
-        </div>
-        {Object.keys(specs).length > 0 && (
-          <Card className="overflow-hidden">
-            <div className="border-b border-slate-200 bg-slate-50 px-4 py-3">
-              <h2 className="text-sm font-semibold">Specifications</h2>
-            </div>
-            <dl className="divide-y divide-slate-100 text-sm">
-              {Object.entries(specs).map(([key, value]) => (
-                <div key={key} className="flex justify-between gap-4 px-4 py-2.5">
-                  <dt className="text-slate-500">{key}</dt>
-                  <dd className="text-right font-medium text-slate-900">{String(value)}</dd>
-                </div>
-              ))}
-              {product.weight && (
-                <div className="flex justify-between gap-4 px-4 py-2.5">
-                  <dt className="text-slate-500">Weight</dt>
-                  <dd className="text-right font-medium text-slate-900">{String(product.weight)} kg</dd>
-                </div>
-              )}
-            </dl>
-          </Card>
-        )}
-      </div>
-
-      {/* Reviews */}
+      {/* Description / specs / ingredients / usage / reviews */}
       <div className="mt-14">
-        <SectionHeading
-          title="Customer Reviews"
-          description={
-            product.ratingCount > 0
-              ? `${Number(product.ratingAvg).toFixed(1)} out of 5 · ${product.ratingCount} review${product.ratingCount === 1 ? "" : "s"}`
-              : "Be the first business to review this product after your order is delivered."
-          }
+        <ProductTabs
+          description={product.description}
+          specs={specs}
+          ingredients={product.ingredients}
+          usageInstructions={product.usageInstructions}
+          ratingAvg={Number(product.ratingAvg)}
+          ratingCount={product.ratingCount}
+          reviews={product.reviews.map((r) => ({
+            id: r.id,
+            rating: r.rating,
+            comment: r.comment,
+            createdAt: r.createdAt.toISOString(),
+            author: r.customer.businessProfile?.businessName ?? r.customer.name,
+          }))}
         />
-        {product.reviews.length === 0 ? (
-          <Card className="p-6 text-sm text-slate-600">
-            No approved reviews yet for this product.
-          </Card>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-2">
-            {product.reviews.map((review) => (
-              <Card key={review.id} className="p-5">
-                <div className="flex items-center justify-between gap-3">
-                  <Rating value={review.rating} />
-                  <span className="text-xs text-slate-500">{formatDate(review.createdAt)}</span>
-                </div>
-                {review.comment && (
-                  <p className="mt-3 text-sm leading-relaxed text-slate-700">{review.comment}</p>
-                )}
-                <p className="mt-3 text-xs font-medium text-slate-900">
-                  {review.customer.businessProfile?.businessName ?? review.customer.name}
-                </p>
-              </Card>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* Related */}

@@ -67,9 +67,8 @@ export function ProductCard({ product }: { product: CatalogCard }) {
         </div>
 
         <p className="mt-1 text-xs text-slate-500">
-          {product.variantCount > 1
-            ? `${product.variantCount} variants available`
-            : "Single variant"}
+          MOQ: {product.moq} {product.moq === 1 ? "piece" : "pieces"}
+          {product.variantCount > 1 && ` · ${product.variantCount} variants`}
         </p>
 
         <div className="mt-2 min-h-5">

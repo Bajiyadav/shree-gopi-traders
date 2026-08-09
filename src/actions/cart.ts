@@ -46,7 +46,7 @@ export async function addToCart(productVariantId: string, quantity: number) {
 
   const variant = await prisma.productVariant.findUnique({
     where: { id: parsed.data.productVariantId },
-    include: { product: { select: { isActive: true } }, inventory: true },
+    include: { product: { select: { isActive: true, moq: true, name: true } }, inventory: true },
   });
   if (!variant || !variant.isActive || !variant.product.isActive) {
     throw new Error("This product is no longer available");
@@ -58,6 +58,14 @@ export async function addToCart(productVariantId: string, quantity: number) {
     where: { cartId_productVariantId: { cartId: cart.id, productVariantId: variant.id } },
   });
   const nextQuantity = (existing?.quantity ?? 0) + parsed.data.quantity;
+
+  // MOQ is a business rule, so it is enforced here rather than trusted from
+  // the form. The cart total, not the single request, has to clear it.
+  if (nextQuantity < variant.product.moq) {
+    throw new Error(
+      `${variant.product.name} has a minimum order quantity of ${variant.product.moq}.`
+    );
+  }
 
   await prisma.cartItem.upsert({
     where: { cartId_productVariantId: { cartId: cart.id, productVariantId: variant.id } },
@@ -90,6 +98,19 @@ export async function updateCartItemQuantity(cartItemId: string, quantity: numbe
   if (!parsed.success) throw new Error("Invalid quantity");
 
   const item = await getOwnedCartItem(parsed.data.cartItemId, customerId);
+
+  if (parsed.data.quantity >= 1) {
+    const variant = await prisma.productVariant.findUnique({
+      where: { id: item.productVariantId },
+      select: { product: { select: { moq: true, name: true } } },
+    });
+    const moq = variant?.product.moq ?? 1;
+    if (parsed.data.quantity < moq) {
+      throw new Error(
+        `${variant?.product.name ?? "This product"} has a minimum order quantity of ${moq}.`
+      );
+    }
+  }
 
   if (parsed.data.quantity < 1) {
     await prisma.cartItem.delete({ where: { id: item.id } });

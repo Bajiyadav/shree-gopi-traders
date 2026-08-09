@@ -6,6 +6,7 @@ import { Check, Minus, Plus, ShoppingCart } from "lucide-react";
 import { Alert, Badge, Button } from "@/components/ui";
 import { StockBadge } from "@/components/ui/status";
 import { addToCart } from "@/actions/cart";
+import { WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatCurrency } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -44,17 +45,24 @@ export function PurchasePanel({
   variants,
   isSignedIn,
   allowBackorder,
+  moq = 1,
+  productName,
+  sku,
 }: {
   variants: PanelVariant[];
   isSignedIn: boolean;
   allowBackorder: boolean;
+  /** Minimum order quantity — the quantity control starts and floors here. */
+  moq?: number;
+  productName: string;
+  sku: string;
 }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [variantId, setVariantId] = useState(
     variants.find((v) => v.stock > 0)?.id ?? variants[0]?.id ?? ""
   );
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(Math.max(1, moq));
   const [feedback, setFeedback] = useState<{ tone: "success" | "danger"; text: string } | null>(null);
 
   const variant = variants.find((v) => v.id === variantId) ?? variants[0];
@@ -82,7 +90,7 @@ export function PurchasePanel({
   const outOfStock = !allowBackorder && variant.stock <= 0;
   const exceedsStock = !allowBackorder && quantity > variant.stock;
 
-  const clamp = (n: number) => Math.min(Math.max(1, n), Math.max(1, maxQty));
+  const clamp = (n: number) => Math.min(Math.max(moq, n), Math.max(moq, maxQty));
 
   function handleAdd(then?: "checkout") {
     setFeedback(null);
@@ -140,7 +148,7 @@ export function PurchasePanel({
                   type="button"
                   onClick={() => {
                     setVariantId(v.id);
-                    setQuantity(1);
+                    setQuantity(Math.max(1, moq));
                     setFeedback(null);
                   }}
                   disabled={disabled}
@@ -219,13 +227,16 @@ export function PurchasePanel({
       <div>
         <label htmlFor="quantity" className="mb-1.5 block text-sm font-medium text-slate-700">
           Quantity
+          <span className="ml-2 font-normal text-slate-500">
+            MOQ: {moq} {moq === 1 ? "piece" : "pieces"}
+          </span>
         </label>
         <div className="flex flex-wrap items-center gap-3">
           <div className="inline-flex items-center rounded-lg border border-slate-300">
             <button
               type="button"
               onClick={() => setQuantity((q) => clamp(q - 1))}
-              disabled={quantity <= 1}
+              disabled={quantity <= moq}
               className="inline-flex h-10 w-10 items-center justify-center rounded-l-lg text-slate-600 hover:bg-slate-50 disabled:text-slate-300"
               aria-label="Decrease quantity"
             >
@@ -234,10 +245,10 @@ export function PurchasePanel({
             <input
               id="quantity"
               type="number"
-              min={1}
+              min={moq}
               max={maxQty}
               value={quantity}
-              onChange={(e) => setQuantity(clamp(Number(e.target.value) || 1))}
+              onChange={(e) => setQuantity(clamp(Number(e.target.value) || moq))}
               className="h-10 w-16 border-x border-slate-300 text-center text-sm focus:outline-none"
             />
             <button
@@ -321,6 +332,24 @@ export function PurchasePanel({
           Buy Now
         </Button>
       </div>
+
+      {/* Many B2B buyers would rather confirm a bulk order over chat than
+          complete a checkout form. The message carries the exact SKU,
+          variant and quantity so nothing is retyped. */}
+      <WhatsAppButton
+        className="w-full"
+        message={
+          `Hello, I'd like to order:\n\n` +
+          `${productName}\n` +
+          `Variant: ${variant.name}\n` +
+          `SKU: ${variant.sku}\n` +
+          `Quantity: ${quantity}\n` +
+          `Rate: ${formatCurrency(pricing.unitPrice)} per unit\n` +
+          `Total: ${formatCurrency(pricing.lineTotal)}`
+        }
+      >
+        Order on WhatsApp
+      </WhatsAppButton>
     </div>
   );
 }

@@ -49,6 +49,7 @@ export interface CatalogCard {
   lowStockThreshold: number;
   ratingAvg: number;
   ratingCount: number;
+  moq: number;
   isActive: boolean;
 }
 
@@ -222,6 +223,7 @@ export function toCard(p: ProductWithVariants): CatalogCard {
     lowStockThreshold: Math.max(...p.variants.map((v) => v.inventory?.lowStockThreshold ?? 5), 5),
     ratingAvg: Number(p.ratingAvg),
     ratingCount: p.ratingCount,
+    moq: p.moq,
     isActive: p.isActive,
   };
 }

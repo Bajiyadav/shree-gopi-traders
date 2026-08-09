@@ -14,8 +14,8 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
   const current = gallery[Math.min(active, gallery.length - 1)];
 
   return (
-    <div>
-      <div className="relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+    <div className="flex flex-col gap-3 sm:flex-row-reverse">
+      <div className="relative aspect-square flex-1 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
         <Image
           src={current}
           alt={alt}
@@ -27,7 +27,11 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
       </div>
 
       {gallery.length > 1 && (
-        <div className="mt-3 flex gap-3" role="group" aria-label="Product images">
+        <div
+          className="flex gap-3 overflow-x-auto sm:w-20 sm:shrink-0 sm:flex-col sm:overflow-visible"
+          role="group"
+          aria-label="Product images"
+        >
           {gallery.slice(0, 5).map((image, index) => (
             <button
               key={image + index}
@@ -36,7 +40,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
               aria-label={`Show image ${index + 1} of ${gallery.length}`}
               aria-current={index === active}
               className={cn(
-                "relative aspect-square w-20 overflow-hidden rounded-lg border-2 bg-slate-50 transition-colors",
+                "relative aspect-square w-20 shrink-0 overflow-hidden rounded-lg border-2 bg-slate-50 transition-colors",
                 index === active
                   ? "border-brand-700"
                   : "border-slate-200 hover:border-slate-400"

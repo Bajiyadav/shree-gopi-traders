@@ -203,6 +203,13 @@ model Product {
   weight      Decimal? @db.Decimal(10, 2)
   isActive    Boolean  @default(true)
   allowBackorder Boolean @default(false)
+  /// Minimum order quantity. B2B buyers expect to see this up front;
+  /// 1 means "no minimum", which is itself worth stating.
+  moq         Int      @default(1)
+  /// Optional long-form content for the product detail tabs. Null means the
+  /// tab is not rendered — never show an empty tab.
+  ingredients String?
+  usageInstructions String?
   ratingAvg   Decimal  @default(0) @db.Decimal(3, 2)
   ratingCount Int      @default(0)
   createdAt   DateTime @default(now())

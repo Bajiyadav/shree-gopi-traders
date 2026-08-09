@@ -66,6 +66,20 @@ export const STOCK_PROFILES = {
   machine: [2, 15, 2],
 } satisfies Record<TierProfile, [number, number, number]>;
 
+/**
+ * Minimum order quantity by product class. Most of the catalogue is 1 —
+ * which is worth showing rather than hiding, because "no minimum" is a
+ * selling point to a small salon comparing suppliers. Fast-moving
+ * consumables carry a small pack minimum, as trade suppliers usually do.
+ */
+export const MOQ_PROFILES = {
+  consumable: 2,
+  product: 1,
+  equipment: 1,
+  furniture: 1,
+  machine: 1,
+} satisfies Record<TierProfile, number>;
+
 // ── Brands (generic house brands — no real manufacturers) ─────
 
 export const BRANDS = [
@@ -90,6 +104,8 @@ export interface SeedProduct {
   variants: VariantSpec[];
   /** Optional markdown, as a fraction (0.1 = 10% off). */
   sale?: number;
+  /** Minimum order quantity. Falls back to the category's MOQ_PROFILES value. */
+  moq?: number;
 }
 
 export interface SeedCategory {

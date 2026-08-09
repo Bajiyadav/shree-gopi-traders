@@ -15,6 +15,7 @@ import { PrismaClient, type BusinessType, type OrderStatus } from "@prisma/clien
 import bcrypt from "bcryptjs";
 import {
   CATALOG,
+  MOQ_PROFILES,
   STOCK_PROFILES,
   TIER_PROFILES,
   type SeedCategory,
@@ -247,6 +248,20 @@ async function main() {
         };
       });
 
+      // Tab content is derived from data we already hold, never invented.
+      // Ingredients are only claimed where the spec block actually names a
+      // key ingredient; otherwise the tab simply does not render.
+      const keyIngredient = product.specs["Key Ingredient"] ?? product.specs["Key Ingredients"];
+      const ingredients = keyIngredient
+        ? `Formulated with ${keyIngredient}. Full ingredient declaration is printed on the product pack supplied with every order. ` +
+          `Contact us for a detailed specification sheet before placing a bulk order.`
+        : null;
+
+      const usageStep = product.specs["Usage"] ?? product.specs["Use"];
+      const usageInstructions = usageStep
+        ? `${usageStep}. Intended for professional salon use. Follow the directions printed on the pack, and patch test where the service requires it.`
+        : null;
+
       const listPrices = product.variants.map(([, price]) => price);
       const basePrice = Math.min(...listPrices);
       const saleBase = product.sale ? Math.round(basePrice * (1 - product.sale)) : null;
@@ -266,6 +281,9 @@ async function main() {
           weight: randomInt(1, 60) / 10,
           isActive: true,
           allowBackorder: false,
+          moq: product.moq ?? MOQ_PROFILES[category.profile],
+          ingredients,
+          usageInstructions,
           variants: { create: variantData },
         },
         include: { variants: { include: { inventory: true } } },

@@ -57,20 +57,43 @@ export async function Header() {
           ))}
         </nav>
 
-        {/* A plain GET form — search needs no client JavaScript. */}
-        <form action="/products" className="ml-auto hidden max-w-md flex-1 md:block">
-          <div className="relative">
-            <Search
-              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
-              aria-hidden="true"
-            />
-            <input
-              type="search"
-              name="q"
-              placeholder="Search products, brands or SKU…"
-              aria-label="Search products"
-              className="input-base pl-9"
-            />
+        {/* A plain GET form — search needs no client JavaScript. The category
+            select posts as `category`, which /products already understands. */}
+        <form action="/products" className="ml-auto hidden max-w-xl flex-1 md:block">
+          <div className="flex rounded-lg border border-slate-300 focus-within:border-brand-600 focus-within:ring-1 focus-within:ring-brand-600">
+            <div className="relative flex-1">
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+                aria-hidden="true"
+              />
+              <input
+                type="search"
+                name="q"
+                placeholder="Search products, brands or SKU…"
+                aria-label="Search products"
+                className="w-full rounded-l-lg border-0 bg-transparent py-2 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-0"
+              />
+            </div>
+            <select
+              name="category"
+              aria-label="Search within category"
+              defaultValue=""
+              className="hidden border-0 border-l border-slate-200 bg-transparent py-2 pl-3 pr-8 text-sm text-slate-600 focus:outline-none focus:ring-0 lg:block"
+            >
+              <option value="">All Categories</option>
+              {categories.map((c) => (
+                <option key={c.slug} value={c.slug}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            <button
+              type="submit"
+              aria-label="Search"
+              className="rounded-r-lg bg-brand-700 px-4 text-white transition-colors hover:bg-brand-800"
+            >
+              <Search className="h-4 w-4" aria-hidden="true" />
+            </button>
           </div>
         </form>
 
