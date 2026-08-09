@@ -533,8 +533,11 @@ exist. `demo:orders` fills a **local** database with a plausible year of
 trading:
 
 ```bash
-npm run demo:orders            # generate 12 months of orders + invoices
-npm run demo:orders -- --clear # remove everything it generated
+npm run demo:orders                  # generate 12 months of orders + invoices
+npm run demo:orders -- --clear       # remove everything it generated
+npm run demo:orders -- --fresh       # also clear the seed's own orders, for
+                                     #   one coherent history instead of two
+npm run demo:orders -- --remote-demo # permit a remote *demo* database
 ```
 
 It writes around 470 orders across 36 fictional salon and parlour accounts,
@@ -542,9 +545,11 @@ with invoices, deliveries and inventory movements, and prints a summary. The
 catalogue is read but never modified — no product, price, wholesale tier or
 stock level changes, and nothing is reseeded.
 
-**It refuses to run against Neon.** Production has taken no orders, and the
-revenue the owner sees there must stay the real figure. The guard checks the
-connection string and exits before touching anything.
+**It refuses to write to a remote database** unless two independent conditions
+both hold: the database is *named* as a demo database, and `--remote-demo` is
+passed explicitly. Production is called `neondb`, so it fails the first outright
+and no flag can override that. Fabricated revenue in the live store could never
+be told apart from real sales afterwards.
 
 This is not real trading data and must never be presented as such. Every
 account sits on `@demo.example` — RFC 2606 reserves `.example` so it can never
@@ -576,3 +581,31 @@ ADMIN_EMAIL=admin@shreegopitraders.com ADMIN_PASSWORD='<choose one>' npm run adm
 Then open `/admin/login` — not `/login`, which is the customer sign-in.
 
 ---
+
+## The demo deployment
+
+There are two deployments, and they must not be confused:
+
+| | URL | Database | Contains |
+|---|---|---|---|
+| **Live** | `shree-gopi-traders.vercel.app` | `neondb` | The real store. Zero orders until a customer places one. |
+| **Demo** | `shree-gopi-traders-demo.vercel.app` | `sgt_demo` | A fabricated year of trading, for showing the admin screens. |
+
+`sgt_demo` is a separate database on the same Neon project. It shares no tables
+with `neondb`, and the two deployments are separate Vercel projects with
+separate `AUTH_SECRET` values, so a session on one is not valid on the other.
+
+The demo was built by restoring a local `pg_dump` rather than by seeding over
+the network — the seed makes thousands of sequential round trips and had not
+finished the first step after twelve minutes against Neon, where a bulk restore
+takes seconds.
+
+To refresh the demo's trading history, point `DATABASE_URL` at `sgt_demo` and
+run `npm run demo:orders -- --remote-demo --fresh`.
+
+**This folder deploys to production.** `.vercel/` is linked to
+`shree-gopi-traders`. Deploying the demo means temporarily relinking, and
+relinking back afterwards. The Vercel CLI also appends `.env*` to `.gitignore`
+on every `vercel link`; that line lands after `!.env.example` and, because
+gitignore is last-match-wins, silently re-ignores the template. Delete it when
+it reappears.

@@ -1,8 +1,10 @@
 /**
  * DEMO TRADING HISTORY — 12 months of orders, customers and invoices.
  *
- *   npm run demo:orders           # generate
- *   npm run demo:orders -- --clear   # remove everything it generated
+ *   npm run demo:orders                    # generate
+ *   npm run demo:orders -- --clear         # remove everything it generated
+ *   npm run demo:orders -- --fresh         # also clear the seed's own orders
+ *   npm run demo:orders -- --remote-demo   # allow a remote *demo* database
  *
  * WHY THIS EXISTS
  * A new store's admin dashboard is all zeros, so there is no way to see what
@@ -29,6 +31,8 @@ import type { BusinessType, OrderStatus } from "@prisma/client";
 
 const prisma = new PrismaClient();
 const CLEAR = process.argv.includes("--clear");
+/** Also remove orders this script did not create — for a clean demo deployment. */
+const FRESH = process.argv.includes("--fresh");
 
 /**
  * RFC 2606 reserves `.example` so it can never belong to anyone. The `demo.`
@@ -38,15 +42,35 @@ const CLEAR = process.argv.includes("--clear");
 const DEMO_SUFFIX = "@demo.example";
 
 // ── Guard ─────────────────────────────────────────────────────
+/**
+ * Writing fabricated revenue into the live store would leave the owner with
+ * figures nobody can later separate from real sales. So a remote database is
+ * refused unless BOTH of these hold:
+ *
+ *   1. the database is *named* as a demo database, and
+ *   2. --remote-demo is passed explicitly.
+ *
+ * Two independent conditions, because either alone is too easy to trip by
+ * accident. The production database is called `neondb`, so it fails the first
+ * outright and no flag can override that.
+ */
 const url = process.env.DATABASE_URL ?? "";
-if (url.includes("neon.tech")) {
+const REMOTE_OK = process.argv.includes("--remote-demo");
+const dbName = url.match(/\/([^/?]+)(\?|$)/)?.[1] ?? "";
+const isRemote = /neon\.tech|amazonaws|supabase|render\.com/.test(url);
+
+if (isRemote && !(/demo/i.test(dbName) && REMOTE_OK)) {
   console.error(`
-  Refusing to run against Neon.
+  Refusing to write demo orders to a remote database.
 
-  This script writes fabricated orders and revenue. Production has taken no
-  orders, and the figures shown there must remain the real ones.
+  Target database : ${dbName || "(none)"}
+  Named as demo   : ${/demo/i.test(dbName) ? "yes" : "NO"}
+  --remote-demo   : ${REMOTE_OK ? "given" : "NOT GIVEN"}
 
-  Point DATABASE_URL at the local database and run it again.
+  This script writes fabricated orders and revenue. In the live store those
+  figures could never be told apart from real sales afterwards.
+
+  Both conditions must hold to proceed against a remote database.
 `);
   process.exit(1);
 }
@@ -116,8 +140,11 @@ const slugify = (s: string) =>
 
 // ── Clear ─────────────────────────────────────────────────────
 async function clearDemo() {
+  // --fresh also takes the seed's own customers and orders, so a demo
+  // deployment shows one coherent trading history rather than two overlapping
+  // ones. Without it, only accounts this script created are touched.
   const demoCustomers = await prisma.customer.findMany({
-    where: { email: { endsWith: DEMO_SUFFIX } },
+    where: FRESH ? {} : { email: { endsWith: DEMO_SUFFIX } },
     select: { id: true },
   });
   const ids = demoCustomers.map((c) => c.id);
@@ -139,6 +166,11 @@ async function clearDemo() {
   await prisma.bulkOrderRequest.deleteMany({ where: { customerId: { in: ids } } });
   await prisma.order.deleteMany({ where: { id: { in: orderIds } } });
   await prisma.customer.deleteMany({ where: { id: { in: ids } } });
+  if (FRESH) {
+    // Any order left behind belongs to no customer we kept; there should be none.
+    const stragglers = await prisma.order.count();
+    if (stragglers) console.log(`  Note: ${stragglers} order(s) remain from another source.`);
+  }
 
   console.log(`  Removed ${orderIds.length} order(s) and ${ids.length} demo customer(s).`);
 }
@@ -463,7 +495,7 @@ async function generate() {
 }
 
 async function main() {
-  console.log(`\nDatabase: ${url.includes("neon.tech") ? "NEON" : "local"}`);
+  console.log(`\nDatabase: ${dbName || "local"}${isRemote ? "  (remote)" : ""}${FRESH ? "  [--fresh]" : ""}`);
   await clearDemo();
   if (!CLEAR) await generate();
   await prisma.$disconnect();
