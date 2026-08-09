@@ -6,6 +6,7 @@ import { loginCustomerAction, registerCustomerAction } from "@/actions/auth";
 import { initialActionState } from "@/actions/types";
 import { Alert, Field, Input, Select } from "@/components/ui";
 import { SubmitButton } from "@/components/ui/form";
+import { PasswordInput } from "./PasswordInput";
 
 const BUSINESS_TYPES = [
   { value: "SALON", label: "Salon" },
@@ -33,7 +34,7 @@ export function LoginForm({ next }: { next?: string }) {
       </Field>
 
       <Field label="Password" htmlFor="password" error={err("password")} required>
-        <Input id="password" name="password" type="password" autoComplete="current-password" required />
+        <PasswordInput id="password" name="password" autoComplete="current-password" required />
       </Field>
 
       <SubmitButton className="w-full" size="lg" pendingText="Signing in…">
@@ -42,7 +43,12 @@ export function LoginForm({ next }: { next?: string }) {
 
       <p className="text-center text-sm text-slate-600">
         New to us?{" "}
-        <Link href="/register" className="font-medium text-brand-700 hover:text-brand-800">
+        {/* Carry ?next across, so a shopper sent here from a product page still
+            lands back on it after registering instead. */}
+        <Link
+          href={next ? `/register?next=${encodeURIComponent(next)}` : "/register"}
+          className="font-medium text-brand-700 hover:text-brand-800"
+        >
           Register your business
         </Link>
       </p>
@@ -79,21 +85,41 @@ export function RegisterForm({ next }: { next?: string }) {
         </Field>
 
         <Field label="Phone" htmlFor="phone" error={err("phone")} required>
-          <Input id="phone" name="phone" type="tel" autoComplete="tel" required />
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="9876543210"
+            required
+          />
         </Field>
 
         <Field label="Email" htmlFor="email" error={err("email")} required className="sm:col-span-2">
           <Input id="email" name="email" type="email" autoComplete="email" required />
         </Field>
 
+        {/* GST registration is only compulsory above the CGST turnover
+            thresholds, so many smaller salons hold no GSTIN. Saying so here
+            stops people abandoning the form thinking they cannot register. */}
         <Field
-          label="GST Number"
+          label="GST Number (optional)"
           htmlFor="gstNumber"
           error={err("gstNumber")}
-          hint="Optional — needed for input credit on invoices"
+          hint="Only if your business is GST-registered — we print it on your invoices so you can claim input tax credit. Leave blank if you do not have one."
           className="sm:col-span-2"
         >
-          <Input id="gstNumber" name="gstNumber" className="uppercase" placeholder="15-character GSTIN" />
+          <Input
+            id="gstNumber"
+            name="gstNumber"
+            className="uppercase"
+            inputMode="text"
+            autoCapitalize="characters"
+            spellCheck={false}
+            maxLength={15}
+            placeholder="e.g. 27AAPFU0939F1ZV"
+          />
         </Field>
 
         <Field
@@ -104,7 +130,13 @@ export function RegisterForm({ next }: { next?: string }) {
           required
           className="sm:col-span-2"
         >
-          <Input id="password" name="password" type="password" autoComplete="new-password" required />
+          <PasswordInput
+            id="password"
+            name="password"
+            autoComplete="new-password"
+            minLength={8}
+            required
+          />
         </Field>
       </div>
 
@@ -114,7 +146,10 @@ export function RegisterForm({ next }: { next?: string }) {
 
       <p className="text-center text-sm text-slate-600">
         Already registered?{" "}
-        <Link href="/login" className="font-medium text-brand-700 hover:text-brand-800">
+        <Link
+          href={next ? `/login?next=${encodeURIComponent(next)}` : "/login"}
+          className="font-medium text-brand-700 hover:text-brand-800"
+        >
           Sign in
         </Link>
       </p>

@@ -12,12 +12,51 @@ const phone = z
 
 const pincode = z.string().trim().regex(/^[0-9]{6}$/, "Enter a valid 6-digit pincode");
 
+/**
+ * GSTIN — always optional.
+ *
+ * GST registration is compulsory only above the turnover thresholds set under
+ * the CGST Act (₹40 lakh for goods, ₹20 lakh for services; ₹20 lakh / ₹10 lakh
+ * in special category states). Plenty of single-chair salons and home parlours
+ * sit below that and hold no GSTIN at all. Requiring one would turn a tax
+ * registration threshold into a condition of doing business with us.
+ *
+ * A buyer supplies it so their invoice carries it and they can claim input tax
+ * credit. That is worth prompting for, and worth validating — but never worth
+ * blocking a sale over.
+ *
+ * Structure, per the GSTIN specification:
+ *   27          state code
+ *     AAPFU0939F  the holder's PAN (5 letters, 4 digits, 1 letter)
+ *               1 entity number for that PAN in that state
+ *                Z fixed
+ *                 V check digit
+ *
+ * The check digit is NOT verified. The algorithm is published, but a bug in
+ * our implementation would reject a customer's genuine GSTIN at registration
+ * and cost a sale, whereas an unverified digit only means an invoice may need
+ * correcting later. Structure alone catches wrong length, transposed sections
+ * and typed-in nonsense, which is nearly every real mistake.
+ */
+const GSTIN_PATTERN = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]Z[0-9A-Z]$/;
+
+/** 01–38 are the states and union territories; 97 is "other territory" and
+ *  99 is centre jurisdiction. Anything else is not a real state code. */
+function validStateCode(gstin: string) {
+  const code = Number(gstin.slice(0, 2));
+  return (code >= 1 && code <= 38) || code === 97 || code === 99;
+}
+
 const gstNumber = z
   .string()
-  .trim()
-  .regex(/^[0-9A-Z]{15}$/, "GST number must be 15 characters")
-  .optional()
-  .or(z.literal(""));
+  // Normalise before validating. The input is styled `uppercase`, which only
+  // changes how it looks — a GSTIN typed in lower case still submitted in
+  // lower case and failed with "must be 15 characters", which it plainly was.
+  .transform((v) => v.trim().toUpperCase().replace(/[\s-]/g, ""))
+  .refine((v) => v === "" || v.length === 15, "A GST number is 15 characters")
+  .refine((v) => v === "" || GSTIN_PATTERN.test(v), "That does not look like a valid GST number")
+  .refine((v) => v === "" || validStateCode(v), "The first two digits are not a valid state code")
+  .optional();
 
 const password = z
   .string()
