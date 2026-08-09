@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Minus, Plus, ShoppingCart } from "lucide-react";
-import { Alert, Badge, Button } from "@/components/ui";
+import { Alert, Badge, Button, ButtonLink } from "@/components/ui";
 import { StockBadge } from "@/components/ui/status";
 import { addToCart } from "@/actions/cart";
 import { WhatsAppButton } from "@/components/layout/WhatsApp";
@@ -47,6 +47,7 @@ export function PurchasePanel({
   allowBackorder,
   moq = 1,
   productName,
+  productSlug,
   sku,
 }: {
   variants: PanelVariant[];
@@ -55,6 +56,8 @@ export function PurchasePanel({
   /** Minimum order quantity — the quantity control starts and floors here. */
   moq?: number;
   productName: string;
+  /** Used to send a signed-out shopper back here after they sign in. */
+  productSlug: string;
   sku: string;
 }) {
   const router = useRouter();
@@ -95,17 +98,26 @@ export function PurchasePanel({
   function handleAdd(then?: "checkout") {
     setFeedback(null);
     startTransition(async () => {
+      // Expected problems come back as { ok: false }, so the shopper is told
+      // what to do. A throw here would be a genuine fault, and Next masks its
+      // message in production — hence the neutral fallback.
       try {
-        await addToCart(variantId, quantity);
+        const result = await addToCart(variantId, quantity);
+        if (!result.ok) {
+          setFeedback({ tone: "danger", text: result.error });
+          return;
+        }
         if (then === "checkout") {
           router.push("/checkout");
         } else {
           setFeedback({ tone: "success", text: "Added to your cart." });
           router.refresh();
         }
-      } catch (error) {
-        const message = error instanceof Error ? error.message : "Could not add to cart";
-        setFeedback({ tone: "danger", text: message });
+      } catch {
+        setFeedback({
+          tone: "danger",
+          text: "Something went wrong adding this to your cart. Please try again.",
+        });
       }
     });
   }
@@ -311,26 +323,47 @@ export function PurchasePanel({
       )}
 
       <div className="flex flex-col gap-3 sm:flex-row">
-        <Button
-          type="button"
-          onClick={() => handleAdd()}
-          disabled={pending || outOfStock || exceedsStock}
-          className="flex-1"
-          size="lg"
-        >
-          <ShoppingCart className="h-4 w-4" />
-          {outOfStock ? "Out of Stock" : pending ? "Adding…" : "Add to Cart"}
-        </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          size="lg"
-          onClick={() => handleAdd("checkout")}
-          disabled={pending || outOfStock || exceedsStock}
-          className="flex-1"
-        >
-          Buy Now
-        </Button>
+        {isSignedIn ? (
+          <>
+            <Button
+              type="button"
+              onClick={() => handleAdd()}
+              disabled={pending || outOfStock || exceedsStock}
+              className="flex-1"
+              size="lg"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {outOfStock ? "Out of Stock" : pending ? "Adding…" : "Add to Cart"}
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              size="lg"
+              onClick={() => handleAdd("checkout")}
+              disabled={pending || outOfStock || exceedsStock}
+              className="flex-1"
+            >
+              Buy Now
+            </Button>
+          </>
+        ) : (
+          // A cart needs an account, so send them to sign in rather than offer
+          // a button that can only fail.
+          <>
+            <ButtonLink href={`/login?next=/products/${productSlug}`} size="lg" className="flex-1">
+              <ShoppingCart className="h-4 w-4" />
+              Sign in to Add to Cart
+            </ButtonLink>
+            <ButtonLink
+              href={`/register?next=/products/${productSlug}`}
+              variant="secondary"
+              size="lg"
+              className="flex-1"
+            >
+              Register Business
+            </ButtonLink>
+          </>
+        )}
       </div>
 
       {/* Many B2B buyers would rather confirm a bulk order over chat than

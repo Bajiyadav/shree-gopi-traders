@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { removeCartItem, updateCartItemQuantity } from "@/actions/cart";
@@ -12,24 +12,38 @@ import { formatCurrency } from "@/lib/utils";
 
 export function CartItemRow({ item }: { item: CartLine }) {
   const [pending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+  // These previously discarded the result, so dropping below the minimum order
+  // quantity simply did nothing and left the shopper guessing why.
   const change = (quantity: number) => {
+    setError(null);
     startTransition(async () => {
-      await updateCartItemQuantity(item.cartItemId, quantity);
+      const result = await updateCartItemQuantity(item.cartItemId, quantity);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
       router.refresh();
     });
   };
 
   const remove = () => {
+    setError(null);
     startTransition(async () => {
-      await removeCartItem(item.cartItemId);
+      const result = await removeCartItem(item.cartItemId);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
       router.refresh();
     });
   };
 
   return (
-    <div className="flex gap-4 py-5" aria-busy={pending}>
+    <div className="py-5" aria-busy={pending}>
+      <div className="flex gap-4">
       <Link
         href={`/products/${item.productSlug}`}
         className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 sm:h-24 sm:w-24"
@@ -115,6 +129,13 @@ export function CartItemRow({ item }: { item: CartLine }) {
           </div>
         </div>
       </div>
+      </div>
+
+      {error && (
+        <p role="alert" className="mt-3 text-sm text-red-700">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

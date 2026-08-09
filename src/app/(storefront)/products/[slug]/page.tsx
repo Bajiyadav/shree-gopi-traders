@@ -163,6 +163,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
             <PurchasePanel
               variants={variants}
               isSignedIn={Boolean(customerId)}
+              productSlug={product.slug}
               allowBackorder={product.allowBackorder}
               moq={product.moq}
               productName={product.name}

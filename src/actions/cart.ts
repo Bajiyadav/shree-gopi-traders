@@ -13,6 +13,21 @@ import { cartAddSchema, cartUpdateSchema, fieldErrors } from "@/lib/validation";
 import { errorMessage } from "@/lib/utils";
 import type { ActionState } from "./types";
 
+/**
+ * Cart mutations report expected problems by returning, never by throwing.
+ *
+ * Next.js masks Server Action exceptions in production: the message becomes
+ * "An error occurred in the Server Components render…", so a shopper who is
+ * simply signed out, or one unit below the MOQ, sees an internal-looking
+ * error instead of being told what to do. Only genuine bugs should throw —
+ * those SHOULD be masked.
+ */
+export type CartResult<T = unknown> =
+  | ({ ok: true } & (unknown extends T ? object : T))
+  | { ok: false; error: string };
+
+const fail = (error: string) => ({ ok: false as const, error });
+
 async function getOrCreateCart(customerId: string) {
   return prisma.cart.upsert({
     where: { customerId },
@@ -31,25 +46,26 @@ async function getOwnedCartItem(cartItemId: string, customerId: string) {
     where: { id: cartItemId },
     include: { cart: { select: { customerId: true } } },
   });
-  if (!item || item.cart.customerId !== customerId) {
-    throw new Error("Cart item not found");
-  }
+  if (!item || item.cart.customerId !== customerId) return null;
   return item;
 }
 
-export async function addToCart(productVariantId: string, quantity: number) {
+export async function addToCart(
+  productVariantId: string,
+  quantity: number
+): Promise<CartResult<{ quantity: number }>> {
   const customerId = await getCurrentCustomerId();
-  if (!customerId) throw new Error("Please sign in to add items to your cart");
+  if (!customerId) return fail("Please sign in to add items to your cart.");
 
   const parsed = cartAddSchema.safeParse({ productVariantId, quantity });
-  if (!parsed.success) throw new Error("Invalid quantity");
+  if (!parsed.success) return fail("Please enter a valid quantity.");
 
   const variant = await prisma.productVariant.findUnique({
     where: { id: parsed.data.productVariantId },
     include: { product: { select: { isActive: true, moq: true, name: true } }, inventory: true },
   });
   if (!variant || !variant.isActive || !variant.product.isActive) {
-    throw new Error("This product is no longer available");
+    return fail("This product is no longer available.");
   }
 
   const cart = await getOrCreateCart(customerId);
@@ -62,7 +78,7 @@ export async function addToCart(productVariantId: string, quantity: number) {
   // MOQ is a business rule, so it is enforced here rather than trusted from
   // the form. The cart total, not the single request, has to clear it.
   if (nextQuantity < variant.product.moq) {
-    throw new Error(
+    return fail(
       `${variant.product.name} has a minimum order quantity of ${variant.product.moq}.`
     );
   }
@@ -82,22 +98,23 @@ export async function addToCart(productVariantId: string, quantity: number) {
 export async function addToCartAction(_prev: ActionState, formData: FormData): Promise<ActionState> {
   const parsed = cartAddSchema.safeParse(Object.fromEntries(formData));
   if (!parsed.success) return { ok: false, fieldErrors: fieldErrors(parsed.error) };
-  try {
-    await addToCart(parsed.data.productVariantId, parsed.data.quantity);
-    return { ok: true, message: "Added to cart" };
-  } catch (err) {
-    return { ok: false, error: errorMessage(err) };
-  }
+  const result = await addToCart(parsed.data.productVariantId, parsed.data.quantity);
+  if (!result.ok) return { ok: false, error: result.error };
+  return { ok: true, message: "Added to cart" };
 }
 
-export async function updateCartItemQuantity(cartItemId: string, quantity: number) {
+export async function updateCartItemQuantity(
+  cartItemId: string,
+  quantity: number
+): Promise<CartResult> {
   const customerId = await getCurrentCustomerId();
-  if (!customerId) throw new Error("Please sign in");
+  if (!customerId) return fail("Please sign in.");
 
   const parsed = cartUpdateSchema.safeParse({ cartItemId, quantity });
-  if (!parsed.success) throw new Error("Invalid quantity");
+  if (!parsed.success) return fail("Please enter a valid quantity.");
 
   const item = await getOwnedCartItem(parsed.data.cartItemId, customerId);
+  if (!item) return fail("That item is no longer in your cart.");
 
   if (parsed.data.quantity >= 1) {
     const variant = await prisma.productVariant.findUnique({
@@ -106,7 +123,7 @@ export async function updateCartItemQuantity(cartItemId: string, quantity: numbe
     });
     const moq = variant?.product.moq ?? 1;
     if (parsed.data.quantity < moq) {
-      throw new Error(
+      return fail(
         `${variant?.product.name ?? "This product"} has a minimum order quantity of ${moq}.`
       );
     }
@@ -122,20 +139,23 @@ export async function updateCartItemQuantity(cartItemId: string, quantity: numbe
   }
   revalidatePath("/cart");
   revalidatePath("/checkout");
+  return { ok: true };
 }
 
-export async function removeCartItem(cartItemId: string) {
+export async function removeCartItem(cartItemId: string): Promise<CartResult> {
   const customerId = await getCurrentCustomerId();
-  if (!customerId) throw new Error("Please sign in");
+  if (!customerId) return fail("Please sign in.");
   const item = await getOwnedCartItem(cartItemId, customerId);
+  if (!item) return fail("That item is no longer in your cart.");
   await prisma.cartItem.delete({ where: { id: item.id } });
   revalidatePath("/cart");
   revalidatePath("/checkout");
+  return { ok: true };
 }
 
-export async function clearCart() {
+export async function clearCart(): Promise<CartResult> {
   const customerId = await getCurrentCustomerId();
-  if (!customerId) throw new Error("Please sign in");
+  if (!customerId) return fail("Please sign in.");
   const cart = await prisma.cart.findUnique({ where: { customerId } });
   if (cart) {
     await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
@@ -143,6 +163,7 @@ export async function clearCart() {
   }
   revalidatePath("/cart");
   revalidatePath("/checkout");
+  return { ok: true };
 }
 
 /** Applies a coupon to the cart after validating it against the live subtotal. */
