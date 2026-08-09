@@ -20,7 +20,8 @@
     "images:import": "node scripts/import-product-images.mjs",
     "test:billing": "NODE_OPTIONS=--conditions=react-server tsx scripts/billing-test.ts",
     "images:urls": "node scripts/import-image-urls.mjs",
-    "images:cloudinary": "node --experimental-strip-types scripts/cloudinary-upload.mjs"
+    "images:cloudinary": "node --experimental-strip-types scripts/cloudinary-upload.mjs",
+    "demo:orders": "tsx scripts/demo-orders.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

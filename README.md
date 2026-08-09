@@ -524,3 +524,55 @@ Razorpay / UPI / card payments, courier tracking APIs, PDF or GST invoice
 generation, email and SMS notifications, the WhatsApp Business API, and supplier
 management. `PaymentMethod` and `PaymentStatus` already carry the enum values
 online payments need, so adding a gateway does not require a schema migration.
+
+## Seeing the admin dashboard with a year of trading
+
+A new store's dashboard is all zeros, so there is no way to review the
+analytics, order and billing screens — or demonstrate them — until orders
+exist. `demo:orders` fills a **local** database with a plausible year of
+trading:
+
+```bash
+npm run demo:orders            # generate 12 months of orders + invoices
+npm run demo:orders -- --clear # remove everything it generated
+```
+
+It writes around 470 orders across 36 fictional salon and parlour accounts,
+with invoices, deliveries and inventory movements, and prints a summary. The
+catalogue is read but never modified — no product, price, wholesale tier or
+stock level changes, and nothing is reseeded.
+
+**It refuses to run against Neon.** Production has taken no orders, and the
+revenue the owner sees there must stay the real figure. The guard checks the
+connection string and exits before touching anything.
+
+This is not real trading data and must never be presented as such. Every
+account sits on `@demo.example` — RFC 2606 reserves `.example` so it can never
+belong to anyone, which is also how `--clear` knows exactly what to remove.
+The names are common Indian given names and surnames combined at random
+against invented business names; any resemblance to a real proprietor is
+coincidental.
+
+Some detail worth knowing, because it is what makes the screens look right:
+
+- **Quantities scale inversely with unit price.** A salon orders two styling
+  chairs and ninety pairs of gloves, not sixty of each. Drawing every line
+  from one range put furniture into the 25+ wholesale band and swung monthly
+  revenue by over 100% on a flat order count.
+- **Status depends on order age.** Anything from a previous month has been
+  delivered or cancelled; only the current month still has orders in
+  processing, packed or out for delivery.
+- **Most accounts predate the reporting window**, with a minority joining
+  during it — otherwise the early months have nobody eligible to order.
+- **Seasonality** follows the Indian salon trade: festival restocking through
+  September to November, wedding season November to February.
+
+To log in locally afterwards:
+
+```bash
+ADMIN_EMAIL=admin@shreegopitraders.com ADMIN_PASSWORD='<choose one>' npm run admin:set-password
+```
+
+Then open `/admin/login` — not `/login`, which is the customer sign-in.
+
+---
