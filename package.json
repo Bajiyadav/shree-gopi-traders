@@ -23,7 +23,8 @@
     "images:cloudinary": "node --experimental-strip-types scripts/cloudinary-upload.mjs",
     "demo:orders": "tsx scripts/demo-orders.ts",
     "pricing:discount": "tsx scripts/apply-discounts.ts",
-    "demo:reviews": "tsx scripts/demo-reviews.ts"
+    "demo:reviews": "tsx scripts/demo-reviews.ts",
+    "images:sync": "tsx scripts/sync-product-images.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
