@@ -1,18 +1,34 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Compact Powder — Makeup">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#be123c"/>
-      <stop offset="100%" stop-color="#be123c" stop-opacity="0.7"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/><stop offset="100%" stop-color="#eceef0"/>
     </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="#be123c"/>
+    </linearGradient>
+    <radialGradient id="shadow" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#0f172a" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0"/>
+    </radialGradient>
   </defs>
+
   <rect width="600" height="600" fill="url(#bg)"/>
-  
-  <rect x="150" y="170" width="300" height="200" rx="16" fill="none" stroke="#fecdd3" stroke-width="5" opacity="0.5"/>
-  <path d="M150 300h300" stroke="#fecdd3" stroke-width="5" opacity="0.35"/>
-  <circle cx="220" cy="240" r="26" fill="#fecdd3" opacity="0.3"/>
-  <rect x="270" y="222" width="130" height="14" rx="7" fill="#fecdd3" opacity="0.3"/>
-  <rect x="270" y="252" width="90" height="14" rx="7" fill="#fecdd3" opacity="0.22"/>
-  <text x="300" y="440" font-family="ui-sans-serif,system-ui,-apple-system,sans-serif" font-size="24" font-weight="600" fill="#fecdd3" text-anchor="middle">Compact Powder</text>
-  <text x="300" y="484" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14" fill="#fecdd3" text-anchor="middle" opacity="0.65">Makeup</text>
-  <text x="300" y="558" font-family="ui-sans-serif,system-ui,sans-serif" font-size="11" letter-spacing="2.5" fill="#fecdd3" text-anchor="middle" opacity="0.45">SHREE GOPI TRADERS</text>
+  <rect y="470" width="600" height="130" fill="#f6f7f8"/>
+  <ellipse cx="300" cy="486" rx="168" ry="30" fill="url(#shadow)"/>
+
+  <g transform="translate(292 300) rotate(-7) scale(0.9) translate(-300 -300)">
+    
+    <rect x="186" y="150" width="228" height="60" rx="16" fill="#0f172a"/>
+    <rect x="200" y="196" width="200" height="18" rx="6" fill="#1e293b" opacity="0.65"/>
+    <path d="M196 210h208a20 20 0 0 1 20 20v186a26 26 0 0 1-26 26H202a26 26 0 0 1-26-26V230a20 20 0 0 1 20-20z" fill="url(#body)"/>
+    <rect x="206" y="272" width="188" height="110" rx="10" fill="#ffffff" opacity="0.94"/>
+    <rect x="232" y="298" width="136" height="10" rx="5" fill="#be123c" opacity="0.85"/>
+    <rect x="232" y="322" width="96" height="7" rx="3.5" fill="#1e293b" opacity="0.35"/>
+    <rect x="232" y="352" width="136" height="5" rx="2.5" fill="#f43f5e" opacity="0.7"/>
+  </g>
+
+  <text x="300" y="546" font-family="ui-sans-serif,system-ui,-apple-system,sans-serif" font-size="15" font-weight="500" fill="#64748b" text-anchor="middle">Compact Powder</text>
 </svg>
