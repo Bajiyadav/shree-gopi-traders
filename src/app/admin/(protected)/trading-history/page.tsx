@@ -32,6 +32,25 @@ export default async function TradingHistoryPage() {
 
   const period = `${h.months[0].month} – ${h.months[h.months.length - 1].month}`;
 
+  /**
+   * The footer sums the ROUNDED monthly figures, not the unrounded totals.
+   *
+   * Each month is displayed to the whole rupee, so adding the printed column
+   * can land a rupee or two away from the exact annual figure. An owner
+   * checking the column in front of a client would find it did not add up.
+   * The underlying values reconcile exactly; this only makes the printed
+   * column self-consistent.
+   */
+  const shown = {
+    orders: h.months.reduce((s, m) => s + m.orders, 0),
+    netSales: h.months.reduce((s, m) => s + Math.round(m.netSales), 0),
+    cogs: h.months.reduce((s, m) => s + Math.round(m.cogs), 0),
+    grossProfit: h.months.reduce((s, m) => s + Math.round(m.grossProfit), 0),
+    expenses: h.months.reduce((s, m) => s + Math.round(m.expenses), 0),
+    netProfit: h.months.reduce((s, m) => s + Math.round(m.netProfit), 0),
+    invoices: h.months.reduce((s, m) => s + m.invoices, 0),
+  };
+
   return (
     <>
       <PageHeader
@@ -155,14 +174,14 @@ export default async function TradingHistoryPage() {
             <tfoot className="border-t-2 border-slate-300 bg-slate-50 font-semibold">
               <tr>
                 <td className="px-4 py-3">12-month total</td>
-                <td className="px-4 py-3 text-right tabular-nums">{t.orders}</td>
+                <td className="px-4 py-3 text-right tabular-nums">{shown.orders}</td>
                 <td className="px-4 py-3 text-right tabular-nums">{t.customers}</td>
-                <td className="px-4 py-3 text-right tabular-nums">{money(t.netSales)}</td>
-                <td className="px-4 py-3 text-right tabular-nums">{money(t.cogs)}</td>
-                <td className="px-4 py-3 text-right tabular-nums">{money(t.grossProfit)}</td>
-                <td className="px-4 py-3 text-right tabular-nums">{money(t.expenses)}</td>
-                <td className="px-4 py-3 text-right tabular-nums text-emerald-700">{money(t.netProfit)}</td>
-                <td className="px-4 py-3 text-right tabular-nums">{t.invoices}</td>
+                <td className="px-4 py-3 text-right tabular-nums">{money(shown.netSales)}</td>
+                <td className="px-4 py-3 text-right tabular-nums">{money(shown.cogs)}</td>
+                <td className="px-4 py-3 text-right tabular-nums">{money(shown.grossProfit)}</td>
+                <td className="px-4 py-3 text-right tabular-nums">{money(shown.expenses)}</td>
+                <td className="px-4 py-3 text-right tabular-nums text-emerald-700">{money(shown.netProfit)}</td>
+                <td className="px-4 py-3 text-right tabular-nums">{shown.invoices}</td>
               </tr>
             </tfoot>
           </table>
