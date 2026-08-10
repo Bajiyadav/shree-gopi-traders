@@ -19,6 +19,7 @@ import {
 } from "@/lib/analytics";
 import { prisma } from "@/lib/prisma";
 import { StatCard } from "@/components/admin/StatCard";
+import { getTradingHistory } from "@/lib/trading-history";
 import { MonthlyTable, OrdersChart, RevenueChart } from "@/components/admin/Charts";
 import { Card, EmptyState, PageHeader } from "@/components/ui";
 import { StatusBadge } from "@/components/ui/status";
@@ -30,7 +31,7 @@ export default async function AdminDashboardPage() {
   const since12mo = new Date();
   since12mo.setMonth(since12mo.getMonth() - 12);
 
-  const [summary, monthly, topProducts, topCategories, recentOrders, lowStock, bulkRequests, inventory] =
+  const [summary, monthly, topProducts, topCategories, recentOrders, lowStock, bulkRequests, inventory, trading] =
     await Promise.all([
       getDashboardSummary(),
       getMonthlyRevenueAndOrders(),
@@ -59,6 +60,7 @@ export default async function AdminDashboardPage() {
         take: 5,
       }),
       getInventorySummary(),
+      getTradingHistory(),
     ]);
 
   const maxProductRevenue = Math.max(...topProducts.map((p) => p.revenue), 1);
@@ -100,6 +102,31 @@ export default async function AdminDashboardPage() {
           icon={IndianRupee}
         />
       </div>
+
+      {/* Twelve-month performance, read from the same dataset as the Trading
+          History page so the two can never disagree. */}
+      <div className="mt-6 flex items-baseline justify-between">
+        <h2 className="text-base font-semibold text-slate-900">Last 12 months</h2>
+        <Link href="/admin/trading-history" className="text-sm font-medium text-brand-700 hover:text-brand-800">
+          Full trading history →
+        </Link>
+      </div>
+      <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard label="Annual Revenue" value={formatCompactCurrency(trading.totals.netSales)} sublabel={`${trading.months[0].month} – ${trading.months[trading.months.length - 1].month}`} icon={IndianRupee} href="/admin/trading-history" />
+        <StatCard label="Orders" value={formatNumber(trading.totals.orders)} sublabel={`${formatNumber(trading.totals.customers)} salon accounts`} icon={ShoppingBag} href="/admin/orders" />
+        <StatCard label="Invoices" value={formatNumber(trading.totals.invoices)} sublabel="raised against these orders" icon={ClipboardList} />
+        <StatCard label="Avg Order Value" value={formatCurrency(trading.totals.avgOrderValue, { decimals: false })} sublabel="net sales ÷ orders" icon={IndianRupee} />
+      </div>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard label="Gross Profit" value={formatCompactCurrency(trading.totals.grossProfit)} sublabel={`${trading.totals.grossMarginPct.toFixed(1)}% of net sales`} />
+        <StatCard label="Net Profit" value={formatCompactCurrency(trading.totals.netProfit)} sublabel="after operating costs" tone={trading.totals.netProfit > 0 ? "success" : "danger"} />
+        <StatCard label="Profit Margin" value={`${trading.totals.profitMargin.toFixed(1)}%`} sublabel="net profit ÷ net sales" />
+        <StatCard label="Best Month" value={trading.best.month} sublabel={formatCompactCurrency(trading.best.netSales)} />
+      </div>
+      <p className="mt-2 text-xs text-slate-500">
+        Revenue, orders, customers and invoices are actual. Cost of goods and
+        operating costs are modelled — see Trading History for the assumptions.
+      </p>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
