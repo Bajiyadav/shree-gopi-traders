@@ -58,9 +58,13 @@ function partialNote(data: ChartMonth[]) {
 }
 
 function Frame({
-  title, subtitle, data, children,
+  title, subtitle, data, children, legend,
 }: {
-  title: string; subtitle?: string; data: ChartMonth[]; children: React.ReactNode;
+  title: string; subtitle?: string; data: ChartMonth[];
+  children: React.ReactNode;
+  /** Rendered BELOW the fixed-height plot area. Passing a legend as a child
+   *  put it inside the h-64 box, where it overlapped the x-axis labels. */
+  legend?: React.ReactNode;
 }) {
   const note = partialNote(data);
   return (
@@ -68,6 +72,7 @@ function Frame({
       <h3 className="text-base font-semibold text-slate-900">{title}</h3>
       {subtitle && <p className="mt-0.5 text-sm text-slate-500">{subtitle}</p>}
       <div className="mt-4 h-64">{children}</div>
+      {legend && <div className="mt-3 flex flex-wrap gap-5 text-xs text-slate-600">{legend}</div>}
       {note && <p className="mt-2 text-xs text-slate-400">{note}</p>}
     </div>
   );
@@ -121,6 +126,16 @@ export function ProfitTrendChart({ data }: { data: ChartMonth[] }) {
       title="Profit — 12 months"
       subtitle="Gross profit and net profit after operating costs"
       data={data}
+      legend={
+        <>
+          <span className="flex items-center gap-1.5">
+            <span className="h-0.5 w-5 rounded" style={{ background: SERIES }} /> Gross profit
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-0.5 w-5 rounded" style={{ background: SERIES_DEEP }} /> Net profit
+          </span>
+        </>
+      }
     >
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
@@ -135,21 +150,27 @@ export function ProfitTrendChart({ data }: { data: ChartMonth[] }) {
           <Line type="monotone" dataKey="netProfit" stroke={SERIES_DEEP} strokeWidth={2} strokeDasharray="5 3" dot={{ r: 3, strokeWidth: 2, stroke: SURFACE }} />
         </LineChart>
       </ResponsiveContainer>
-      <div className="mt-3 flex gap-5 text-xs text-slate-600">
-        <span className="flex items-center gap-1.5">
-          <span className="h-0.5 w-5 rounded" style={{ background: SERIES }} /> Gross profit
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-0.5 w-5 rounded" style={{ background: SERIES_DEEP }} /> Net profit
-        </span>
-      </div>
     </Frame>
   );
 }
 
 export function CustomerGrowthChart({ data }: { data: ChartMonth[] }) {
   return (
-    <Frame title="Customers — 12 months" subtitle="Accounts ordering each month, and first-time accounts" data={data}>
+    <Frame
+      title="Customers — 12 months"
+      subtitle="Accounts ordering each month, and first-time accounts"
+      data={data}
+      legend={
+        <>
+          <span className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SERIES }} /> Ordered this month
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SERIES_DEEP }} /> First-ever order
+          </span>
+        </>
+      }
+    >
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }} barCategoryGap="28%">
           <CartesianGrid stroke={GRID} strokeDasharray="3 3" vertical={false} />
@@ -160,14 +181,6 @@ export function CustomerGrowthChart({ data }: { data: ChartMonth[] }) {
           <Bar dataKey="newCustomers" fill={SERIES_DEEP} radius={[4, 4, 0, 0]} stroke={SURFACE} strokeWidth={2} />
         </BarChart>
       </ResponsiveContainer>
-      <div className="mt-3 flex gap-5 text-xs text-slate-600">
-        <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SERIES }} /> Ordered this month
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-sm" style={{ background: SERIES_DEEP }} /> First-ever order
-        </span>
-      </div>
     </Frame>
   );
 }
