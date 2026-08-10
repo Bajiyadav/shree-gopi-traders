@@ -3,11 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { updateOrderStatusAction } from "@/actions/orders";
-import { updateDeliveryAction } from "@/actions/delivery";
 import { ButtonLink, Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
 import { SubmitButton } from "@/components/ui/form";
 import { StatusBadge } from "@/components/ui/status";
-import { ManagedForm, StatusSelect } from "@/components/admin/common";
+import { StatusSelect } from "@/components/admin/common";
+import { DeliveryForm } from "@/components/admin/DeliveryForm";
 import { OrderTimeline } from "@/components/orders/OrderTimeline";
 import { formatCurrency, formatDate, humanize } from "@/lib/utils";
 
@@ -143,79 +143,15 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
               Updating delivery also advances the order status to match.
             </p>
 
-            <ManagedForm action={updateDeliveryAction} className="mt-5">
-              {({ error }) => (
-                <>
-                  <input type="hidden" name="orderId" value={order.id} />
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="Delivery Status" htmlFor="status" error={error("status")} required>
-                      <Select
-                        id="status"
-                        name="status"
-                        defaultValue={order.delivery?.status ?? "PENDING"}
-                      >
-                        {DELIVERY_STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {humanize(s)}
-                          </option>
-                        ))}
-                      </Select>
-                    </Field>
-
-                    <Field label="Courier" htmlFor="courierName" error={error("courierName")}>
-                      <Input
-                        id="courierName"
-                        name="courierName"
-                        defaultValue={order.delivery?.courierName ?? ""}
-                        placeholder="Delhivery, BlueDart…"
-                      />
-                    </Field>
-
-                    <Field
-                      label="Tracking Number"
-                      htmlFor="trackingNumber"
-                      error={error("trackingNumber")}
-                    >
-                      <Input
-                        id="trackingNumber"
-                        name="trackingNumber"
-                        defaultValue={order.delivery?.trackingNumber ?? ""}
-                      />
-                    </Field>
-
-                    <Field
-                      label="Expected Delivery"
-                      htmlFor="expectedDeliveryDate"
-                      error={error("expectedDeliveryDate")}
-                    >
-                      <Input
-                        id="expectedDeliveryDate"
-                        name="expectedDeliveryDate"
-                        type="date"
-                        defaultValue={toDateInput(order.delivery?.expectedDeliveryDate)}
-                      />
-                    </Field>
-
-                    <Field
-                      label="Delivery Notes"
-                      htmlFor="deliveryNotes"
-                      error={error("deliveryNotes")}
-                      className="sm:col-span-2"
-                    >
-                      <Textarea
-                        id="deliveryNotes"
-                        name="deliveryNotes"
-                        rows={2}
-                        defaultValue={order.delivery?.deliveryNotes ?? ""}
-                      />
-                    </Field>
-                  </div>
-                  <div className="mt-4">
-                    <SubmitButton pendingText="Saving…">Update Delivery</SubmitButton>
-                  </div>
-                </>
-              )}
-            </ManagedForm>
+            <DeliveryForm
+              orderId={order.id}
+              statuses={DELIVERY_STATUSES}
+              status={order.delivery?.status ?? "PENDING"}
+              courierName={order.delivery?.courierName ?? ""}
+              trackingNumber={order.delivery?.trackingNumber ?? ""}
+              expectedDeliveryDate={toDateInput(order.delivery?.expectedDeliveryDate)}
+              deliveryNotes={order.delivery?.deliveryNotes ?? ""}
+            />
           </Card>
         </div>
 

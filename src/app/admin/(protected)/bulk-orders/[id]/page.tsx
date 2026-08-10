@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { updateBulkOrderAction } from "@/actions/bulk-orders";
 import { Card, Field, Input, PageHeader, Select, Textarea } from "@/components/ui";
 import { SubmitButton } from "@/components/ui/form";
 import { StatusBadge } from "@/components/ui/status";
-import { ManagedForm } from "@/components/admin/common";
+import { BulkOrderForm } from "@/components/admin/BulkOrderForm";
 import { formatCurrency, formatDate, humanize } from "@/lib/utils";
 
 export const metadata: Metadata = { title: "Bulk Request" };
@@ -71,59 +70,13 @@ export default async function AdminBulkOrderDetailPage({ params }: { params: { i
               Set a quote amount before marking the request as quoted.
             </p>
 
-            <ManagedForm action={updateBulkOrderAction} className="mt-5">
-              {({ error }) => (
-                <>
-                  <input type="hidden" name="id" value={request.id} />
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="Status" htmlFor="status" error={error("status")} required>
-                      <Select id="status" name="status" defaultValue={request.status}>
-                        {STATUSES.map((s) => (
-                          <option key={s} value={s}>
-                            {humanize(s)}
-                          </option>
-                        ))}
-                      </Select>
-                    </Field>
-
-                    <Field
-                      label="Quoted Amount (₹)"
-                      htmlFor="quotedAmount"
-                      error={error("quotedAmount")}
-                    >
-                      <Input
-                        id="quotedAmount"
-                        name="quotedAmount"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        defaultValue={
-                          request.quotedAmount === null ? "" : String(request.quotedAmount)
-                        }
-                      />
-                    </Field>
-
-                    <Field
-                      label="Internal / Customer Notes"
-                      htmlFor="additionalNotes"
-                      error={error("additionalNotes")}
-                      className="sm:col-span-2"
-                    >
-                      <Textarea
-                        id="additionalNotes"
-                        name="additionalNotes"
-                        rows={4}
-                        defaultValue={request.additionalNotes ?? ""}
-                      />
-                    </Field>
-                  </div>
-
-                  <div className="mt-4">
-                    <SubmitButton pendingText="Saving…">Update Request</SubmitButton>
-                  </div>
-                </>
-              )}
-            </ManagedForm>
+            <BulkOrderForm
+              id={request.id}
+              statuses={STATUSES}
+              status={request.status}
+              quotedAmount={request.quotedAmount === null ? "" : String(request.quotedAmount)}
+              additionalNotes={request.additionalNotes ?? ""}
+            />
           </Card>
         </div>
 
