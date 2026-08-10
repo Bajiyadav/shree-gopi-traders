@@ -26,7 +26,10 @@
     "demo:reviews": "tsx scripts/demo-reviews.ts",
     "images:sync": "tsx scripts/sync-product-images.ts",
     "images:brand": "node scripts/imaging/apply-sgt-badge.mjs",
-    "images:verify": "node scripts/imaging/verify-images.mjs"
+    "images:verify": "node scripts/imaging/verify-images.mjs",
+    "demo:inventory": "tsx scripts/scale-demo-inventory.ts",
+    "email:retry": "tsx scripts/retry-emails.ts",
+    "email:status": "tsx scripts/retry-emails.ts --status"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -36,6 +39,7 @@
     "jose": "^5.10.0",
     "lucide-react": "^1.30.0",
     "next": "^14.2.35",
+    "nodemailer": "^9.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^2.15.4",
@@ -46,6 +50,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.19.43",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
     "autoprefixer": "^10.5.4",

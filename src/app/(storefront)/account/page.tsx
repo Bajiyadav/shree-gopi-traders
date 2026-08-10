@@ -81,7 +81,6 @@ export default async function AccountPage() {
               <ProfileForm
                 defaults={{
                   name: customer.name,
-                  phone: customer.phone,
                   email: customer.email,
                   businessName: customer.businessProfile?.businessName ?? "",
                   businessType: customer.businessProfile?.businessType ?? "OTHER",

@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import type { DeliveryStatus, OrderStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { createOrderForCustomer } from "@/lib/orders";
+import { queueOrderEmail } from "@/lib/email/send";
+import { EMAIL_FOR_ORDER_STATUS } from "@/lib/email/policy";
 import { getCurrentCustomerId, requireAdminAction } from "@/lib/auth";
 import { checkoutSchema, fieldErrors, orderStatusSchema } from "@/lib/validation";
 import { errorMessage } from "@/lib/utils";
@@ -54,6 +56,11 @@ export async function placeOrderAction(
       couponCode: input.couponCode || undefined,
       paymentMethod: input.paymentMethod,
     });
+
+    // The order is committed at this point. The confirmation is queued rather
+    // than awaited: the customer should not wait on an SMTP dialogue, and a
+    // mail failure must never turn a successful order into a failed one.
+    queueOrderEmail(order.id, "ORDER_CONFIRMATION");
 
     revalidatePath("/orders");
     revalidatePath("/cart");
@@ -168,6 +175,11 @@ export async function updateOrderStatusAction(
         });
       }
     });
+
+    // Only after the transaction has committed, and only for the transitions
+    // a customer actually needs to hear about — see EMAIL_FOR_ORDER_STATUS.
+    const notify = EMAIL_FOR_ORDER_STATUS[status];
+    if (notify) queueOrderEmail(orderId, notify);
 
     revalidatePath("/admin/orders");
     revalidatePath(`/admin/orders/${orderId}`);

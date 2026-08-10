@@ -80,22 +80,6 @@ export function RegisterForm({ next }: { next?: string }) {
           </Select>
         </Field>
 
-        <Field label="Your Name" htmlFor="name" error={err("name")} required>
-          <Input id="name" name="name" autoComplete="name" required />
-        </Field>
-
-        <Field label="Phone" htmlFor="phone" error={err("phone")} required>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="9876543210"
-            required
-          />
-        </Field>
-
         <Field label="Email" htmlFor="email" error={err("email")} required className="sm:col-span-2">
           <Input id="email" name="email" type="email" autoComplete="email" required />
         </Field>

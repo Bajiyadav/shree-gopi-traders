@@ -188,32 +188,32 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String?
-  specs       Json? // free-form specifications
-  brand       String?
-  sku         String   @unique
-  categoryId  String
-  category    Category @relation(fields: [categoryId], references: [id])
-  images      String[] // array of image URLs
-  basePrice   Decimal  @db.Decimal(10, 2)
-  salePrice   Decimal? @db.Decimal(10, 2)
-  weight      Decimal? @db.Decimal(10, 2)
-  isActive    Boolean  @default(true)
-  allowBackorder Boolean @default(false)
+  id                String   @id @default(cuid())
+  name              String
+  slug              String   @unique
+  description       String?
+  specs             Json? // free-form specifications
+  brand             String?
+  sku               String   @unique
+  categoryId        String
+  category          Category @relation(fields: [categoryId], references: [id])
+  images            String[] // array of image URLs
+  basePrice         Decimal  @db.Decimal(10, 2)
+  salePrice         Decimal? @db.Decimal(10, 2)
+  weight            Decimal? @db.Decimal(10, 2)
+  isActive          Boolean  @default(true)
+  allowBackorder    Boolean  @default(false)
   /// Minimum order quantity. B2B buyers expect to see this up front;
   /// 1 means "no minimum", which is itself worth stating.
-  moq         Int      @default(1)
+  moq               Int      @default(1)
   /// Optional long-form content for the product detail tabs. Null means the
   /// tab is not rendered — never show an empty tab.
-  ingredients String?
+  ingredients       String?
   usageInstructions String?
-  ratingAvg   Decimal  @default(0) @db.Decimal(3, 2)
-  ratingCount Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  ratingAvg         Decimal  @default(0) @db.Decimal(3, 2)
+  ratingCount       Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   variants   ProductVariant[]
   orderItems OrderItem[]
@@ -227,24 +227,24 @@ model Product {
 }
 
 model ProductVariant {
-  id            String   @id @default(cuid())
-  productId     String
-  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  name          String // e.g. "500ml", "Black", "Medium"
-  sku           String   @unique
-  price         Decimal  @db.Decimal(10, 2) // list price — what a single unit costs before any discount
-  salePrice     Decimal? @db.Decimal(10, 2) // optional markdown; charged when no wholesale tier matches
+  id             String   @id @default(cuid())
+  productId      String
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name           String // e.g. "500ml", "Black", "Medium"
+  sku            String   @unique
+  price          Decimal  @db.Decimal(10, 2) // list price — what a single unit costs before any discount
+  salePrice      Decimal? @db.Decimal(10, 2) // optional markdown; charged when no wholesale tier matches
   wholesalePrice Decimal? @db.Decimal(10, 2) // legacy/base wholesale reference; real tiers below
-  weight        Decimal? @db.Decimal(10, 2)
-  imageUrl      String?
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  weight         Decimal? @db.Decimal(10, 2)
+  imageUrl       String?
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  wholesaleTiers        WholesalePriceTier[]
-  inventory             Inventory?
-  cartItems              CartItem[]
-  orderItems            OrderItem[]
+  wholesaleTiers WholesalePriceTier[]
+  inventory      Inventory?
+  cartItems      CartItem[]
+  orderItems     OrderItem[]
 
   @@index([productId])
   @@index([sku])
@@ -268,12 +268,12 @@ model WholesalePriceTier {
 // ─────────────────────────────────────────────
 
 model Inventory {
-  id               String         @id @default(cuid())
-  productVariantId String         @unique
-  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
-  stock            Int            @default(0)
-  lowStockThreshold Int           @default(5)
-  updatedAt        DateTime       @updatedAt
+  id                String         @id @default(cuid())
+  productVariantId  String         @unique
+  productVariant    ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+  stock             Int            @default(0)
+  lowStockThreshold Int            @default(5)
+  updatedAt         DateTime       @updatedAt
 
   transactions InventoryTransaction[]
 
@@ -281,16 +281,16 @@ model Inventory {
 }
 
 model InventoryTransaction {
-  id          String           @id @default(cuid())
+  id          String          @id @default(cuid())
   inventoryId String
-  inventory   Inventory        @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventory   Inventory       @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
   action      InventoryAction
   quantity    Int // positive = added, negative = removed
   reason      String?
   adminId     String?
-  admin       Admin?           @relation(fields: [adminId], references: [id])
+  admin       Admin?          @relation(fields: [adminId], references: [id])
   orderId     String?
-  createdAt   DateTime         @default(now())
+  createdAt   DateTime        @default(now())
 
   @@index([inventoryId])
   @@index([createdAt])
@@ -301,12 +301,12 @@ model InventoryTransaction {
 // ─────────────────────────────────────────────
 
 model Cart {
-  id         String     @id @default(cuid())
-  customerId String     @unique
-  customer   Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  customerId String   @unique
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
   couponCode String?
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
   items CartItem[]
 }
@@ -329,35 +329,36 @@ model CartItem {
 // ─────────────────────────────────────────────
 
 model Order {
-  id              String        @id @default(cuid())
-  orderNumber     String        @unique // e.g. SAL-20260808-0001
-  customerId      String
-  customer        Customer      @relation(fields: [customerId], references: [id])
-  businessName    String?
-  items           OrderItem[]
+  id           String      @id @default(cuid())
+  orderNumber  String      @unique // e.g. SAL-20260808-0001
+  customerId   String
+  customer     Customer    @relation(fields: [customerId], references: [id])
+  businessName String?
+  items        OrderItem[]
 
-  subtotal        Decimal       @db.Decimal(10, 2)
-  bulkDiscount    Decimal       @default(0) @db.Decimal(10, 2)
-  couponDiscount  Decimal       @default(0) @db.Decimal(10, 2)
-  couponCode      String?
-  deliveryFee     Decimal       @default(0) @db.Decimal(10, 2)
-  tax             Decimal       @default(0) @db.Decimal(10, 2)
-  total           Decimal       @db.Decimal(10, 2)
+  subtotal       Decimal @db.Decimal(10, 2)
+  bulkDiscount   Decimal @default(0) @db.Decimal(10, 2)
+  couponDiscount Decimal @default(0) @db.Decimal(10, 2)
+  couponCode     String?
+  deliveryFee    Decimal @default(0) @db.Decimal(10, 2)
+  tax            Decimal @default(0) @db.Decimal(10, 2)
+  total          Decimal @db.Decimal(10, 2)
 
-  paymentMethod   PaymentMethod @default(COD)
-  paymentStatus   PaymentStatus @default(PENDING)
-  status          OrderStatus   @default(PENDING)
+  paymentMethod PaymentMethod @default(COD)
+  paymentStatus PaymentStatus @default(PENDING)
+  status        OrderStatus   @default(PENDING)
 
-  shippingAddress Json
-  billingAddress  Json?
-  gstNumber       String?
+  shippingAddress      Json
+  billingAddress       Json?
+  gstNumber            String?
   deliveryInstructions String?
 
-  delivery        Delivery?
-  invoice         Invoice?
+  delivery Delivery?
+  invoice  Invoice?
+  emails   EmailLog[]
 
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([customerId])
   @@index([status])
@@ -410,22 +411,22 @@ model Invoice {
 // ─────────────────────────────────────────────
 
 model BulkOrderRequest {
-  id              String           @id @default(cuid())
-  customerId      String?
-  customer        Customer?        @relation(fields: [customerId], references: [id])
-  companyName     String
-  contactPerson   String
-  phone           String
-  email           String
-  productsNote    String // free text: products + qty requested
-  expectedDate    DateTime?
+  id               String          @id @default(cuid())
+  customerId       String?
+  customer         Customer?       @relation(fields: [customerId], references: [id])
+  companyName      String
+  contactPerson    String
+  phone            String
+  email            String
+  productsNote     String // free text: products + qty requested
+  expectedDate     DateTime?
   deliveryLocation String
-  additionalNotes String?
-  quotedAmount    Decimal?         @db.Decimal(10, 2)
-  status          BulkOrderStatus  @default(PENDING)
+  additionalNotes  String?
+  quotedAmount     Decimal?        @db.Decimal(10, 2)
+  status           BulkOrderStatus @default(PENDING)
   convertedOrderId String?
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 
   @@index([status])
   @@index([createdAt])
@@ -436,16 +437,16 @@ model BulkOrderRequest {
 // ─────────────────────────────────────────────
 
 model Delivery {
-  id                  String         @id @default(cuid())
-  orderId             String         @unique
-  order               Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  status              DeliveryStatus @default(PENDING)
-  courierName         String?
-  trackingNumber      String?
+  id                   String         @id @default(cuid())
+  orderId              String         @unique
+  order                Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status               DeliveryStatus @default(PENDING)
+  courierName          String?
+  trackingNumber       String?
   expectedDeliveryDate DateTime?
-  deliveryNotes       String?
-  createdAt           DateTime       @default(now())
-  updatedAt           DateTime       @updatedAt
+  deliveryNotes        String?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
 
   @@index([status])
 }
@@ -492,19 +493,61 @@ model ContactMessage {
 // ─────────────────────────────────────────────
 
 model Coupon {
-  id              String       @id @default(cuid())
-  code            String       @unique
-  discountType    DiscountType
-  discountValue   Decimal      @db.Decimal(10, 2)
-  minOrderValue   Decimal?     @db.Decimal(10, 2)
-  maxDiscount     Decimal?     @db.Decimal(10, 2)
-  startDate       DateTime
-  endDate         DateTime
-  usageLimit      Int?
-  usageCount      Int          @default(0)
-  isActive        Boolean      @default(true)
-  createdAt       DateTime     @default(now())
+  id            String       @id @default(cuid())
+  code          String       @unique
+  discountType  DiscountType
+  discountValue Decimal      @db.Decimal(10, 2)
+  minOrderValue Decimal?     @db.Decimal(10, 2)
+  maxDiscount   Decimal?     @db.Decimal(10, 2)
+  startDate     DateTime
+  endDate       DateTime
+  usageLimit    Int?
+  usageCount    Int          @default(0)
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
 
   @@index([code])
   @@index([isActive])
+}
+
+/// One row per customer email the system has tried to send.
+///
+/// Exists for two reasons: a retried request must not send a second copy of the
+/// same message, and a failure has to be recoverable rather than lost. The
+/// unique constraint on (orderId, kind) is what makes the send idempotent — a
+/// second attempt collides and is skipped rather than duplicating.
+model EmailLog {
+  id        String      @id @default(cuid())
+  orderId   String
+  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  kind      EmailKind
+  recipient String
+  subject   String
+  status    EmailStatus @default(PENDING)
+  /// Provider message id when accepted; the error message when it failed.
+  detail    String?
+  attempts  Int         @default(0)
+  sentAt    DateTime?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  @@unique([orderId, kind])
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum EmailKind {
+  ORDER_CONFIRMATION
+  ORDER_CONFIRMED
+  ORDER_SHIPPED
+  ORDER_OUT_FOR_DELIVERY
+  ORDER_DELIVERED
+  ORDER_CANCELLED
+}
+
+enum EmailStatus {
+  PENDING
+  SENT
+  FAILED
+  SKIPPED
 }

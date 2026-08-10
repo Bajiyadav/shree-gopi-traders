@@ -26,7 +26,6 @@ const BUSINESS_TYPES = [
 
 export interface ProfileDefaults {
   name: string;
-  phone: string;
   email: string;
   businessName: string;
   businessType: string;
@@ -41,13 +40,6 @@ export function ProfileForm({ defaults }: { defaults: ProfileDefaults }) {
       <FormMessage state={state} />
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Contact Name" htmlFor="name" error={err("name")} required>
-          <Input id="name" name="name" defaultValue={defaults.name} required />
-        </Field>
-
-        <Field label="Phone" htmlFor="phone" error={err("phone")} required>
-          <Input id="phone" name="phone" type="tel" defaultValue={defaults.phone} required />
-        </Field>
 
         <Field label="Email" htmlFor="accountEmail" hint="Contact us to change your sign-in email">
           <Input id="accountEmail" defaultValue={defaults.email} disabled />

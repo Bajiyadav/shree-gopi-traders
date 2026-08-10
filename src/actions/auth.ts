@@ -39,7 +39,7 @@ export async function registerCustomerAction(
     data: {
       name: data.name,
       email: data.email,
-      phone: data.phone,
+      phone: data.phone ?? "",
       passwordHash: await hashPassword(data.password),
       businessProfile: {
         create: {

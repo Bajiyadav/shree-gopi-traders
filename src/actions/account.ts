@@ -23,7 +23,10 @@ export async function updateProfileAction(
       where: { id: customerId },
       data: {
         name: data.name,
-        phone: data.phone,
+        // Only written when supplied. The profile form no longer asks for a
+        // number, so omitting this key leaves any existing one intact rather
+        // than overwriting it with a blank.
+        ...(data.phone === undefined ? {} : { phone: data.phone }),
         businessProfile: {
           upsert: {
             create: {
