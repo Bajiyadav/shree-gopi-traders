@@ -91,7 +91,7 @@ function getStyleForProduct(name, slug) {
   return { shape: "bottle", bodyColor: "#334155", accent: "#94a3b8", label: "PRO ESSENTIAL" };
 }
 
-function renderProductSvg(config, productName) {
+function renderProductSvg(config, productName, slot = 1) {
   const { shape, bodyColor, accent, label } = config;
   const width = 1000;
   const height = 1000;
@@ -225,9 +225,20 @@ function renderProductSvg(config, productName) {
       </g>`;
   }
 
+  // Perspective angle transformation per slot
+  let slotTransform = "";
+  let badgeText = "FRONT VIEW";
+  if (slot === 2) {
+    slotTransform = `transform="translate(500, 500) rotate(8) scale(1.06) translate(-500, -510)"`;
+    badgeText = "DETAIL ANGLE";
+  } else if (slot === 3) {
+    slotTransform = `transform="translate(500, 500) rotate(-8) scale(1.08) translate(-500, -490)"`;
+    badgeText = "SIDE PERSPECTIVE";
+  }
+
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
   <defs>
-    <radialGradient id="studioGround" cx="50%" cy="40%" r="65%">
+    <radialGradient id="studioGround" cx="${slot === 2 ? "45%" : slot === 3 ? "55%" : "50%"}" cy="40%" r="65%">
       <stop offset="0%" stop-color="#ffffff"/>
       <stop offset="65%" stop-color="#f1f5f9"/>
       <stop offset="100%" stop-color="#cbd5e1"/>
@@ -250,14 +261,16 @@ function renderProductSvg(config, productName) {
 
   <rect width="${width}" height="${height}" fill="url(#studioGround)"/>
   <line x1="0" y1="740" x2="${width}" y2="740" stroke="#94a3b8" stroke-width="1.5" opacity="0.4"/>
-  ${elements}
+  <g ${slotTransform}>
+    ${elements}
+  </g>
 </svg>`;
 
   return Buffer.from(svg);
 }
 
 async function main() {
-  console.log("=== Generating Photorealistic Studio PNG Photos for ALL Remaining Products ===");
+  console.log("=== Generating Multi-Angle Studio PNG Photos (3 Unique Angles per Product) for ALL 125 Products ===");
 
   const products = await prisma.product.findMany({
     select: { name: true, slug: true, images: true, category: { select: { slug: true, name: true } } },
@@ -267,9 +280,6 @@ async function main() {
   let createdCount = 0;
 
   for (const p of products) {
-    const isPng = p.images[0]?.endsWith(".png");
-    if (isPng) continue; // Already has a PNG photo!
-
     const catDir = path.join(PUBLIC_PRODUCTS, p.category.slug);
     if (!fs.existsSync(catDir)) fs.mkdirSync(catDir, { recursive: true });
 
@@ -278,17 +288,20 @@ async function main() {
     const png3 = path.join(catDir, `${p.slug}-3.png`);
 
     const config = getStyleForProduct(p.name, p.slug);
-    const svgBuf = renderProductSvg(config, p.name);
 
-    await sharp(svgBuf).png().toFile(primaryPng);
-    await sharp(svgBuf).png().toFile(png2);
-    await sharp(svgBuf).png().toFile(png3);
+    const svgBuf1 = renderProductSvg(config, p.name, 1);
+    const svgBuf2 = renderProductSvg(config, p.name, 2);
+    const svgBuf3 = renderProductSvg(config, p.name, 3);
+
+    await sharp(svgBuf1).png().toFile(primaryPng);
+    await sharp(svgBuf2).png().toFile(png2);
+    await sharp(svgBuf3).png().toFile(png3);
 
     createdCount++;
-    console.log(`Created studio photo PNGs for: ${p.name} (${p.category.name})`);
+    console.log(`Created 3 multi-angle PNG studio photos for: ${p.name} (${p.category.name})`);
   }
 
-  console.log(`\nGenerated PNG studio photos for ${createdCount} products.`);
+  console.log(`\nGenerated 3 unique multi-angle PNG studio photos for all ${createdCount} products (Total: ${createdCount * 3} images).`);
 }
 
 main().catch(console.error);
