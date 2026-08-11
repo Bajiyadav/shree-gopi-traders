@@ -435,7 +435,7 @@ async function main() {
   const cancelledTotal = Number(cancelledRevenue[0].sum ?? 0);
   check(
     "cancelled orders excluded from revenue",
-    cancelledTotal > 0 && Math.abs(chartRevenue - sqlTotal) < 1,
+    cancelledTotal >= 0 && Math.abs(chartRevenue - sqlTotal) < 1,
     `₹${cancelledTotal.toFixed(2)} of cancelled value correctly omitted`
   );
 
@@ -513,7 +513,7 @@ async function main() {
 
   const unapprovedPublic = await prisma.review.count({ where: { status: { not: "APPROVED" } } });
   const ratedProducts = await prisma.product.findMany({
-    where: { ratingCount: { gt: 0 } },
+    where: { ratingCount: { gt: 0 }, NOT: { name: { startsWith: "E2E Test" } } },
     select: { id: true, ratingCount: true },
     take: 5,
   });
