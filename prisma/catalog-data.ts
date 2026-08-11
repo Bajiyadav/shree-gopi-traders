@@ -465,6 +465,14 @@ export const CATALOG: SeedCategory[] = [
     profile: "product",
     products: [
       {
+        name: "Cetaphil Gentle Skin Cleanser",
+        brand: "Cetaphil",
+        description:
+          "Cetaphil Gentle Skin Hydrating Face Wash. Paraben-free, sulphate-free gentle skin hydrating cleanser formulated with Niacinamide, Vitamin B5 and Hydrating Glycerin for dry to normal, sensitive skin. Cleanses without stripping natural moisture, soothing skin and maintaining the protective moisture barrier.",
+        specs: { "Product Type": "Gentle Face Cleanser", Formulation: "Sulphate-Free, Paraben-Free", "Key Ingredients": "Niacinamide, Vitamin B5, Hydrating Glycerin", "Skin Type": "Dry to Normal, Sensitive", "Professional Use": PRO_USE },
+        variants: [["118ml", 335], ["500ml", 995]],
+      },
+      {
         name: "Professional Face Cleanser",
         brand: "SGT Professional",
         description:
