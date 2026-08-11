@@ -68,7 +68,7 @@ async function cleanup() {
     if (inv) await prisma.inventoryTransaction.deleteMany({ where: { inventoryId: inv.id } });
     await prisma.inventory.deleteMany({ where: { productVariantId: variant.id } });
     await prisma.wholesalePriceTier.deleteMany({ where: { productVariantId: variant.id } });
-    await prisma.productVariant.delete({ where: { id: variant.id } });
+    await prisma.productVariant.deleteMany({ where: { id: variant.id } });
   }
   await prisma.product.deleteMany({ where: { sku: TEST_SKU } });
   await prisma.coupon.deleteMany({ where: { code: { in: ["E2ETEST20", "E2EEXPIRED"] } } });
