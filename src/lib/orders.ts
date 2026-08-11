@@ -203,7 +203,7 @@ export async function createOrderForCustomer(
         await tx.cart.update({ where: { id: cart.id }, data: { couponCode: null } });
 
         return { id: order.id, orderNumber: order.orderNumber, total: order.total.toNumber() };
-      }, { timeout: 15000 });
+      }, { maxWait: 10000, timeout: 30000 });
     } catch (err) {
       lastError = err;
       const isDuplicateOrderNumber =
