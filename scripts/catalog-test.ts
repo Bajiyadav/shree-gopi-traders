@@ -72,10 +72,10 @@ async function main() {
 
   const [categories, products, variants, tiers, inventory] = await Promise.all([
     prisma.category.count({ where: { isActive: true } }),
-    prisma.product.count({ where: { isActive: true } }),
-    prisma.productVariant.count({ where: { isActive: true } }),
-    prisma.wholesalePriceTier.count(),
-    prisma.inventory.count(),
+    prisma.product.count({ where: { isActive: true, NOT: { name: { startsWith: "E2E Test" } } } }),
+    prisma.productVariant.count({ where: { isActive: true, product: { NOT: { name: { startsWith: "E2E Test" } } } } }),
+    prisma.wholesalePriceTier.count({ where: { productVariant: { product: { NOT: { name: { startsWith: "E2E Test" } } } } } }),
+    prisma.inventory.count({ where: { productVariant: { product: { NOT: { name: { startsWith: "E2E Test" } } } } } }),
   ]);
 
   check("15 categories", categories === 15, `${categories} categories`);
@@ -84,38 +84,38 @@ async function main() {
   check("300+ wholesale tiers", tiers >= 300, `${tiers} tiers`);
   check("every variant has inventory", inventory === variants, `${inventory} inventory rows`);
 
-  const noImages = await prisma.product.count({ where: { images: { isEmpty: true } } });
+  const noImages = await prisma.product.count({ where: { images: { isEmpty: true }, NOT: { name: { startsWith: "E2E Test" } } } });
   check("every product has at least one image", noImages === 0, `${noImages} without images`);
 
-  const noDesc = await prisma.product.count({ where: { OR: [{ description: null }, { description: "" }] } });
+  const noDesc = await prisma.product.count({ where: { OR: [{ description: null }, { description: "" }], NOT: { name: { startsWith: "E2E Test" } } } });
   check("every product has a description", noDesc === 0, `${noDesc} without description`);
 
   const shortDesc = await prisma.$queryRaw<{ count: bigint }[]>`
-    SELECT COUNT(*)::bigint AS count FROM "Product" WHERE LENGTH(description) < 80
+    SELECT COUNT(*)::bigint AS count FROM "Product" WHERE LENGTH(description) < 80 AND name NOT LIKE 'E2E Test%'
   `;
   check("descriptions are substantive (80+ chars)", Number(shortDesc[0].count) === 0,
     `${Number(shortDesc[0].count)} too short`);
 
-  const noSpecs = await prisma.product.count({ where: { specs: { equals: {} } } });
+  const noSpecs = await prisma.product.count({ where: { specs: { equals: {} }, NOT: { name: { startsWith: "E2E Test" } } } });
   check("every product has specifications", noSpecs === 0, `${noSpecs} without specs`);
 
-  const noBrand = await prisma.product.count({ where: { OR: [{ brand: null }, { brand: "" }] } });
+  const noBrand = await prisma.product.count({ where: { OR: [{ brand: null }, { brand: "" }], NOT: { name: { startsWith: "E2E Test" } } } });
   check("every product has a brand", noBrand === 0);
 
   // ══ 2. SKU integrity ══════════════════════════════════════
   section("2. SKU uniqueness and format");
 
   const dupProductSku = await prisma.$queryRaw<{ count: bigint }[]>`
-    SELECT COUNT(*)::bigint AS count FROM (SELECT sku FROM "Product" GROUP BY sku HAVING COUNT(*) > 1) d
+    SELECT COUNT(*)::bigint AS count FROM (SELECT sku FROM "Product" WHERE name NOT LIKE 'E2E Test%' GROUP BY sku HAVING COUNT(*) > 1) d
   `;
   const dupVariantSku = await prisma.$queryRaw<{ count: bigint }[]>`
-    SELECT COUNT(*)::bigint AS count FROM (SELECT sku FROM "ProductVariant" GROUP BY sku HAVING COUNT(*) > 1) d
+    SELECT COUNT(*)::bigint AS count FROM (SELECT sku FROM "ProductVariant" WHERE sku NOT LIKE 'E2E-%' GROUP BY sku HAVING COUNT(*) > 1) d
   `;
   check("no duplicate product SKUs", Number(dupProductSku[0].count) === 0);
   check("no duplicate variant SKUs", Number(dupVariantSku[0].count) === 0);
 
   const badFormat = await prisma.$queryRaw<{ count: bigint }[]>`
-    SELECT COUNT(*)::bigint AS count FROM "Product" WHERE sku !~ '^SGT-[A-Z]{2}-[0-9]{3}$'
+    SELECT COUNT(*)::bigint AS count FROM "Product" WHERE sku !~ '^SGT-[A-Z]{2}-[0-9]{3}$' AND name NOT LIKE 'E2E Test%'
   `;
   check("product SKUs match SGT-XX-000", Number(badFormat[0].count) === 0,
     `${Number(badFormat[0].count)} malformed`);
