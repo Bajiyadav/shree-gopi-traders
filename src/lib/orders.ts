@@ -98,7 +98,8 @@ export async function createOrderForCustomer(
 
   for (let attempt = 0; attempt < 3 && !created; attempt++) {
     try {
-      created = await prisma.$transaction(async (tx) => {
+      created = await prisma.$transaction(
+        async (tx) => {
         // Re-validate stock inside the transaction to close the race window.
         for (const line of results) {
           const variant = await tx.productVariant.findUnique({
@@ -202,7 +203,7 @@ export async function createOrderForCustomer(
         await tx.cart.update({ where: { id: cart.id }, data: { couponCode: null } });
 
         return { id: order.id, orderNumber: order.orderNumber, total: order.total.toNumber() };
-      });
+      }, { timeout: 15000 });
     } catch (err) {
       lastError = err;
       const isDuplicateOrderNumber =

@@ -551,3 +551,20 @@ enum EmailStatus {
   FAILED
   SKIPPED
 }
+
+/// Failed authentication attempts, for rate limiting.
+///
+/// Kept in the database rather than in memory because the app runs on
+/// serverless functions: an in-process counter protects one instance and lets
+/// an attacker walk straight past it by landing on another. Rows are cheap and
+/// pruned as they expire.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  /// Either "ip:1.2.3.4" or "user:someone@example.com" — both are limited, so
+  /// one address cannot spray many accounts and one account cannot be ground
+  /// down from many addresses.
+  scope     String
+  createdAt DateTime @default(now())
+
+  @@index([scope, createdAt])
+}

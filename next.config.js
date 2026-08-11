@@ -20,6 +20,36 @@ const nextConfig = {
       {
         source: "/:path*",
         headers: [
+          {
+            // Content-Security-Policy. The site had every other hardening
+            // header but this one, which is the one that limits the damage of
+            // an injected script.
+            //
+            // 'unsafe-inline' is required for scripts: Next.js inlines its
+            // hydration bootstrap, and a nonce cannot be applied to statically
+            // generated pages, which most of this catalogue is. The remaining
+            // directives still remove the paths that make XSS useful — an
+            // injected script cannot phone home (connect-src), cannot load
+            // code from elsewhere (script-src 'self'), cannot reframe the site
+            // (frame-ancestors), and cannot repoint a form (form-action).
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline'",
+              "style-src 'self' 'unsafe-inline'",
+              // Cloudinary is the single remote image host allowed above.
+              "img-src 'self' data: blob: https://res.cloudinary.com",
+              "font-src 'self' data:",
+              "connect-src 'self'",
+              // Payment is cash on delivery; nothing is embedded.
+              "frame-src 'none'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+              "upgrade-insecure-requests",
+            ].join("; "),
+          },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },

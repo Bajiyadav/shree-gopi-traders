@@ -58,7 +58,6 @@ for (const file of files) {
     } else {
       const meta = await sharp(file).metadata();
       const { width: W, height: H } = meta;
-      if (await hasBadgePixels(current, W, H)) { already++; after += current.length; continue; }
       const out = await sharp(file)
         .composite([{ input: Buffer.from(badgeMarkup(W, H, { asDocument: true })), top: 0, left: 0 }])
         // Kept at source resolution; Next.js resizes and re-encodes per request.

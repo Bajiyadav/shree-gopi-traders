@@ -35,6 +35,7 @@ const note = (msg) => fail.push(msg);
 
 // ── Files the database points at ──────────────────────────────
 const products = await prisma.product.findMany({
+  where: { NOT: { name: { startsWith: "E2E Test" } } },
   select: { name: true, slug: true, sku: true, images: true, category: { select: { slug: true, name: true } } },
   orderBy: [{ category: { name: "asc" } }, { name: "asc" }],
 });
