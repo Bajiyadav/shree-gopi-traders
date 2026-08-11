@@ -8,7 +8,7 @@ import { siteConfig } from "@/lib/config";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Shree Gopi Traders for product enquiries, wholesale rate cards, bulk quotes and order support.",
+    "Get in touch with Sree Gopi Traders for product enquiries, wholesale rate cards, bulk quotes and order support.",
   alternates: { canonical: "/contact" },
 };
 

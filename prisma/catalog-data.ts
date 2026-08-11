@@ -83,10 +83,11 @@ export const MOQ_PROFILES = {
 // ── Brands (generic house brands — no real manufacturers) ─────
 
 export const BRANDS = [
-  "SGT Professional",
-  "Shree Gopi Professional",
+  "Salon Care",
+  "Pro Beauty",
   "Salon Pro",
   "Beauty Professional",
+  "Cetaphil",
   "Generic Professional",
 ] as const;
 
@@ -134,7 +135,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Shampoo",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A daily-use salon shampoo formulated for back-to-back client washing. Cleans without stripping colour, rinses clear and lathers economically so a single litre covers more heads. Supplied in salon sizes up to 5L for wash-station refills. Used by salons, parlours and academies for routine wash-and-blow-dry services.",
         specs: { "Product Type": "Shampoo", Formulation: "Sulphate-free", "Hair Type": "All types", Usage: "Daily salon washing", "Professional Use": PRO_USE },
@@ -142,7 +143,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Anti-Dandruff Shampoo",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "An anti-dandruff cleansing shampoo for clients presenting with flaking and scalp irritation. Suitable for use as part of a scalp treatment service or as a retail add-on. Salon sizes reduce cost per wash for high-footfall parlours.",
         specs: { "Product Type": "Medicated shampoo", Concern: "Dandruff / flaky scalp", "Hair Type": "All types", Usage: "2–3 washes per week", "Professional Use": PRO_USE },
@@ -167,7 +168,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Moisturizing Shampoo",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A hydrating shampoo for dry, coarse or chemically processed hair. Leaves hair easier to comb through before blow-dry, reducing chair time. A staple for salons handling frequent colour and chemical work.",
         specs: { "Product Type": "Shampoo", Concern: "Dryness", "Hair Type": "Dry / coarse / processed", Usage: "Daily salon washing", "Professional Use": PRO_USE },
@@ -175,7 +176,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Conditioner",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A salon conditioner for post-wash detangling and slip. Rinses clean without weighing hair down, keeping blow-dries light. Salon-size packs are intended for wash-station use rather than retail.",
         specs: { "Product Type": "Conditioner", "Hair Type": "All types", Usage: "Post-shampoo, rinse out", "Contact Time": "2–3 minutes", "Professional Use": PRO_USE },
@@ -207,7 +208,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Spa Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A deep-conditioning spa cream for salon hair-spa services, used with or without steam. Designed for a single-tub-per-service workflow, with jar sizes matched to salon throughput.",
         specs: { "Product Type": "Hair spa cream", Usage: "Salon hair spa service", "With Steam": "5–10 minutes", "Hair Type": "Dry / damaged", "Professional Use": PRO_USE },
@@ -236,7 +237,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Gel",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A wet-look styling gel with strong hold for slick-back and structured looks. Non-sticky once set and brushes out cleanly. Bulk tubs are intended for barber and salon station use.",
         specs: { "Product Type": "Styling gel", Finish: "Wet look / glossy", Hold: "Strong", Usage: "Apply to damp hair and style", "Professional Use": PRO_USE },
@@ -252,7 +253,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Spray",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A fine-mist finishing spray that holds a set without stiffness. Used at the end of blow-dries, bridal styling and updos. Brushes out without residue, so it suits repeat styling on the same client.",
         specs: { "Product Type": "Hair spray", Hold: "Strong", Finish: "Natural", Usage: "Spray 25–30cm from finished style", "Professional Use": PRO_USE },
@@ -296,7 +297,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Hair Color Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A permanent cream colour for salon application, mixed with developer at the standard ratio. Delivers consistent coverage on grey and holds tone between services. Stocked by shade so colourists can build a working shade wall.",
         specs: { "Product Type": "Permanent hair colour", "Mixing Ratio": "1:1.5 with developer", "Grey Coverage": "Up to 100%", "Processing Time": "30–35 minutes", "Professional Use": PRO_USE },
@@ -312,7 +313,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Developer Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A stabilised cream developer for use with permanent colour and bleach. Available across the standard volume range so colourists can control lift precisely. Salon litre bottles keep cost per service down.",
         specs: { "Product Type": "Cream developer", Consistency: "Stabilised cream", Usage: "Mix with colour or bleach", Storage: "Cool, dark, sealed", "Professional Use": PRO_USE },
@@ -337,7 +338,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Hair Smoothening Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A cream relaxer system for salon smoothening services on wavy and curly hair. Supplied for professional application only — processing must be timed and monitored by a trained stylist.",
         specs: { "Product Type": "Smoothening cream", Strength: "Medium", "Processing Time": "20–30 minutes, monitored", Usage: "Professional application only", "Professional Use": PRO_USE },
@@ -361,7 +362,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Post-Color Treatment Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A pH-balancing mask applied straight after colour rinsing to close the cuticle and lock in tone. Used as the final chair step on every colour service to protect the result.",
         specs: { "Product Type": "Post-colour mask", Usage: "Apply after colour rinse", "Contact Time": "5 minutes", Effect: "pH balance / colour lock", "Professional Use": PRO_USE },
@@ -381,7 +382,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Hair Dryer",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A salon-grade dryer with an AC motor rated for continuous daily use, unlike domestic units that overheat under salon load. Multiple heat and speed settings plus a cool shot for setting the finish. Supplied with concentrator nozzles.",
         specs: { "Product Type": "Hair dryer", Power: "2200W", "Motor Type": "AC professional", Voltage: "220–240V", Settings: "3 heat / 2 speed + cool shot", "Cord Length": "2.7m", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -398,7 +399,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Curler",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A ceramic-barrel curling tong for salon curls, waves and bridal sets. Barrel sizes cover tight curls through loose waves, so a salon can stock the range and match the look to the client.",
         specs: { "Product Type": "Curling tong", "Barrel Material": "Ceramic", "Temperature Range": "120–210°C", Voltage: "220–240V", "Cool Tip": "Yes", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -414,7 +415,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Trimmer",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A close-cutting detail trimmer for necklines, edges, beard outlines and finishing work. Narrow blade gives the control a full-size clipper cannot, so most barber stations carry both.",
         specs: { "Product Type": "Detail trimmer", "Blade Width": "32mm T-blade", Operation: "Cordless rechargeable", Runtime: "Up to 90 minutes", "Charge Time": "2 hours", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -438,7 +439,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Brush Set",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A working set of salon brushes covering round-brush blow-drying, paddle detangling and vent drying. Heat-resistant barrels and anti-static bristles for daily station use.",
         specs: { "Product Type": "Brush set", Includes: "Round, paddle and vent brushes", "Bristle Type": "Anti-static nylon", "Barrel Material": "Heat-resistant", "Professional Use": PRO_USE },
@@ -473,8 +474,40 @@ export const CATALOG: SeedCategory[] = [
         variants: [["118ml", 335], ["500ml", 995]],
       },
       {
+        name: "L’Oréal Paris Glycolic Bright Dark Spot Brightening Serum",
+        brand: "L’Oréal Paris",
+        description:
+          "Formulated with Glycolic Acid, L’Oréal Paris Glycolic Bright Dark Spot Brightening Serum is clinically proven to reduce dark spots, even out skin tone, and boost radiance. Designed for professional salon aesthetic treatments and daily skincare rituals. Leaves skin noticeably brighter, smoother, and luminous with consistent application.",
+        specs: { "Product Type": "Brightening face serum", "Key Active": "Glycolic Acid", Concern: "Dark spots / Hyperpigmentation / Dullness", "Skin Type": "All skin types", Formulation: "Lightweight serum", Usage: "Morning & Night after cleansing", "Professional Use": PRO_USE },
+        variants: [["15ml", 349], ["30ml", 749], ["50ml", 1099]],
+      },
+      {
+        name: "L’Oréal Paris Glycolic Bright Daily Foaming Face Cleanser",
+        brand: "L’Oréal Paris",
+        description:
+          "L’Oréal Paris Glycolic Bright Daily Foaming Face Cleanser gently exfoliates skin and removes dullness for an instantly clean, glowing appearance. Enriched with Glycolic Acid, it micro-exfoliates impurities while maintaining natural moisture balance. Ideal for salon prep and daily facial cleansing.",
+        specs: { "Product Type": "Foaming Face Cleanser", "Key Active": "Glycolic Acid", Concern: "Impurities / Dullness / Uneven Skin Tone", "Skin Type": "All skin types", Texture: "Rich foam lather", "Professional Use": PRO_USE },
+        variants: [["50ml", 199], ["100ml", 349], ["150ml", 499]],
+      },
+      {
+        name: "L’Oréal Paris Glycolic Bright Glowing Night Cream",
+        brand: "L’Oréal Paris",
+        description:
+          "L’Oréal Paris Glycolic Bright Glowing Night Cream works overnight to visibly reduce dark spots and replenish skin moisture. Infused with Glycolic Acid and Vitamin E, this rich night cream nourishes the skin barrier while accelerating overnight cellular renewal for radiant skin every morning.",
+        specs: { "Product Type": "Night Face Cream", "Key Active": "Glycolic Acid & Vitamin E", Concern: "Overnight Repair / Hyperpigmentation", "Skin Type": "All skin types", Texture: "Rich nourishing cream", "Professional Use": PRO_USE },
+        variants: [["15g", 325], ["50g", 699]],
+      },
+      {
+        name: "L’Oréal Paris Glycolic Bright Day Cream With SPF 17",
+        brand: "L’Oréal Paris",
+        description:
+          "L’Oréal Paris Glycolic Bright Day Cream With SPF 17 shields skin from harmful UV rays while actively targeting dark spots. Featuring Glycolic Acid and broad-spectrum sun filters, it prevents sun-induced pigmentation and restores healthy luminosity for all-day skin confidence.",
+        specs: { "Product Type": "Day Face Cream with Sun Protection", "Key Active": "Glycolic Acid & SPF 17", Concern: "UV Protection / Dark Spots", "Skin Type": "All skin types", Texture: "Light non-greasy cream", "Professional Use": PRO_USE },
+        variants: [["15g", 325], ["50g", 699]],
+      },
+      {
         name: "Professional Face Cleanser",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A gentle gel cleanser used as the first step of every facial service. Removes makeup, sunscreen and surface oil without stripping the barrier, leaving skin ready for exfoliation. Litre pumps suit busy treatment rooms.",
         specs: { "Product Type": "Face cleanser", "Skin Type": "All types", "pH Balanced": "Yes", Usage: "Step 1 of facial protocol", "Professional Use": PRO_USE },
@@ -498,7 +531,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Face Toner",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "An alcohol-free toner that rebalances skin pH after cleansing and preps for serum. Used between cleansing and treatment in every standard facial protocol.",
         specs: { "Product Type": "Toner", "Alcohol Free": "Yes", Usage: "Step 2 of facial protocol", "Skin Type": "All types", "Professional Use": PRO_USE },
@@ -506,7 +539,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Moisturizer",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A non-greasy finishing moisturiser applied at the end of a facial to seal treatment and settle the skin. Absorbs quickly so clients can leave without a residue.",
         specs: { "Product Type": "Moisturiser", Finish: "Non-greasy", Usage: "Final step of facial protocol", "Skin Type": "All types", "Professional Use": PRO_USE },
@@ -550,7 +583,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Gold Facial Kit",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A complete single-service gold facial kit containing cleanser, scrub, gel, cream and pack in pre-measured sachets. Removes the guesswork and waste of decanting from bulk jars, which is why most parlours price facials off kits.",
         specs: { "Product Type": "Facial kit", Variant: "Gold", Includes: "Cleanser, scrub, gel, massage cream, pack", "Service Time": "45–60 minutes", "Skin Type": "All types", "Professional Use": PRO_USE },
@@ -558,7 +591,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Diamond Facial Kit",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A brightening diamond facial kit for pre-event and bridal prep services. Positioned above the gold kit on most salon menus and priced accordingly.",
         specs: { "Product Type": "Facial kit", Variant: "Diamond", Includes: "Cleanser, scrub, gel, massage cream, pack", "Service Time": "45–60 minutes", Concern: "Dullness / pre-event glow", "Professional Use": PRO_USE },
@@ -591,7 +624,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Facial Massage Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A high-slip massage cream that stays workable through a full 15–20 minute facial massage without dragging or absorbing too fast. Bought in bulk tubs rather than kits.",
         specs: { "Product Type": "Massage cream", "Slip Duration": "15–20 minutes", Usage: "Facial massage phase", "Skin Type": "All types", "Professional Use": PRO_USE },
@@ -619,7 +652,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Wax Heater",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A thermostat-controlled wax heater sized for salon tubs, holding an even working temperature through a full day of appointments. Single and double-pot versions let a parlour run two wax types at once.",
         specs: { "Product Type": "Wax heater", Capacity: "500ml per pot", "Temperature Range": "35–100°C, thermostatic", Power: "180W", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -635,7 +668,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Hard Wax Beans",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "Stripless hard wax beans that shrink-wrap the hair and peel off without fabric strips. Preferred for underarm, bikini and facial waxing where skin is sensitive. Melts fast and stays pliable at working temperature.",
         specs: { "Product Type": "Hard wax beans", "Strip Required": "No", "Melting Point": "60–65°C", "Best For": "Underarm, bikini, facial", "Professional Use": PRO_USE },
@@ -667,7 +700,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Non-Woven Wax Strips",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "Pre-cut non-woven waxing strips that grip soft wax firmly and tear cleanly. Sold in bulk packs because a busy parlour goes through them by the hundred each week.",
         specs: { "Product Type": "Wax strips", Material: "Non-woven fabric", "Pre-Cut": "Yes", Reusable: "No — single use", "Professional Use": PRO_USE },
@@ -683,7 +716,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Pre & Post Wax Lotion Set",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A matched pre-wax cleansing lotion and post-wax soothing oil. The pre-wax step degreases so wax grips properly; the post-wax step lifts residue and calms the skin before the client leaves.",
         specs: { "Product Type": "Pre/post wax care", Includes: "Pre-wax cleanser + post-wax oil", Usage: "Before and after every wax service", "Skin Type": "All types", "Professional Use": PRO_USE },
@@ -703,7 +736,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Manicure Kit",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A complete stainless steel manicure implement set in a roll case — cutters, pushers, scissors and files. Autoclave-safe so implements can be sterilised between clients, which is the baseline hygiene expectation.",
         specs: { "Product Type": "Manicure kit", Material: "Stainless steel", "Autoclave Safe": "Yes", "Piece Count": "See variant", Includes: "Storage case", "Professional Use": PRO_USE },
@@ -711,7 +744,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Pedicure Kit",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A pedicure implement set including foot file, callus tools, toenail cutters and cuticle instruments. Heavier-gauge tools than a manicure set, since toenail work needs more leverage.",
         specs: { "Product Type": "Pedicure kit", Material: "Stainless steel", "Autoclave Safe": "Yes", Includes: "Foot file, callus tools, cutters, case", "Professional Use": PRO_USE },
@@ -751,7 +784,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Electric Foot Spa Tub",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A heated foot spa with vibration massage and bubble jets for premium pedicure services. Lets a salon charge a spa-pedicure rate rather than a basic one.",
         specs: { "Product Type": "Foot spa", Functions: "Heating, bubble, vibration massage", Capacity: "8 litres", Power: "500W", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -771,7 +804,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Gel Nail Polish",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A soak-off gel polish that cures under UV or LED and wears for two to three weeks without chipping. Sold by shade so nail technicians can build a working colour wall. High-margin, high-repeat product.",
         specs: { "Product Type": "Gel nail polish", "Cure Type": "UV / LED", "Cure Time": "30–60 seconds LED", Wear: "2–3 weeks", "Soak Off": "Yes", "Professional Use": PRO_USE },
@@ -779,7 +812,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Base & Top Coat Set",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A matched gel base and no-wipe top coat. The base grips the natural nail and the top coat seals with a high-gloss finish that does not need cleansing after cure.",
         specs: { "Product Type": "Base and top coat", Includes: "Base coat + no-wipe top coat", "Cure Type": "UV / LED", Finish: "High gloss", "Professional Use": PRO_USE },
@@ -803,7 +836,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Acrylic Powder & Liquid Set",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A professional acrylic system — polymer powder plus monomer liquid — for sculpted extensions and overlays. Sets to a workable bead and files smoothly once cured.",
         specs: { "Product Type": "Acrylic system", Includes: "Polymer powder + monomer liquid", Colors: "Clear / pink / white", "Set Time": "60–90 seconds", "Professional Use": PRO_USE },
@@ -827,7 +860,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "UV/LED Nail Lamp",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A dual-source curing lamp that works with both UV and LED gels, with a motion sensor and preset timers. Wide chamber cures a full hand in one pass rather than finger by finger.",
         specs: { "Product Type": "Curing lamp", "Light Source": "Dual UV + LED", Timers: "10s / 30s / 60s / 99s", "Motion Sensor": "Yes", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -856,7 +889,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional HD Foundation",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A buildable, camera-ready foundation with a natural matte finish that holds under studio and event lighting. Shade range covers light through deep so a makeup artist can work across clients from one kit.",
         specs: { "Product Type": "Foundation", Coverage: "Medium to full, buildable", Finish: "Natural matte", "HD Ready": "Yes", "Wear Time": "Up to 12 hours", "Professional Use": PRO_USE },
@@ -864,7 +897,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Concealer",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A high-coverage creamy concealer for under-eye, blemish and colour correction. Blends without creasing over a full day of wear, which matters for bridal and event work.",
         specs: { "Product Type": "Concealer", Coverage: "High", Finish: "Natural", Usage: "Under-eye and spot correction", "Professional Use": PRO_USE },
@@ -896,7 +929,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Waterproof Eyeliner",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A precision liquid eyeliner with a fine felt tip for sharp wings and tightlining. Waterproof formula holds through emotional occasions and humid conditions.",
         specs: { "Product Type": "Liquid eyeliner", "Tip Type": "Fine felt", Waterproof: "Yes", Color: "Intense black", "Professional Use": PRO_USE },
@@ -920,7 +953,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Makeup Brush Set",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A synthetic-bristle brush set covering face and eye application. Synthetic bristles work with both cream and powder products and wash clean between clients, which natural hair does not do as well.",
         specs: { "Product Type": "Makeup brush set", "Bristle Type": "Synthetic, cruelty free", Includes: "Face and eye brushes + roll case", Washable: "Yes", "Professional Use": PRO_USE },
@@ -956,7 +989,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Salon Cotton Towels",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "Absorbent cotton salon towels sized for wash-station and treatment-room use. Colour-fast so they survive repeated hot washes and bleach-based laundering without going grey.",
         specs: { "Product Type": "Salon towel", Material: "100% cotton", GSM: "400 GSM", Size: "40 x 70 cm", "Colour Fast": "Yes", "Professional Use": PRO_USE },
@@ -972,7 +1005,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Waterproof Salon Cape",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A waterproof cutting and colouring cape with a snap closure. Repels colour and water so it protects client clothing through chemical services.",
         specs: { "Product Type": "Salon cape", Material: "Waterproof polyester", Closure: "Snap button", Reusable: "Yes", Color: "Black", "Professional Use": PRO_USE },
@@ -996,7 +1029,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Hair Coloring Aluminium Foil",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "Salon-weight aluminium foil for highlights, balayage and colour separation. Embossed so it grips hair and holds a fold rather than sliding open mid-processing.",
         specs: { "Product Type": "Colouring foil", Material: "Embossed aluminium", Width: "100mm", Format: "Roll / pre-cut sheets", "Professional Use": PRO_USE },
@@ -1032,7 +1065,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Hydraulic Salon Styling Chair",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A hydraulic styling chair with a heavy-duty pump and a 360° swivel base. Padded PU upholstery wipes clean of colour and is rated for continuous commercial use rather than occasional home use.",
         specs: { "Product Type": "Styling chair", Material: "PU leather over steel frame", "Base Type": "Hydraulic pump, 360° swivel", "Height Range": "50–65 cm adjustable", "Weight Capacity": "150 kg", Dimensions: "60 x 60 x 90-105 cm", Weight: "24 kg", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1040,7 +1073,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Barber Chair",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A reclining barber chair with a headrest and footrest for shaving and beard services. Heavier frame and deeper recline than a styling chair, because barbering needs the client laid back.",
         specs: { "Product Type": "Barber chair", Material: "PU leather over steel", Recline: "Reclining with headrest", Footrest: "Integrated steel", "Weight Capacity": "180 kg", Dimensions: "65 x 120 x 95-115 cm", Weight: "42 kg", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1056,7 +1089,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Salon Styling Station Mirror Unit",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A wall-mounted styling station combining mirror, worktop and tool storage. Keeps dryers and irons off the floor and gives each stylist a defined working position.",
         specs: { "Product Type": "Styling station", Material: "Laminated MDF with glass mirror", Storage: "Drawers and appliance holders", Mounting: "Wall mounted", Dimensions: "110 x 45 x 180 cm", Weight: "38 kg", "Professional Use": PRO_USE },
@@ -1072,7 +1105,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Facial Bed",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A padded treatment couch with adjustable backrest for facials, threading and massage. Wipe-clean upholstery and a face cradle for prone treatments.",
         specs: { "Product Type": "Facial bed", Material: "PU leather over steel frame", Adjustment: "Multi-position backrest", "Weight Capacity": "200 kg", Dimensions: "185 x 70 x 65 cm", Weight: "32 kg", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1117,7 +1150,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Professional Facial Steamer",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "An ozone facial steamer on an adjustable arm, used to soften skin and open pores before extraction. The step that makes a clean-up service effective rather than superficial.",
         specs: { "Product Type": "Facial steamer", Ozone: "Yes, switchable", "Tank Capacity": "700ml", "Heat-Up Time": "3–5 minutes", Power: "650W", Voltage: "220–240V", Mounting: "Rolling floor stand", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1125,7 +1158,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "UV Tool Sterilizer Cabinet",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A UV sterilising cabinet for combs, scissors, nail implements and brushes. Running tools through a steriliser between clients is a basic hygiene requirement and something clients increasingly look for.",
         specs: { "Product Type": "UV steriliser", Capacity: "See variant", "UV Lamp": "Germicidal UV-C", "Cycle Time": "15–20 minutes", Power: "20W", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1149,7 +1182,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Hot Towel Cabinet",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A heated cabinet that keeps towels at service temperature for facials, shaving and massage. Removes the microwave-and-wait step from the treatment flow.",
         specs: { "Product Type": "Towel warmer", Capacity: "See variant", "Temperature Range": "Up to 80°C", Power: "230W", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1165,7 +1198,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Hair Steamer",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A stand-mounted hood steamer for hair spa, deep conditioning and colour processing. Even heat distribution opens the cuticle so treatments penetrate rather than sitting on the surface.",
         specs: { "Product Type": "Hair steamer", Mounting: "Rolling floor stand", "Timer Range": "0–60 minutes", "Height Adjustable": "Yes", Power: "650W", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
@@ -1209,7 +1242,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Professional Shaving Cream",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A rich lathering shaving cream that holds its foam through a full straight-razor shave without collapsing. Bulk tubs suit barbershops running shaves all day.",
         specs: { "Product Type": "Shaving cream", "Lather Type": "Rich, stable", Usage: "Brush or hand application", "Skin Type": "All including sensitive", "Professional Use": PRO_USE },
@@ -1217,7 +1250,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "After Shave Lotion",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A cooling after-shave applied at the end of a shave to close pores and calm razor irritation. The finishing step clients associate with a proper barbershop shave.",
         specs: { "Product Type": "After shave", Effect: "Cooling, antiseptic", Usage: "Apply after shaving", "Alcohol Content": "Low", "Professional Use": PRO_USE },
@@ -1261,7 +1294,7 @@ export const CATALOG: SeedCategory[] = [
     products: [
       {
         name: "Salon Surface Disinfectant",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A broad-spectrum disinfectant for stations, chairs, beds and trolleys. Used between clients on any surface that has been touched during a service.",
         specs: { "Product Type": "Surface disinfectant", Spectrum: "Bactericidal, virucidal, fungicidal", "Contact Time": "1–2 minutes", Usage: "Wipe or spray, between clients", "Professional Use": PRO_USE },
@@ -1269,7 +1302,7 @@ export const CATALOG: SeedCategory[] = [
       },
       {
         name: "Instrument Disinfectant Solution",
-        brand: "SGT Professional",
+        brand: "Salon Care",
         description:
           "A concentrated soak solution for scissors, combs, nail implements and razors before sterilisation. Dilutes down, so a 5L container covers a long period of daily use.",
         specs: { "Product Type": "Instrument disinfectant", Format: "Concentrate", "Dilution Ratio": "1:20", "Soak Time": "10–15 minutes", "Corrosion Inhibited": "Yes", "Professional Use": PRO_USE },

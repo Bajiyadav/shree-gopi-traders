@@ -13,7 +13,7 @@ import nodemailer, { type Transporter } from "nodemailer";
  *   SMTP_PORT        465 for implicit TLS, 587 for STARTTLS
  *   SMTP_USER        the mailbox login
  *   SMTP_PASSWORD    an app password, never the account password
- *   MAIL_FROM        "Shree Gopi Traders <orders@yourdomain.com>"
+ *   MAIL_FROM        "Sree Gopi Traders <orders@yourdomain.com>"
  * Optional:
  *   MAIL_REPLY_TO    where customer replies should land
  *

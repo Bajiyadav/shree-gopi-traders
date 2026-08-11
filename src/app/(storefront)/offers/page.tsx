@@ -9,7 +9,7 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Offers & Coupons",
   description:
-    "Current discounts, coupon codes and marked-down professional salon supplies at Shree Gopi Traders.",
+    "Current discounts, coupon codes and marked-down professional salon supplies at Sree Gopi Traders.",
   alternates: { canonical: "/offers" },
 };
 

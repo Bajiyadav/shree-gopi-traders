@@ -43,23 +43,30 @@ export async function registerCustomerAction(
     return { ok: false, fieldErrors: { email: "An account with this email already exists" } };
   }
 
-  const customer = await prisma.customer.create({
-    data: {
-      name: data.name,
-      email: data.email,
-      phone: data.phone ?? "",
-      passwordHash: await hashPassword(data.password),
-      businessProfile: {
-        create: {
-          businessName: data.businessName,
-          businessType: data.businessType,
-          gstNumber: data.gstNumber || null,
+  const name = (data.name && data.name.trim().length > 0) ? data.name.trim() : data.businessName;
+
+  try {
+    const customer = await prisma.customer.create({
+      data: {
+        name,
+        email: data.email,
+        phone: data.phone ?? "",
+        passwordHash: await hashPassword(data.password),
+        businessProfile: {
+          create: {
+            businessName: data.businessName,
+            businessType: data.businessType,
+            gstNumber: data.gstNumber || null,
+          },
         },
       },
-    },
-  });
+    });
 
-  await createCustomerSession(customer.id);
+    await createCustomerSession(customer.id);
+  } catch (err) {
+    return { ok: false, error: errorMessage(err, "Failed to create account. Please try again.") };
+  }
+
   redirect(safeNext(formData.get("next"), "/account"));
 }
 

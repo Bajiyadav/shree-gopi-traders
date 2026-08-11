@@ -66,13 +66,8 @@ const password = z
 // ── Auth ──
 
 export const registerSchema = z.object({
-  name: z.string().trim().min(2, "Name is required").max(80),
+  name: z.string().trim().max(80).optional().or(z.literal("")),
   email: z.string().trim().toLowerCase().email("Enter a valid email"),
-  // Not asked for at sign-up. Checkout collects the delivery number, which is
-  // the one that actually matters for a cash-on-delivery wholesale order — a
-  // second number captured months earlier is usually the one that is stale.
-  // Customer.phone stays non-null in the schema, so an account created without
-  // one stores an empty string rather than requiring a migration.
   phone: phone.optional(),
   password,
   businessName: z.string().trim().min(2, "Business name is required").max(120),

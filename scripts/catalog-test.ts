@@ -171,7 +171,7 @@ async function main() {
   check("search by exact SKU returns the product", skuHit.total === 1,
     skuHit.items[0]?.name ?? "no match");
 
-  const brandHit = await searchProducts({ q: "SGT Professional", pageSize: 100 });
+  const brandHit = await searchProducts({ q: "Salon Care", pageSize: 100 });
   check("search by brand returns products", brandHit.total > 0, `${brandHit.total} results`);
 
   const nonsense = await searchProducts({ q: "zzzznotaproduct", pageSize: 10 });
@@ -206,11 +206,10 @@ async function main() {
 
   // Every category resolves to real products.
   const allCategories = await prisma.category.findMany({ where: { isActive: true }, select: { name: true, slug: true } });
-  let emptyCategories = 0;
-  for (const c of allCategories) {
-    const r = await searchProducts({ category: c.slug, pageSize: 1 });
-    if (r.total === 0) emptyCategories++;
-  }
+  const categoryResults = await Promise.all(
+    allCategories.map((c) => searchProducts({ category: c.slug, pageSize: 1 }))
+  );
+  const emptyCategories = categoryResults.filter((r) => r.total === 0).length;
   check("every category page has products", emptyCategories === 0, `${emptyCategories} empty`);
 
   // ══ 6. Wholesale pricing at 1 / 5 / 10 / 25 ═══════════════
@@ -359,7 +358,7 @@ async function main() {
     failures.forEach((f) => console.log(`    - ${f}`));
   }
   console.log("");
-  if (failed > 0) process.exitCode = 1;
+  process.exit(failed > 0 ? 1 : 0);
 }
 
 main()

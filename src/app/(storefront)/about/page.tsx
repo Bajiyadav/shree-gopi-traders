@@ -8,7 +8,7 @@ import { WhatsAppBanner } from "@/components/layout/WhatsApp";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Shree Gopi Traders is a B2B supplier of professional salon, parlour, spa and beauty materials — serving beauty businesses across India with wholesale pricing and cash on delivery.",
+    "Sree Gopi Traders is a B2B supplier of professional salon, parlour, spa and beauty materials — serving beauty businesses across India with wholesale pricing and cash on delivery.",
   alternates: { canonical: "/about" },
 };
 

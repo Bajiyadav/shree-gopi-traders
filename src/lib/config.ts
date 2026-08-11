@@ -39,7 +39,11 @@ function resolveSiteUrl(): string {
 }
 
 export const siteConfig = {
-  brandName: process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Shree Gopi Traders",
+  brandName:
+    process.env.NEXT_PUBLIC_BRAND_NAME?.trim() &&
+    process.env.NEXT_PUBLIC_BRAND_NAME.trim() !== "Shree Gopi Traders"
+      ? process.env.NEXT_PUBLIC_BRAND_NAME.trim()
+      : "Sree Gopi Traders",
   tagline: "Everything Your Salon Needs. In One Place.",
   supportingText:
     "Professional salon, parlour, beauty and spa supplies for businesses of every size.",

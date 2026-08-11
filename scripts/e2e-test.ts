@@ -541,7 +541,7 @@ async function main() {
   }
   console.log("");
 
-  if (failed > 0) process.exitCode = 1;
+  process.exit(failed > 0 ? 1 : 0);
 }
 
 main()
