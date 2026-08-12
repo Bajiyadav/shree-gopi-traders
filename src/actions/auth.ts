@@ -16,6 +16,7 @@ import {
   checkAuthRate, recordFailedAuth, clearAuthFailures, rateLimitMessage,
 } from "@/lib/rate-limit";
 import { errorMessage } from "@/lib/utils";
+import { sendCustomerWelcomeEmail } from "@/lib/email/send";
 import type { ActionState } from "./types";
 
 /** Only allow same-origin relative paths as a post-login redirect target. */
@@ -63,6 +64,14 @@ export async function registerCustomerAction(
     });
 
     await createCustomerSession(customer.id);
+    
+    // Fire confirmation email asynchronously (does not block registration response)
+    void sendCustomerWelcomeEmail({
+      email: customer.email,
+      name: customer.name,
+      phone: customer.phone,
+      businessName: data.businessName,
+    });
   } catch (err) {
     return { ok: false, error: errorMessage(err, "Failed to create account. Please try again.") };
   }
@@ -81,7 +90,14 @@ export async function loginCustomerAction(
   if (!rate.allowed) return { ok: false, error: rateLimitMessage(rate.retryAfterMinutes) };
 
   try {
-    await customerLogin(parsed.data.email, parsed.data.password);
+    const customer = await customerLogin(parsed.data.email, parsed.data.password);
+    if (customer) {
+      void sendCustomerWelcomeEmail({
+        email: customer.email,
+        name: customer.name,
+        phone: customer.phone,
+      });
+    }
   } catch (err) {
     // Counted before the message goes back, so a scripted attempt is throttled
     // whether it guesses an existing address or not.

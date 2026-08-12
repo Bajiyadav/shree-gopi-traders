@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Phone, Mail, User } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Card, EmptyState, PageHeader } from "@/components/ui";
 import { StatCard } from "@/components/admin/StatCard";
@@ -127,6 +128,30 @@ export default async function AdminCustomerDetailPage({ params }: { params: { id
         </div>
 
         <aside className="space-y-5">
+          <Card className="p-5 border-l-4 border-l-brand-600 bg-slate-50/50">
+            <h2 className="text-base font-semibold text-slate-900 flex items-center gap-2">
+              <User className="h-4 w-4 text-brand-700" /> Customer Contact Info
+            </h2>
+            <dl className="mt-3.5 space-y-3 text-sm">
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-slate-500">Full Name</dt>
+                <dd className="font-semibold text-slate-900 mt-0.5">{customer.name}</dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+                  <Phone className="h-3.5 w-3.5 text-brand-700" /> Mobile Number
+                </dt>
+                <dd className="font-bold text-brand-800 text-base mt-0.5">{customer.phone || "No phone provided"}</dd>
+              </div>
+              <div>
+                <dt className="text-xs font-semibold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+                  <Mail className="h-3.5 w-3.5 text-brand-700" /> Email Address
+                </dt>
+                <dd className="font-medium text-slate-900 break-all mt-0.5">{customer.email}</dd>
+              </div>
+            </dl>
+          </Card>
+
           <Card className="p-5">
             <h2 className="text-base font-semibold">Business Profile</h2>
             <dl className="mt-3 space-y-2.5 text-sm">

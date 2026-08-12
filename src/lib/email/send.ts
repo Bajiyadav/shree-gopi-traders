@@ -190,3 +190,64 @@ export async function retryFailedEmails(limit = 50) {
   }
   return { attempted: failed.length, sent, stillFailing };
 }
+
+/**
+ * Sends a welcome / sign-in confirmation email to the customer upon registration or sign-in.
+ */
+export async function sendCustomerWelcomeEmail(data: {
+  email: string;
+  name: string;
+  phone?: string;
+  businessName?: string;
+}): Promise<SendOutcome> {
+  try {
+    const subject = `Welcome to Shree Gopi Traders — Account Confirmed`;
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 8px; background-color: #ffffff;">
+        <h2 style="color: #6d28d9; margin-top: 0; font-size: 22px;">Welcome to Shree Gopi Traders!</h2>
+        <p style="color: #334155; font-size: 15px; line-height: 1.5;">Dear <strong>${data.name}</strong>${data.businessName ? ` (${data.businessName})` : ""},</p>
+        <p style="color: #334155; font-size: 15px; line-height: 1.5;">Your account sign-in / registration has been confirmed. You now have access to wholesale B2B trade pricing and volume discounts.</p>
+        
+        <div style="background-color: #f8fafc; padding: 16px; border-radius: 8px; border-left: 4px solid #6d28d9; margin: 20px 0;">
+          <h4 style="margin-top: 0; color: #0f172a; font-size: 14px; text-transform: uppercase; tracking: 0.5px;">Account Details:</h4>
+          <p style="margin: 6px 0; color: #334155; font-size: 14px;"><strong>Customer Name:</strong> ${data.name}</p>
+          <p style="margin: 6px 0; color: #334155; font-size: 14px;"><strong>Email Address:</strong> ${data.email}</p>
+          <p style="margin: 6px 0; color: #334155; font-size: 14px;"><strong>Mobile / Phone:</strong> ${data.phone || "Not provided"}</p>
+          ${data.businessName ? `<p style="margin: 6px 0; color: #334155; font-size: 14px;"><strong>Business Name:</strong> ${data.businessName}</p>` : ""}
+        </div>
+
+        <p style="color: #334155; font-size: 14px; line-height: 1.5;">You can browse products, view quantity breaks, and place wholesale orders directly on our portal.</p>
+
+        <div style="margin-top: 24px;">
+          <a href="http://localhost:3000/products" style="background-color: #6d28d9; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Browse Wholesale Catalogue</a>
+        </div>
+
+        <hr style="margin-top: 32px; border: none; border-top: 1px solid #e2e8f0;" />
+        <p style="font-size: 12px; color: #64748b;">Shree Gopi Traders — Official Wholesale Salon & Beauty Supplies</p>
+      </div>
+    `;
+    const text = `Welcome to Shree Gopi Traders!\n\nCustomer: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || "N/A"}\nBusiness: ${data.businessName || "N/A"}`;
+
+    const cfg = readMailConfig();
+    const transport = getTransport();
+    if (!cfg || !transport) {
+      console.info(`[email] Welcome & Sign-in confirmation logged for ${data.email}`);
+      return { ok: true, messageId: "welcome-logged" };
+    }
+
+    const info = await transport.sendMail({
+      from: cfg.from,
+      to: data.email,
+      replyTo: cfg.replyTo,
+      subject,
+      html,
+      text,
+    });
+    console.info(`[email] Welcome confirmation sent to ${data.email}`);
+    return { ok: true, messageId: info.messageId ?? "sent" };
+  } catch (err) {
+    console.error(`[email] Welcome email error:`, err);
+    return { ok: false, error: String(err) };
+  }
+}
+

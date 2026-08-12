@@ -46,6 +46,7 @@ export default async function AdminOrdersPage({
           select: {
             name: true,
             phone: true,
+            email: true,
             businessProfile: { select: { businessName: true } },
           },
         },
@@ -139,13 +140,19 @@ export default async function AdminOrdersPage({
                       </Link>
                     </td>
                     <td className="px-4 py-3">
-                      <p className="text-slate-900">
+                      <p className="font-semibold text-slate-900">
                         {order.businessName ??
                           order.customer.businessProfile?.businessName ??
-                          "—"}
+                          order.customer.name}
                       </p>
-                      <p className="text-xs text-slate-500">
-                        {order.customer.name} · {order.customer.phone}
+                      <p className="mt-0.5 text-xs text-slate-700 font-medium">
+                        {order.customer.name}
+                      </p>
+                      <p className="mt-0.5 text-xs font-semibold text-brand-700">
+                        📱 {order.customer.phone || "No phone"}
+                      </p>
+                      <p className="break-all text-xs font-medium text-slate-600">
+                        ✉️ {order.customer.email}
                       </p>
                     </td>
                     <td className="px-4 py-3 text-slate-500">{formatDate(order.createdAt)}</td>

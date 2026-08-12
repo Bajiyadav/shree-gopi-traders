@@ -311,6 +311,14 @@ export default async function HomePage() {
           </div>
 
           <Card className="overflow-hidden">
+            <div className="relative aspect-[16/7] w-full overflow-hidden">
+              <Image
+                src="/images/banners/b2b-warehouse-banner.png"
+                alt="Shree Gopi Traders B2B Wholesale Warehouse"
+                fill
+                className="object-cover"
+              />
+            </div>
             <div className="border-b border-slate-200 bg-white px-5 py-4">
               <p className="text-sm font-semibold text-slate-900">Example: Professional Shampoo 1L</p>
               <p className="mt-0.5 text-xs text-slate-500">
@@ -374,6 +382,28 @@ export default async function HomePage() {
       {equipment.length > 0 && (
         <section className="border-y border-slate-200 bg-slate-50">
           <div className="container-page py-14 sm:py-16">
+            <div className="mb-8 relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+              <Image
+                src="/images/banners/spa-equipment-banner.png"
+                alt="Luxury Salon Equipment & Furniture Showcase"
+                fill
+                priority
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/40 to-transparent flex items-center p-8 sm:p-12">
+                <div className="max-w-md text-white">
+                  <span className="inline-block rounded-full bg-brand-500/20 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-300 backdrop-blur-md border border-brand-400/30">
+                    Commercial Equipment
+                  </span>
+                  <h3 className="mt-3 text-2xl sm:text-3xl font-bold">
+                    Turnkey Furniture &amp; Spa Stations
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-200 hidden sm:block">
+                    Heavy-duty hydraulic chairs, 2-in-1 ozone steamers, and luxury pedicure spa baths built for 5-star parlour setups.
+                  </p>
+                </div>
+              </div>
+            </div>
             <SectionHeading
               title="Professional Equipment & Furniture"
               description="Chairs, stations, sterilizers and machines — built for commercial salon use."

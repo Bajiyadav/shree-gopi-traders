@@ -235,18 +235,22 @@ export default async function AdminOrderDetailPage({ params }: { params: { id: s
             </p>
           </Card>
 
-          <Card className="p-5">
-            <h2 className="text-base font-semibold">Customer</h2>
-            <div className="mt-3 space-y-1 text-sm">
+          <Card className="p-5 border-l-4 border-l-brand-600 bg-slate-50/50">
+            <h2 className="text-base font-semibold text-slate-900">Customer Details</h2>
+            <div className="mt-3 space-y-1.5 text-sm">
               <Link
                 href={`/admin/customers/${order.customerId}`}
-                className="font-medium text-brand-700 hover:text-brand-800"
+                className="font-bold text-brand-700 hover:text-brand-800 text-base block"
               >
                 {order.customer.businessProfile?.businessName ?? order.customer.name}
               </Link>
-              <p className="text-slate-600">{order.customer.name}</p>
-              <p className="text-slate-600">{order.customer.phone}</p>
-              <p className="break-all text-slate-600">{order.customer.email}</p>
+              <p className="font-semibold text-slate-900">{order.customer.name}</p>
+              <p className="font-bold text-brand-800 flex items-center gap-1">
+                <span>📱 Mobile:</span> {order.customer.phone || "No phone provided"}
+              </p>
+              <p className="break-all font-medium text-slate-700 flex items-center gap-1">
+                <span>✉️ Email:</span> {order.customer.email}
+              </p>
             </div>
 
             <h3 className="mt-5 text-sm font-semibold">Delivery Address</h3>

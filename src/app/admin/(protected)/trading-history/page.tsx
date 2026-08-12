@@ -19,44 +19,102 @@ export const dynamic = "force-dynamic";
 
 const money = (n: number) => formatCurrency(n, { decimals: false });
 
-export default async function TradingHistoryPage() {
+export default async function TradingHistoryPage({
+  searchParams,
+}: {
+  searchParams?: { view?: string; months?: string };
+}) {
   const h = await getTradingHistory();
-  const t = h.totals;
+  const isOneMonth = searchParams?.view === "1m" || searchParams?.months === "1";
+
+  // When 1-month view is requested, focus on the single month with the lower/lowest sales (h.worst)
+  const targetMonths = isOneMonth ? [h.worst] : h.months;
+  const isSingleMonth = targetMonths.length === 1;
+
+  const totals = isSingleMonth
+    ? {
+        orders: h.worst.orders,
+        cancelled: h.worst.cancelled,
+        customers: h.worst.customers,
+        newCustomers: h.worst.newCustomers,
+        invoices: h.worst.invoices,
+        itemsSold: h.worst.itemsSold,
+        grossSales: h.worst.grossSales,
+        discounts: h.worst.discounts,
+        netSales: h.worst.netSales,
+        cogs: h.worst.cogs,
+        grossProfit: h.worst.grossProfit,
+        expenses: h.worst.expenses,
+        netProfit: h.worst.netProfit,
+        avgOrderValue: h.worst.avgOrderValue,
+        avgMonthlySales: h.worst.netSales,
+        profitMargin: h.worst.netSales ? (h.worst.netProfit / h.worst.netSales) * 100 : 0,
+        grossMarginPct: h.worst.netSales ? (h.worst.grossProfit / h.worst.netSales) * 100 : 0,
+        revenueGrowth: h.worst.revenueGrowth,
+        repeatCustomerPct: h.totals.repeatCustomerPct,
+      }
+    : h.totals;
+
+  const t = totals;
   const analysis = narrate(h);
 
-  const chartData = h.months.map((m) => ({
-    month: m.month, netSales: m.netSales, orders: m.orders,
-    netProfit: m.netProfit, grossProfit: m.grossProfit,
-    customers: m.customers, newCustomers: m.newCustomers, isPartial: m.isPartial,
+  const chartData = targetMonths.map((m) => ({
+    month: m.month,
+    netSales: m.netSales,
+    orders: m.orders,
+    netProfit: m.netProfit,
+    grossProfit: m.grossProfit,
+    customers: m.customers,
+    newCustomers: m.newCustomers,
+    isPartial: m.isPartial,
   }));
 
-  const period = `${h.months[0].month} – ${h.months[h.months.length - 1].month}`;
+  const period = isSingleMonth
+    ? `1 Month (${h.worst.month} - Lower Sales Period)`
+    : `${h.months[0].month} – ${h.months[h.months.length - 1].month}`;
 
-  /**
-   * The footer sums the ROUNDED monthly figures, not the unrounded totals.
-   *
-   * Each month is displayed to the whole rupee, so adding the printed column
-   * can land a rupee or two away from the exact annual figure. An owner
-   * checking the column in front of a client would find it did not add up.
-   * The underlying values reconcile exactly; this only makes the printed
-   * column self-consistent.
-   */
   const shown = {
-    orders: h.months.reduce((s, m) => s + m.orders, 0),
-    netSales: h.months.reduce((s, m) => s + Math.round(m.netSales), 0),
-    cogs: h.months.reduce((s, m) => s + Math.round(m.cogs), 0),
-    grossProfit: h.months.reduce((s, m) => s + Math.round(m.grossProfit), 0),
-    expenses: h.months.reduce((s, m) => s + Math.round(m.expenses), 0),
-    netProfit: h.months.reduce((s, m) => s + Math.round(m.netProfit), 0),
-    invoices: h.months.reduce((s, m) => s + m.invoices, 0),
+    orders: targetMonths.reduce((s, m) => s + m.orders, 0),
+    netSales: targetMonths.reduce((s, m) => s + Math.round(m.netSales), 0),
+    cogs: targetMonths.reduce((s, m) => s + Math.round(m.cogs), 0),
+    grossProfit: targetMonths.reduce((s, m) => s + Math.round(m.grossProfit), 0),
+    expenses: targetMonths.reduce((s, m) => s + Math.round(m.expenses), 0),
+    netProfit: targetMonths.reduce((s, m) => s + Math.round(m.netProfit), 0),
+    invoices: targetMonths.reduce((s, m) => s + m.invoices, 0),
   };
 
   return (
     <>
-      <PageHeader
-        title="Trading History"
-        description={`Twelve months of trading, ${period}. Every figure on this page is read from one dataset.`}
-      />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <PageHeader
+          title="Trading History"
+          description={
+            isSingleMonth
+              ? `One month history showing the lower sales period (${h.worst.month}).`
+              : `Twelve months of trading, ${period}. Every figure on this page is read from one dataset.`
+          }
+        />
+
+        {/* Period Filter Selector */}
+        <div className="inline-flex items-center rounded-lg border border-slate-200 bg-slate-100 p-1 text-xs font-medium shrink-0 mb-4 sm:mb-0">
+          <Link
+            href="/admin/trading-history"
+            className={`rounded-md px-3 py-1.5 transition-colors ${
+              !isOneMonth ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            1 Year (12 Months)
+          </Link>
+          <Link
+            href="/admin/trading-history?view=1m"
+            className={`rounded-md px-3 py-1.5 transition-colors ${
+              isOneMonth ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            1 Month (Lower Sales)
+          </Link>
+        </div>
+      </div>
 
       {!h.reconciles && (
         <div className="mb-5 flex items-start gap-3 rounded-lg border border-red-200 bg-red-50 p-4">
@@ -148,7 +206,7 @@ export default async function TradingHistoryPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {h.months.map((m) => (
+              {targetMonths.map((m) => (
                 <tr key={m.month} className={m.isPartial ? "bg-amber-50/40" : undefined}>
                   <td className="whitespace-nowrap px-4 py-2.5 font-medium text-slate-900">
                     {m.month}
@@ -173,7 +231,7 @@ export default async function TradingHistoryPage() {
             </tbody>
             <tfoot className="border-t-2 border-slate-300 bg-slate-50 font-semibold">
               <tr>
-                <td className="px-4 py-3">12-month total</td>
+                <td className="px-4 py-3">{isSingleMonth ? "1-month total" : "12-month total"}</td>
                 <td className="px-4 py-3 text-right tabular-nums">{shown.orders}</td>
                 <td className="px-4 py-3 text-right tabular-nums">{t.customers}</td>
                 <td className="px-4 py-3 text-right tabular-nums">{money(shown.netSales)}</td>

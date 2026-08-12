@@ -252,11 +252,18 @@ export async function getPriceRange(): Promise<{ min: number; max: number }> {
 }
 
 export async function getActiveCategories() {
-  return prisma.category.findMany({
+  const cats = await prisma.category.findMany({
     where: { isActive: true },
     orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-    include: { _count: { select: { products: { where: { isActive: true } } } } },
+    include: {
+      _count: { select: { products: { where: { isActive: true } } } },
+      products: { where: { isActive: true }, take: 1, select: { images: true } },
+    },
   });
+  return cats.map((c) => ({
+    ...c,
+    imageUrl: c.imageUrl || c.products[0]?.images[0] || null,
+  }));
 }
 
 /** Best sellers by units actually sold (cancelled orders excluded). */

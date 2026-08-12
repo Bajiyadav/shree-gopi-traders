@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import type { Prisma } from "@prisma/client";
-import { Users } from "lucide-react";
+import { Users, Phone, Mail } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Card, EmptyState, PageHeader } from "@/components/ui";
 import { Toolbar } from "@/components/admin/common";
@@ -105,9 +105,15 @@ export default async function AdminCustomersPage({
                         )}
                       </td>
                       <td className="px-4 py-3">
-                        <p className="text-slate-700">{customer.name}</p>
-                        <p className="text-xs text-slate-500">{customer.phone}</p>
-                        <p className="break-all text-xs text-slate-500">{customer.email}</p>
+                        <p className="font-semibold text-slate-900">{customer.name}</p>
+                        <p className="mt-0.5 flex items-center gap-1.5 text-xs font-semibold text-brand-700">
+                          <Phone className="h-3.5 w-3.5 shrink-0 text-brand-700" />
+                          <span>{customer.phone || "No phone"}</span>
+                        </p>
+                        <p className="mt-0.5 flex items-center gap-1.5 break-all text-xs font-medium text-slate-700">
+                          <Mail className="h-3.5 w-3.5 shrink-0 text-slate-400" />
+                          <span>{customer.email}</span>
+                        </p>
                       </td>
                       <td className="px-4 py-3 text-slate-600">
                         {humanize(customer.businessProfile?.businessType ?? "OTHER")}

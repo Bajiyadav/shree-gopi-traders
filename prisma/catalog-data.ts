@@ -283,6 +283,46 @@ export const CATALOG: SeedCategory[] = [
         specs: { "Product Type": "Texturising powder", Effect: "Root lift / texture", Finish: "Matte", Usage: "Sprinkle at roots and massage in", "Professional Use": PRO_USE },
         variants: [["10g", 195], ["20g", 340]],
       },
+      {
+        name: "Streax Shine Hair Serum With Walnut Oil",
+        brand: "Streax",
+        description:
+          "Streax Shine Hair Serum with Walnut Oil gives 24-hour tangle-free, frizz-free, silky shiny hair. Lightweight formula enriched with Walnut Oil and Vitamin E nourishes hair strands deeply without feeling greasy.",
+        specs: { "Product Type": "Shine Hair Serum", "Key Ingredients": "Walnut Oil & Vitamin E", Benefit: "24-Hour Shine, Tangle-Free & Frizz Control", "Hair Type": "All Hair Types", "Net Volume": "100ml", "Professional Use": PRO_USE },
+        variants: [["45ml", 135], ["100ml", 240]],
+      },
+      {
+        name: "Streax Professional Vitariche Gloss Hair Serum",
+        brand: "Streax Professional",
+        description:
+          "Streax Professional Vitariche Gloss Hair Serum enriched with Macadamia Oil and Vitamin E delivers a high-gloss, silky-smooth finish. Protects hair against styling heat and tames frizzy flyaways for salon-perfect hair.",
+        specs: { "Product Type": "Professional Gloss Hair Serum", "Key Ingredients": "Macadamia Oil & Vitamin E", Finish: "High-Gloss Silky Smooth Finish", "Hair Type": "Frizzy, Unruly or Dull Hair", "Net Volume": "75ml", "Professional Use": PRO_USE },
+        variants: [["45ml", 155], ["75ml", 275], ["100ml", 350]],
+      },
+      {
+        name: "Streax Craft Strength Hair Serum With Vitamin E",
+        brand: "Streax Craft",
+        description:
+          "Streax Craft Strength Serum with Vitamin E and Exotic Fruit Seed Oil is engineered specifically for chemically treated hair (color, permed, or straightened). Strengthens damaged hair shafts, repairs split ends, and locks in moisture.",
+        specs: { "Product Type": "Strengthening Serum for Chemically Treated Hair", "Key Actives": "Vitamin E & Exotic Fruit Seed Oil", "Target Hair": "Color-Treated, Smoothened or Chemically Damaged Hair", "Net Volume": "100ml", "Professional Use": PRO_USE },
+        variants: [["100ml", 320]],
+      },
+      {
+        name: "Streax Professional Scalp Care Hairfall Rescue Serum",
+        brand: "Streax Professional",
+        description:
+          "Streax Professional Scalp Care Hairfall Rescue Serum enriched with Rosemary Extract and expert Hairfall Control formula. Targets weak hair roots, revitalizes hair follicles, and reduces hair fall due to breakage.",
+        specs: { "Product Type": "Scalp Care Hairfall Rescue Serum", "Key Active": "Rosemary Extract & Scalp Revitalizer", "Target Concern": "Hairfall Control & Weak Hair Roots", "Net Volume": "100ml", Applicator: "Precision Nozzle Spray", "Professional Use": PRO_USE },
+        variants: [["100ml", 395]],
+      },
+      {
+        name: "Streax Professional Repair Max Hair Serum Vitariche Care",
+        brand: "Streax Professional",
+        description:
+          "Streax Professional Repair Max Hair Serum Vitariche Care enriched with Vita-Oils repairs and revitalizes dry, damaged, and over-processed hair. Restores elasticity, seals split ends, and leaves hair soft, nourished, and manageable.",
+        specs: { "Product Type": "Intense Repair & Nourishing Hair Serum", "Active Complex": "Vita-Oils Repair Complex", "Target Hair": "Dry, Damaged, Brittle & Over-Processed Hair", "Net Volume": "100ml", "Professional Use": PRO_USE },
+        variants: [["100ml", 310]],
+      },
     ],
   },
 
@@ -367,6 +407,38 @@ export const CATALOG: SeedCategory[] = [
           "A pH-balancing mask applied straight after colour rinsing to close the cuticle and lock in tone. Used as the final chair step on every colour service to protect the result.",
         specs: { "Product Type": "Post-colour mask", Usage: "Apply after colour rinse", "Contact Time": "5 minutes", Effect: "pH balance / colour lock", "Professional Use": PRO_USE },
         variants: [["500g", 495], ["1kg", 895]],
+      },
+      {
+        name: "Schwarzkopf Professional IGORA ROYAL Permanent Color Cream",
+        brand: "Schwarzkopf Professional",
+        description:
+          "Our heritage color brand IGORA ROYAL® is the reference brand for true color performance. IGORA ROYAL® brings optimal color coverage, maximum color retention, and true-to-tuft / true-to-swatch results for professional salon hair coloring. Engineered with High-Definition Color Matrix technology for uncompromised coverage on grey and brilliant color intensity.",
+        specs: { "Product Type": "Permanent Hair Color Creme", Coverage: "Up to 100% white hair coverage", Technology: "High-Definition Color Matrix Technology", "Mixing Ratio": "1:1 with IGORA ROYAL Oil Developer", "Processing Time": "30–45 minutes", "Net Volume": "60ml", "Professional Use": PRO_USE },
+        variants: [["3-0 Dark Brown (60ml)", 540], ["5-0 Light Brown (60ml)", 540], ["6-0 Dark Blonde (60ml)", 540], ["7-0 Medium Blonde (60ml)", 540], ["6-88 Dark Blonde Red Extra (60ml)", 570], ["9.5-1 Pearl Toner (60ml)", 570]],
+      },
+      {
+        name: "Schwarzkopf Professional IGORA ROYAL Absolutes Anti-Age Color Cream",
+        brand: "Schwarzkopf Professional",
+        description:
+          "IGORA ROYAL® Absolutes is specially formulated for mature hair, providing 100% white hair coverage with intense fashion tones. Enriched with Siliamine and Collagen Complex to rebuild and strengthen thinning hair fibers while delivering rich, natural, true-to-swatch anti-age color results with optimal scalp comfort.",
+        specs: { "Product Type": "Anti-Age Permanent Color Creme", Coverage: "100% white hair coverage on mature hair", "Key Active": "Siliamine & Collagen Complex", "Mixing Ratio": "1:1 with IGORA ROYAL Oil Developer", "Processing Time": "30–45 minutes", "Net Volume": "60ml", "Professional Use": PRO_USE },
+        variants: [["5-50 Light Brown Gold (60ml)", 575], ["6-60 Dark Blonde Chocolate (60ml)", 575], ["7-50 Medium Blonde Gold (60ml)", 575], ["8-50 Light Blonde Gold (60ml)", 575]],
+      },
+      {
+        name: "Schwarzkopf Professional IGORA VIBRANCE Tone on Tone Coloration",
+        brand: "Schwarzkopf Professional",
+        description:
+          "IGORA® VIBRANCE is a state-of-the-art moisturizing demi-permanent hair coloration with a liquid formula that transforms into gel or cream. 100% alcohol-free and enriched with Moisture Protecting Complex featuring AQUAXYL™ Technology to deliver vibrant tone-on-tone color results and up to 100% more shine.",
+        specs: { "Product Type": "Demi-Permanent Tone on Tone Coloration", Formulation: "100% Alcohol-Free Liquid-to-Gel/Cream", "Active Complex": "Moisture Protecting Complex with AQUAXYL™", "Shine Boost": "Up to 100% extra shine", "Mixing Ratio": "1:1 with IGORA VIBRANCE Activator", "Processing Time": "5–20 minutes", "Net Volume": "60ml", "Professional Use": PRO_USE },
+        variants: [["0-00 Clear Gloss (60ml)", 525], ["6-0 Dark Blonde (60ml)", 525], ["7-5 Medium Blonde Gold (60ml)", 525], ["9.5-1 Pastel Cendré Toner (60ml)", 550]],
+      },
+      {
+        name: "Schwarzkopf Professional IGORA ZERO AMM Ammonia-Free Color Cream",
+        brand: "Schwarzkopf Professional",
+        description:
+          "IGORA® ZERO AMM is an ammonia-free permanent hair color creme engineered for natural, true-to-tone color performance. Formulated with Phytolipid Technology for optimal scalp comfort, neutral fragrance, and up to 100% white hair coverage without ammonia.",
+        specs: { "Product Type": "Ammonia-Free Permanent Hair Color Creme", "Ammonia Content": "100% Ammonia-Free", "Key Technology": "Phytolipid Technology & Natural Care Oils", Coverage: "Up to 100% white hair coverage", Fragrance: "Odorless / Scalp comfort formulation", "Mixing Ratio": "1:1 with IGORA ROYAL Oil Developer", "Net Volume": "60ml", "Professional Use": PRO_USE },
+        variants: [["3-0 Natural Dark Brown (60ml)", 590], ["5-0 Natural Light Brown (60ml)", 590], ["6-0 Natural Dark Blonde (60ml)", 590], ["7-0 Natural Medium Blonde (60ml)", 590]],
       },
     ],
   },
@@ -959,6 +1031,38 @@ export const CATALOG: SeedCategory[] = [
         specs: { "Product Type": "Makeup brush set", "Bristle Type": "Synthetic, cruelty free", Includes: "Face and eye brushes + roll case", Washable: "Yes", "Professional Use": PRO_USE },
         variants: [["12-Piece Set", 895], ["24-Piece Set", 1650]],
       },
+      {
+        name: "ICONIC London Underglow Blurring Primer",
+        brand: "ICONIC London",
+        description:
+          "Prep, smooth, and blur skin with ICONIC London Underglow Blurring Primer. A weightless liquid primer serum that hydrates skin, blurs pores, and imparts an inner candlelit radiance under foundation or worn alone on bare skin.",
+        specs: { "Product Type": "Blurring Primer Serum", Finish: "Soft-focus candlelit radiant glow", "Key Actives": "Vitamin C, Hydrating Elixir, Soft-Focus Spheres", "Net Volume": "30ml", Formulation: "Paraben-Free, Cruelty-Free, Vegan Formula", "Professional Use": PRO_USE },
+        variants: [["Original (30ml)", 3500], ["Glow (30ml)", 3500]],
+      },
+      {
+        name: "ICONIC London Prep-Set-Glow Shimmer Spray",
+        brand: "ICONIC London",
+        description:
+          "Prep, hydrate, and set your skin with best-selling ICONIC London Prep-Set-Glow shimmer spray. Infused with Green Tea, Chamomile, and Vitamin E to soothe skin while delivering a multi-dimensional, luminous glow that lasts all day.",
+        specs: { "Product Type": "Hydrating Shimmer Setting Spray", "Key Ingredients": "Green Tea Extract, Chamomile, Vitamin E, Light-reflecting Pearls", Finish: "High-shine luminous glow", "Net Volume": "120ml", "Professional Use": PRO_USE },
+        variants: [["Original (120ml)", 3500], ["Glow (120ml)", 3500]],
+      },
+      {
+        name: "ICONIC London Radiance Booster Liquid Enhancer",
+        brand: "ICONIC London",
+        description:
+          "An all-over liquid radiance booster and skin enhancer for a dewy, glass-skin filter glow. Formulated with Oleo-Gel Complex and Luminizer Complex for radiant, perfected skin under foundation or as a high-shine highlighter.",
+        specs: { "Product Type": "Liquid Radiance Enhancer", Finish: "Dewy Glass-Skin Filter Finish", Technology: "Oleo-Gel & Luminizer Complex", "Net Volume": "30ml", "Professional Use": PRO_USE },
+        variants: [["Pearl Glow (30ml)", 3850], ["Champagne Glow (30ml)", 3850]],
+      },
+      {
+        name: "ICONIC London Precision Foundation & Contour Stick",
+        brand: "ICONIC London",
+        description:
+          "Creamy dual-ended foundation & contour stick featuring an integrated dense blending brush for seamless, buildable coverage on the go. Blends effortlessly into skin for a smooth, sculpted, photo-ready finish.",
+        specs: { "Product Type": "Foundation & Contour Stick with Built-in Brush", "Built-in Tool": "Integrated Synthetic Dense Blending Brush", Coverage: "Medium to Full Buildable Coverage", "Net Weight": "12g", "Professional Use": PRO_USE },
+        variants: [["Warm Nude (12g)", 3950], ["Golden Tan (12g)", 3950], ["Deep Bronze (12g)", 3950]],
+      },
     ],
   },
 
@@ -1072,6 +1176,78 @@ export const CATALOG: SeedCategory[] = [
         variants: [["Black", 8950], ["Brown", 8950], ["White", 9450]],
       },
       {
+        name: "Charcoal Grey Reclining Hydraulic Facial & Barber Chair",
+        brand: "Grandeur Salon Furniture",
+        description:
+          "Modern charcoal grey reclining barber & facial chair featuring metallic hollow geometric armrests, heavy-duty square chrome hydraulic base, adjustable headrest, and 160-degree smooth backrest recline lever for facial, threading and haircutting services.",
+        specs: { "Product Type": "Reclining Hydraulic Facial & Barber Chair", "Base & Frame": "Stainless Steel Square Hydraulic Disc Base & Hollow Chrome Armrests", "Recline Range": "160-Degree Lever Recline with Adjustable Removable Headrest", Upholstery: "High-Resilience Molded Foam & Matte Charcoal PU Leatherette", "Load Capacity": "200 kg Heavy Duty Hydraulic Pump", "Professional Use": PRO_USE },
+        variants: [["Charcoal Grey (Square Base)", 16500], ["Charcoal Grey (Round Base)", 15800]],
+      },
+      {
+        name: "SAKHI Luxury Emerald Green Quilted Hydraulic Styling Chair",
+        brand: "Sakhi Salon Furniture",
+        description:
+          "Ultra-luxurious emerald green diamond-quilted salon styling chair. Features contoured ergonomic bucket seating, polished chrome side inserts, integrated stainless footrest, and heavy square hydraulic base.",
+        specs: { Brand: "SAKHI Salon Furniture & Equipment", "Color & Texture": "Royal Emerald Green with Diamond Lattice Quilted Stitching", Upholstery: "Commercial Grade Stain & Chemical Resistant Leatherette", "Base & Footrest": "Square Brushed Chrome Hydraulic Base with Tubular Footrest", "Professional Use": PRO_USE },
+        variants: [["Emerald Green (Square Chrome Base)", 19500], ["Emerald Green (Gold Titanium Base)", 21800]],
+      },
+      {
+        name: "Executive Matte Black Reclining Barber Chair",
+        brand: "MasterCraft Furniture",
+        description:
+          "Classic executive barber reclining chair in matte black premium leatherette. Built with heavy-duty chrome hydraulic pump, integrated headrest, side recline lever, and mirror-polished square base.",
+        specs: { "Product Type": "Executive Reclining Barber Chair", Upholstery: "Heavy-Duty Matte Black High-Density PU Leatherette", "Hydraulic Base": "Square Mirror-Finished Stainless Steel Hydraulic Base", "Recline & Headrest": "Integrated Side Recline Lever & Adjustable Padded Headrest", "Professional Use": PRO_USE },
+        variants: [["Matte Black (Square Chrome Base)", 17800], ["Matte Black (Gold Base)", 19500]],
+      },
+      {
+        name: "Ergonomic Grey Executive Salon Waiting Lounge Chair",
+        brand: "Royalson Furniture",
+        description:
+          "Ergonomic cantilever visitor lounge chair for salon reception areas and waiting lounges. Features plush grey ribbed cushioned seat & backrest, padded armrests, and durable chrome tubular sleigh frame.",
+        specs: { "Product Type": "Salon Visitor & Waiting Lounge Cantilever Chair", "Frame Material": "Tubular Sleigh Chrome Steel Frame with Anti-Slip Foot Guards", Cushioning: "Dual-Layer Ribbed Molded Foam with Grey PU Upholstery", "Weight Capacity": "150 kg Tested Load Bearing", "Professional Use": PRO_USE },
+        variants: [["Single Lounge Chair", 6850], ["Set of 3 Waiting Chairs", 18900]],
+      },
+      {
+        name: "Royal Beige Gold Reclining Hydraulic Parlour Chair",
+        brand: "Grandeur Salon Furniture",
+        description:
+          "Luxury beige and gold reclining parlour chair featuring gold mirror-finished side trim, 180-degree reclining backrest, adjustable headrest, and heavy-duty 24K gold electroplated hydraulic square base.",
+        specs: { "Color & Finish": "Royal Champagne Beige Leatherette with 24K Gold Electroplated Trim", "Hydraulic Base": "Gold Plated Square Anti-Rust Stainless Steel Base", Features: "Adjustable Headrest, Footrest Bar, Side Recline Lever", "Professional Use": PRO_USE },
+        variants: [["Beige (Gold Square Base)", 18900], ["Beige (Gold Round Base)", 17900]],
+      },
+      {
+        name: "Diamond Tufted Crystal-Studded Black Hydraulic Styling Chair",
+        brand: "Grandeur Salon Furniture",
+        description:
+          "Glamorous diamond-tufted salon styling chair upholstered in high-density black leatherette featuring embedded crystal buttons on side armrests, 360° lockable swivel, heavy hydraulic pump, and mirror-finished square base.",
+        specs: { "Product Type": "Diamond Tufted Crystal-Studded Hydraulic Styling Chair", "Armrest Design": "Diamond Lattice Tufted Armrest Panels with Crystal Buttons", "Hydraulic Base": "Heavy-Duty Square Mirror-Finished Stainless Steel Disc Base", Upholstery: "High-Resilience Molded Foam & Matte Black PU Leatherette", "Load Capacity": "200 kg Heavy Duty Hydraulic Pump", "Professional Use": PRO_USE },
+        variants: [["Matte Black (Square Chrome Base)", 17500], ["Matte Black (Gold Base)", 19200]],
+      },
+      {
+        name: "Black Geometric Hollow Chrome Armrest Reclining Salon Chair",
+        brand: "MasterCraft Furniture",
+        description:
+          "Modern black reclining parlour & haircutting chair featuring geometric hollow stainless steel armrests with padded top cushion, side recline lever, adjustable headrest, and heavy square hydraulic base.",
+        specs: { "Product Type": "Reclining Hydraulic Parlour & Haircut Chair", "Armrest Feature": "Architectural Hollow Metallic Frame Armrests", "Recline Feature": "Integrated Recline Lever with Adjustable Removable Headrest", "Hydraulic Base": "Square Mirror-Finished Heavy-Duty Hydraulic Base", "Professional Use": PRO_USE },
+        variants: [["Matte Black (Square Base)", 16800], ["Matte Black (Round Base)", 15900]],
+      },
+      {
+        name: "Cream & Gold Luxury Hydraulic Salon Styling Chair",
+        brand: "Grandeur Salon Furniture",
+        description:
+          "Ultra-chic cream champagne leatherette hydraulic styling chair featuring polished stainless steel hollow square armrests, heavy hydraulic lift pump, integrated footrest bar, and heavy-duty mirror-finished square base.",
+        specs: { "Product Type": "Hydraulic Styling Chair", "Color Theme": "Champagne Cream Upholstery with Polished Steel Frame", "Hydraulic Base": "Heavy Duty 200kg Load-Bearing Stainless Steel Disc Base", "Armrest Design": "Geometric Open Stainless Steel Frame with Padded Arm Pads", "Professional Use": PRO_USE },
+        variants: [["Cream (Square Base)", 18500], ["Cream (Gold Base)", 19800]],
+      },
+      {
+        name: "Luxury Pedicure Spa Chair with Hydrotherapy Foot Bath & Massage",
+        brand: "Sanitec Professional",
+        description:
+          "Luxury pedicure spa station featuring multi-function shiatsu back massage chair, real teakwood armrests, LED whirlpool hydrotherapy foot bath tub, adjustable footrest cushion, and handheld remote controller.",
+        specs: { "Massage System": "Multi-Mode Shiatsu Back & Neck Roller Massage with Remote", "Foot Basin": "Pipe-free Whirlpool Hydrotherapy Jet Basin with RGB Mood Light", Upholstery: "Waterproof Chemical-Resistant Commercial Grade Leatherette", Plumbing: "Hot & Cold Water Inlets with Built-in Drain Pump", "Professional Use": PRO_USE },
+        variants: [["Cream & Teakwood Spa Chair", 42500], ["Black & Teakwood Spa Chair", 42500]],
+      },
+      {
         name: "Professional Barber Chair",
         brand: "Salon Care",
         description:
@@ -1157,6 +1333,14 @@ export const CATALOG: SeedCategory[] = [
         variants: [["Standard - White", 5450], ["With Magnifying Lamp - White", 8450]],
       },
       {
+        name: "Professional 2-in-1 Facial Steamer & Hair Steamer Machine",
+        brand: "Salon Care Professional",
+        description:
+          "Dual-function professional 2-in-1 facial ozone steamer and hair spa steamer hood. Equipped with height-adjustable telescopic pole, 360-degree swivel wheels, dual switches, independent water reservoirs, and auto shut-off safety sensor.",
+        specs: { Functionality: "Ozone Facial Mist Steamer + Deep Conditioning Hair Spa Hood Steamer", Safety: "Automatic Low Water Level Shut-Off Protection", Mobility: "Heavy Duty Height Adjustable Stand with 5 Rolling Caster Wheels", "Power & Voltage": "750W Dual Element / 220V Salon Grade Operation", "Professional Use": PRO_USE },
+        variants: [["Standard 2-in-1 Steamer - Silver/Black", 7800], ["Digital 2-in-1 Steamer - White/Gold", 9500]],
+      },
+      {
         name: "UV Tool Sterilizer Cabinet",
         brand: "Salon Care",
         description:
@@ -1171,6 +1355,46 @@ export const CATALOG: SeedCategory[] = [
           "A high-frequency device with glass electrodes used in acne and post-extraction facial protocols. Supplied with multiple electrode shapes for face, neck and scalp work.",
         specs: { "Product Type": "High frequency machine", Electrodes: "4 glass electrodes included", Usage: "Acne / post-extraction protocols", Power: "15W", Voltage: "220–240V", Warranty: "12 months", "Professional Use": PRO_USE },
         variants: [["4-Electrode Set", 3450]],
+      },
+      {
+        name: "Luxury Black & Gold Hydraulic Salon Styling Chair & Station Set",
+        brand: "Grandeur Salon Equipment",
+        description:
+          "High-end luxury salon styling chair featuring heavy-duty hydraulic pump, 360-degree lockable swivel base, matte black leatherette upholstery, and gold electroplated stainless steel accents. Paired with matching round LED vanity mirror.",
+        specs: { "Product Type": "Hydraulic Salon Styling Chair & Station Set", "Base & Frame": "Gold Electroplated Stainless Steel Frame", Upholstery: "High-Density Molded Foam with Premium PU Leatherette", "Hydraulic Pump": "Heavy-Duty 200kg Load-Bearing Lockable Pump", Mirror: "Built-in Touch-Sensor Dimmable LED Vanity Mirror", "Professional Use": PRO_USE },
+        variants: [["Single Styling Chair", 18500], ["Pair (2 Chairs + 2 LED Mirrors)", 34900]],
+      },
+      {
+        name: "Professional UV Sterilizer Cabinet & Facial Reclining Chair Station",
+        brand: "Sanitec Professional",
+        description:
+          "Hospital-grade UV-C towel & tool sterilizer cabinet paired with multi-angle hydraulic reclining facial / threading / lash extension chair. Ensures 99.9% germ disinfection for tools and scissors.",
+        specs: { "Sterilization Tech": "UV-C Germicidal Light + Heated Towel Warmer Cabinet", Capacity: "23 Litres (Holds 30-40 Salon Towels or Tool Trays)", "Chair Feature": "Full Reclining Hydraulic Facial Chair with Adjustable Headrest", Power: "250W / 220V Medical Grade Sterilization", "Professional Use": PRO_USE },
+        variants: [["UV Sterilizer Unit Only", 7950], ["Complete Facial Station (Sterilizer + Chair)", 24500]],
+      },
+      {
+        name: "Modern Nordic Aesthetic Plush Salon Styling Chair",
+        brand: "Kube Decor",
+        description:
+          "Minimalist Nordic aesthetic salon chair upholstered in soft beige micro-velvet leatherette with natural wooden armrest accents and heavy-duty circular chrome hydraulic disc base.",
+        specs: { "Design Style": "Modern Nordic Minimalist Aesthetic", Upholstery: "Soft-Touch Waterproof Stain-Resistant Leatherette", Frame: "Natural Teak-Stained Wood Armrests & Chrome Disc Base", "Height Range": "Adjustable Hydraulic Lift 45cm to 60cm", "Professional Use": PRO_USE },
+        variants: [["Cream Beige (Chrome Base)", 14500], ["Cream Beige (Gold Base)", 16200]],
+      },
+      {
+        name: "Minimalist Full-Length Backlit LED Salon Wall Mirror & Hydraulic Station",
+        brand: "Lumiere Mirror Craft",
+        description:
+          "Sleek full-length arch illuminated salon wall mirror featuring 3-color ambient LED backlighting (Warm White, Cool Daylight, Natural Neutral) with touch sensor dimmer paired with ergonomic hydraulic styling chair.",
+        specs: { Dimensions: "6.5 Feet Height x 2.5 Feet Width Full Length Glass", "Lighting System": "Smart Touch Dual-LED Strip (3 Color Temperature Modes)", Glass: "5mm Copper-Free Anti-Fog Shatterproof HD Mirror", Accessories: "Integrated Under-Mirror Hairdryer Holder Shelf", "Professional Use": PRO_USE },
+        variants: [["Arch Mirror + Black Hydraulic Chair", 19800], ["Arch Mirror + Gold Hydraulic Chair", 21500]],
+      },
+      {
+        name: "Master Workstation 3D Salon Furniture & Trolley Suite",
+        brand: "Architectural Salon Systems",
+        description:
+          "Architectural 3D salon workstation package. Complete setup including 4 hydraulic styling chairs, 2 wash basin shampoo units, 4 illuminated LED mirror stations, and 4 lockable roll-about equipment trolleys.",
+        specs: { Includes: "4 Styling Chairs + 2 Shampoo Chairs + 4 LED Mirrors + 4 Trolleys", Trolley: "5 Drawers with Appliance Cutouts & Lockable Wheels", "Shampoo Basin": "Tilting Ceramic Sink with Hot/Cold Faucet & Neck Rest", Warranty: "2 Years Manufacturer Warranty on Hydraulics", "Professional Use": PRO_USE },
+        variants: [["Full 4-Station Salon Package", 48000], ["Deluxe 6-Station Salon Package", 68500]],
       },
       {
         name: "Magnifying Lamp",
@@ -1239,6 +1463,62 @@ export const CATALOG: SeedCategory[] = [
           "Barbering shears with an offset handle to reduce wrist fatigue over a long cutting day. Sharpened for scissor-over-comb work on short men's cuts.",
         specs: { "Product Type": "Barber scissors", Material: "Japanese stainless steel", "Handle Type": "Offset ergonomic", Length: "6.5 inch", Includes: "Case and oil", "Professional Use": PRO_USE },
         variants: [["6.5 inch - Silver", 1550]],
+      },
+      {
+        name: "MAYCREATE Professional 10-Piece Hair Cutting & Thinning Scissors Kit",
+        brand: "Maycreate Professional",
+        description:
+          "Complete 10-piece professional salon cutting & texturizing kit. Features Japanese stainless steel black & gold razor edge shears, 30-tooth thinning scissor, barber cape, neck duster brush, razor comb, sectioning clips, microfiber cleaning cloth, and leatherette zip pouch.",
+        specs: { "Kit Contents": "10-Piece Professional Barber Set", "Blade Material": "440C Japanese Stainless Steel", "Shear Types": "6.0\" Razor Edge Cutting Shear & 6.0\" 30-Tooth Thinning Scissor", Accessories: "Barber Cape, Neck Duster, Razor Comb, Clips, Case", "Professional Use": PRO_USE },
+        variants: [["Standard 10-Piece Kit", 1495], ["Deluxe Titanium 10-Piece Kit", 1850]],
+      },
+      {
+        name: "Sanguine Ergonomic Pastel Titanium Barber Shears Series",
+        brand: "Sanguine Professional",
+        description:
+          "Ultra-lightweight Japanese stainless steel barber shears featuring ergonomic swivel thumb handles and durable anodized pastel titanium finish. Convex razor blades ensure buttery-smooth precision cutting.",
+        specs: { "Blade Material": "440C Stainless Steel with Anodized Titanium Coating", "Blade Type": "Convex Razor Edge Blade", Ergonomics: "Ergonomic Crane Handle with Swivel Thumb Rest", Tension: "Gold Knurled Adjustment Screw", "Professional Use": PRO_USE },
+        variants: [["Matt Black (6.0\")", 1850], ["Champagne Gold (6.0\")", 1850], ["Aqua Blue (6.0\")", 1850], ["Rose Gold (6.0\")", 1850], ["Mint Green (6.0\")", 1850]],
+      },
+      {
+        name: "Royal Antique Gold Floral Engraved Barber Shear",
+        brand: "Royal Craft",
+        description:
+          "Luxury handcrafted barber cutting shear featuring intricate antique gold Victorian floral engraving on ergonomic handles with sharp black Japanese 440C cobalt stainless steel razor blades.",
+        specs: { Design: "Antique Gold Ornate Engraved Handle", "Blade Material": "Japanese 440C Cobalt Stainless Steel", "Blade Finish": "Matte Black PVD Coating", Size: "6.0 Inches", "Professional Use": PRO_USE },
+        variants: [["6.0 Inch Cutting Shear", 2250], ["6.5 Inch Master Shear", 2450]],
+      },
+      {
+        name: "ProMaster Full Gold Titanium Professional Cutting Scissor",
+        brand: "ProMaster Barber",
+        description:
+          "Premium 24K gold titanium plated hair cutting shear. Precision ground hollow convex razor edge delivers effortlessly smooth slice cutting and blunt line work for high-volume salons.",
+        specs: { Finish: "24K Gold Titanium Plated", Blade: "Convex Razor Blade with Rubber Silencer Stopper", "Finger Inserts": "Removable Soft Rubber Rings Included", Size: "6.0 Inches", "Professional Use": PRO_USE },
+        variants: [["5.5 Inch Precision Shear", 1550], ["6.0 Inch All-Rounder Shear", 1650]],
+      },
+      {
+        name: "MasterCraft Japanese Stainless Steel Barber Shears Collection",
+        brand: "MasterCraft Barber",
+        description:
+          "High-carbon Japanese stainless steel professional shears line. Includes straight razor edge cutting scissors, texturizing chunkers, and fine teeth thinning scissors for hair artists.",
+        specs: { Material: "High-Carbon Japanese Stainless Steel (J2 420/440C)", Hardness: "Rockwell 58-60 HRC", Tension: "Adjustable Coin Tension Screw & Rubber Stopper", "Professional Use": PRO_USE },
+        variants: [["Razor Edge Cutting Scissor (6.0\")", 1295], ["Texturizing Chunkers (6.0\")", 1395], ["Thinning Scissor (6.0\")", 1350]],
+      },
+      {
+        name: "Professional Hairdresser Appliance & Tool Combo Kit",
+        brand: "Salon Care Professional",
+        description:
+          "Complete 10-piece professional hair styling equipment combo set. Includes 2200W ionic salon hair dryer, ceramic hair straightener flat iron, curling barrel wand, haircutting & thinning shears, round thermal brushes, and continuous mist spray bottle.",
+        specs: { Includes: "Hair Dryer, Hair Straightener, Curling Wand, 2 Shears, 2 Brushes, Spray Bottle, Combs", "Dryer Power": "2200W AC Motor Heavy-Duty Ionic Dryer", "Flat Iron": "Ceramic Tourmaline Floating Plates up to 230°C", "Professional Use": PRO_USE },
+        variants: [["Complete 10-Piece Styling Kit", 8950], ["Deluxe 15-Piece Styling Kit", 12500]],
+      },
+      {
+        name: "Master Salon Hairdresser Appliance & Accessories Suite",
+        brand: "MasterCraft Professional",
+        description:
+          "All-in-one circular layout hair styling master workstation setup kit. Features dual pro blow dryers, cordless hair clippers & trimmers, curling tongs, titanium flat iron, salon rollers, carbon tail combs, and Japanese steel scissors.",
+        specs: { "Suite Includes": "2 Hair Dryers, Cordless Clipper Set, Flat Iron, Curling Wand, Shears, Rollers, Combs", "Clipper Motor": "9000 RPM Rotary Motor with Titanium Blades & Digital Display", Scissors: "6.0 inch Japanese 440C Stainless Steel Convex Edge Shears", "Professional Use": PRO_USE },
+        variants: [["Master Barber Suite - Black & Red", 11500], ["Master Barber Suite - Full Chrome", 13800]],
       },
       {
         name: "Professional Shaving Cream",
