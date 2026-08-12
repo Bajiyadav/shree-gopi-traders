@@ -189,6 +189,7 @@
 
 | Product Name | Format | Primary Image URL | Gallery Angle 2 | Gallery Angle 3 | HTTP | SGT Branding |
 |---|---|---|---|---|---|---|
+| **SGT® Professional 2400W High-Speed AC Motor Ionic Hair Dryer** | 📸 Studio Photo (CDN) | [Hero Photo 1](https://res.cloudinary.com/dg8z7pxju/image/upload/v1786513057/shree-gopi-traders/products/professional-equipment/sgt-pro-hair-dryer-hero.png) | — | — | 200 OK | ✅ SGT ORIGINAL |
 | **High Frequency Facial Machine** | 📸 Studio Photo (PNG) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/high-frequency-facial-machine.png) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/high-frequency-facial-machine-2.png) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/high-frequency-facial-machine-3.png) | 200 OK | ✅ VERIFIED |
 | **Hot Towel Cabinet** | 📸 Studio Photo (PNG) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/hot-towel-cabinet.png) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/hot-towel-cabinet-2.png) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/hot-towel-cabinet-3.png) | 200 OK | ✅ VERIFIED |
 | **Magnifying Lamp** | 📸 Studio Photo (PNG) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/magnifying-lamp.png) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/magnifying-lamp-2.png) | [](https://shree-gopi-traders.vercel.app/products/professional-equipment/magnifying-lamp-3.png) | 200 OK | ✅ VERIFIED |
