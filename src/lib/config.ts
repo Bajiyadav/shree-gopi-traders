@@ -49,7 +49,7 @@ export const siteConfig = {
     "Professional salon, parlour, beauty and spa supplies for businesses of every size.",
   announcementBar: "Professional Salon & Parlour Supplies | Bulk Orders Available",
   siteUrl: resolveSiteUrl(),
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || "",
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || "919160050697",
   currency: "INR",
   currencySymbol: "₹",
 };

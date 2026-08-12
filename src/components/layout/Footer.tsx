@@ -35,8 +35,11 @@ export async function Footer() {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-slate-600">
               {siteConfig.supportingText}
             </p>
-            <div className="mt-5">
+            <div className="mt-5 space-y-2">
               <WhatsAppButton variant="outline">WhatsApp Us</WhatsAppButton>
+              <p className="text-xs font-medium text-slate-700">
+                WhatsApp / Call: <a href="https://wa.me/919160050697" target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-700 hover:underline">+91 91600 50697</a>
+              </p>
             </div>
           </div>
 

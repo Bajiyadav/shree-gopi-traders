@@ -13,9 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  const whatsappDisplay = siteConfig.whatsappNumber
-    ? `+${siteConfig.whatsappNumber.replace(/\D/g, "")}`
-    : null;
+  const rawNum = siteConfig.whatsappNumber.replace(/\D/g, "");
+  const whatsappDisplay = rawNum ? `+91 91600 50697` : null;
+  const whatsappHref = rawNum ? `https://wa.me/${rawNum}` : "#";
 
   return (
     <div className="container-page py-8 sm:py-12">
@@ -43,8 +43,10 @@ export default function ContactPage() {
                 <li className="flex gap-3">
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" aria-hidden="true" />
                   <div>
-                    <p className="font-medium text-slate-900">Phone / WhatsApp</p>
-                    <p className="text-slate-600">{whatsappDisplay}</p>
+                    <p className="font-medium text-slate-900">Phone / WhatsApp (Owner / Admin)</p>
+                    <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-700 hover:underline">
+                      {whatsappDisplay}
+                    </a>
                   </div>
                 </li>
               )}
