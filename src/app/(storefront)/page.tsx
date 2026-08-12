@@ -116,28 +116,26 @@ export default async function HomePage() {
 
   const [productCount, categoryCount, customerCount, orderCount] = stats;
 
-  // Equipment + furniture get their own rail — these are the high-value
-  // considered purchases a salon owner comes back for.
+  // Equipment + furniture + barber supplies get their own rail
   const equipmentCategories = categories.filter((c) =>
-    ["professional-equipment", "salon-furniture", "hair-equipment"].includes(c.slug)
+    ["professional-equipment", "salon-furniture", "barber-supplies"].includes(c.slug)
   );
   const equipmentProducts = await prisma.product.findMany({
     where: { isActive: true, categoryId: { in: equipmentCategories.map((c) => c.id) } },
     orderBy: { basePrice: "desc" },
-    take: 4,
+    take: 8,
     select: { id: true },
   });
   const equipment = await hydrateCards(equipmentProducts.map((p) => p.id));
 
-  // Salon essentials — the consumables and hygiene stock that gets reordered
-  // month after month, which is what keeps a B2B buyer coming back.
+  // Salon essentials — hair care, skin care, color treatment, waxing & makeup
   const essentialCategories = categories.filter((c) =>
-    ["beauty-consumables", "cleaning-hygiene"].includes(c.slug)
+    ["hair-care", "skin-care", "hair-color-treatment", "waxing", "makeup"].includes(c.slug)
   );
   const essentialProducts = await prisma.product.findMany({
     where: { isActive: true, categoryId: { in: essentialCategories.map((c) => c.id) } },
     orderBy: { ratingCount: "desc" },
-    take: 4,
+    take: 8,
     select: { id: true },
   });
   const essentials = await hydrateCards(essentialProducts.map((p) => p.id));
