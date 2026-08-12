@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Badge, ButtonLink, Rating } from "@/components/ui";
 import type { CatalogCard } from "@/lib/catalog";
 import { discountPercent, formatCurrency } from "@/lib/utils";
@@ -10,6 +13,8 @@ export function ProductCard({ product }: { product: CatalogCard }) {
   const outOfStock = product.totalStock <= 0;
   const lowStock = !outOfStock && product.totalStock <= product.lowStockThreshold;
   const off = discountPercent(product.listPrice, product.fromPrice);
+  const initialSrc = product.images[0] || FALLBACK_IMAGE;
+  const [imgSrc, setImgSrc] = useState(initialSrc);
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-card transition-shadow hover:shadow-card-hover">
@@ -18,11 +23,12 @@ export function ProductCard({ product }: { product: CatalogCard }) {
         className="relative block aspect-square overflow-hidden bg-slate-50"
       >
         <Image
-          src={product.images[0] || FALLBACK_IMAGE}
+          src={imgSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           className="object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={() => setImgSrc(FALLBACK_IMAGE)}
         />
         <div className="absolute left-2 top-2 z-20 flex flex-col items-start gap-1">
           {off > 0 && <Badge tone="danger">{off}% OFF</Badge>}

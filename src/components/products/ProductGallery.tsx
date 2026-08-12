@@ -13,19 +13,20 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
   const uniqueImages = Array.from(new Set(images.filter(Boolean)));
   const gallery = uniqueImages.length > 0 ? uniqueImages : ["/images/categories/placeholder.svg"];
   const current = gallery[Math.min(active, gallery.length - 1)];
+  const [currentSrc, setCurrentSrc] = useState(current);
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row-reverse">
       <div className="relative aspect-square flex-1 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
         <Image
-          src={current}
+          src={currentSrc}
           alt={alt}
           fill
           sizes="(max-width: 1024px) 100vw, 50vw"
           className="object-cover"
           priority
+          onError={() => setCurrentSrc("/images/categories/placeholder.svg")}
         />
-
       </div>
 
       {gallery.length > 1 && (
@@ -38,7 +39,10 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             <button
               key={image + index}
               type="button"
-              onClick={() => setActive(index)}
+              onClick={() => {
+                setActive(index);
+                setCurrentSrc(image);
+              }}
               aria-label={`Show image ${index + 1} of ${gallery.length}`}
               aria-current={index === active}
               className={cn(
@@ -48,7 +52,16 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
                   : "border-slate-200 hover:border-slate-400"
               )}
             >
-              <Image src={image} alt="" fill sizes="80px" className="object-cover" />
+              <Image 
+                src={image} 
+                alt="" 
+                fill 
+                sizes="80px" 
+                className="object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "/images/categories/placeholder.svg";
+                }}
+              />
             </button>
           ))}
         </div>
