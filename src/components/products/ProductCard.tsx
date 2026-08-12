@@ -25,10 +25,6 @@ export function ProductCard({ product }: { product: CatalogCard }) {
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute left-2 top-2 z-20 flex flex-col items-start gap-1">
-          <span className="inline-flex items-center gap-1.5 rounded-md bg-slate-900/90 px-2 py-1 text-[11px] font-black tracking-widest text-amber-400 shadow-md border border-amber-400/50 backdrop-blur-sm">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-            SGT VERIFIED
-          </span>
           {off > 0 && <Badge tone="danger">{off}% OFF</Badge>}
           {product.hasWholesale && <Badge tone="brand">Wholesale</Badge>}
         </div>

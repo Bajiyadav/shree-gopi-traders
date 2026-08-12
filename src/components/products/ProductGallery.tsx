@@ -25,10 +25,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
           className="object-cover"
           priority
         />
-        <div className="absolute left-3 top-3 z-20 flex items-center gap-1.5 rounded-lg bg-slate-900/90 px-3 py-1.5 text-xs font-black tracking-widest text-amber-400 backdrop-blur-md shadow-lg border border-amber-400/50">
-          <span className="h-2 w-2 rounded-full bg-amber-400 animate-pulse"></span>
-          SGT VERIFIED
-        </div>
+
       </div>
 
       {gallery.length > 1 && (
