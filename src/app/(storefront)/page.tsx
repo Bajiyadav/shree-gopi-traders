@@ -21,7 +21,11 @@ import { ProductGrid } from "@/components/products/ProductCard";
 import { ButtonLink, Card, Rating, SectionHeading } from "@/components/ui";
 import { WhatsAppBanner, WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatCurrency } from "@/lib/utils";
-import { HeroVideo } from "@/components/home/HeroVideo";
+import dynamic from "next/dynamic";
+const HeroVideo = dynamic(
+  () => import("@/components/home/HeroVideo").then((m) => m.HeroVideo),
+  { ssr: false, loading: () => <div style={{ aspectRatio: "16/9" }} className="w-full rounded-2xl bg-slate-900" /> }
+);
 
 export const revalidate = 300;
 
