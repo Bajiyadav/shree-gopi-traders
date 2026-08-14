@@ -5,6 +5,7 @@ import {
   Boxes,
   Headphones,
   PackageCheck,
+  Search,
   ShieldCheck,
   Truck,
 } from "lucide-react";
@@ -20,6 +21,7 @@ import { ProductGrid } from "@/components/products/ProductCard";
 import { ButtonLink, Card, Rating, SectionHeading } from "@/components/ui";
 import { WhatsAppBanner, WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatCurrency } from "@/lib/utils";
+import { HeroVideo } from "@/components/home/HeroVideo";
 
 export const revalidate = 300;
 
@@ -172,6 +174,26 @@ export default async function HomePage() {
               )}
             </div>
 
+            {/* Quick product search */}
+            <form action="/products" className="mt-6 flex max-w-lg overflow-hidden rounded-xl border-2 border-slate-200 bg-white shadow-md focus-within:border-brand-500 transition-colors">
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
+                <input
+                  type="search"
+                  name="q"
+                  placeholder="Search shampoo, chairs, wax…"
+                  aria-label="Search products"
+                  className="h-12 w-full border-0 bg-transparent pl-10 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-0"
+                />
+              </div>
+              <button
+                type="submit"
+                className="flex items-center gap-2 bg-brand-700 px-5 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
+              >
+                Search
+              </button>
+            </form>
+
             {/* Counts, not claims — each is a live query against the catalogue.
                 Orders and businesses are shown only once there are some, so a
                 new store never advertises "0+ Orders Fulfilled". */}
@@ -194,27 +216,8 @@ export default async function HomePage() {
             </dl>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            {categories.slice(0, 4).map((c) => (
-              <Link
-                key={c.id}
-                href={`/categories/${c.slug}`}
-                className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1 ring-slate-200 transition-shadow hover:shadow-lg"
-              >
-                <Image
-                  src={c.imageUrl || "/images/categories/placeholder.svg"}
-                  alt={c.name}
-                  fill
-                  sizes="(max-width: 1024px) 45vw, 22vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  priority
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/85 to-transparent p-3">
-                  <p className="text-sm font-medium text-white">{c.name}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          {/* Cloudinary promotional video — autoplay, muted, loop, no controls */}
+          <HeroVideo />
         </div>
       </section>
 
@@ -311,7 +314,7 @@ export default async function HomePage() {
           <Card className="overflow-hidden">
             <div className="relative aspect-[16/7] w-full overflow-hidden">
               <Image
-                src="/images/banners/b2b-warehouse-banner.png"
+                src="/images/banners/b2b-warehouse-banner-premium.png"
                 alt="Shree Gopi Traders B2B Wholesale Warehouse"
                 fill
                 className="object-cover"
@@ -382,7 +385,7 @@ export default async function HomePage() {
           <div className="container-page py-14 sm:py-16">
             <div className="mb-8 relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
               <Image
-                src="/images/banners/spa-equipment-banner.png"
+                src="/images/banners/spa-equipment-banner-premium.png"
                 alt="Luxury Salon Equipment & Furniture Showcase"
                 fill
                 priority

@@ -1,5 +1,5 @@
 import "server-only";
-import type { EmailKind } from "@prisma/client";
+import type { EmailKind } from "./types";
 import { siteConfig } from "@/lib/config";
 
 /**

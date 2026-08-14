@@ -1,6 +1,3 @@
-// Shree Gopi Traders — B2B Salon & Parlour Supplies
-// Prisma schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,9 +8,358 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-// ─────────────────────────────────────────────
-// ENUMS
-// ─────────────────────────────────────────────
+model Admin {
+  id                    String                 @id @default(cuid())
+  name                  String
+  email                 String                 @unique
+  passwordHash          String
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  inventoryTransactions InventoryTransaction[]
+
+  @@index([email])
+}
+
+model Customer {
+  id                String             @id @default(cuid())
+  name              String
+  email             String             @unique
+  phone             String
+  passwordHash      String
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  addresses         Address[]
+  bulkOrderRequests BulkOrderRequest[]
+  businessProfile   BusinessProfile?
+  cart              Cart?
+  orders            Order[]
+  reviews           Review[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model BusinessProfile {
+  id           String       @id @default(cuid())
+  customerId   String       @unique
+  businessName String
+  businessType BusinessType @default(OTHER)
+  gstNumber    String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  customer     Customer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([businessName])
+}
+
+model Address {
+  id         String   @id @default(cuid())
+  customerId String
+  label      String?
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  pincode    String
+  isDefault  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([customerId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  isActive    Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  products    Product[]
+
+  @@index([slug])
+  @@index([isActive])
+}
+
+model Product {
+  id                String           @id @default(cuid())
+  name              String
+  slug              String           @unique
+  description       String?
+  specs             Json?
+  brand             String?
+  sku               String           @unique
+  categoryId        String
+  images            String[]
+  basePrice         Decimal          @db.Decimal(10, 2)
+  salePrice         Decimal?         @db.Decimal(10, 2)
+  weight            Decimal?         @db.Decimal(10, 2)
+  isActive          Boolean          @default(true)
+  allowBackorder    Boolean          @default(false)
+  ratingAvg         Decimal          @default(0) @db.Decimal(3, 2)
+  ratingCount       Int              @default(0)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  /// Optional long-form content for the product detail tabs. Null means the
+  /// tab is not rendered — never show an empty tab.
+  ingredients       String?
+  /// Minimum order quantity. B2B buyers expect to see this up front;
+  /// 1 means "no minimum", which is itself worth stating.
+  moq               Int              @default(1)
+  usageInstructions String?
+  orderItems        OrderItem[]
+  category          Category         @relation(fields: [categoryId], references: [id])
+  variants          ProductVariant[]
+  reviews           Review[]
+
+  @@index([categoryId])
+  @@index([isActive])
+  @@index([slug])
+  @@index([sku])
+  @@index([brand])
+}
+
+model ProductVariant {
+  id             String               @id @default(cuid())
+  productId      String
+  name           String
+  sku            String               @unique
+  price          Decimal              @db.Decimal(10, 2)
+  wholesalePrice Decimal?             @db.Decimal(10, 2)
+  weight         Decimal?             @db.Decimal(10, 2)
+  imageUrl       String?
+  isActive       Boolean              @default(true)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  salePrice      Decimal?             @db.Decimal(10, 2)
+  cartItems      CartItem[]
+  inventory      Inventory?
+  orderItems     OrderItem[]
+  product        Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+  wholesaleTiers WholesalePriceTier[]
+
+  @@index([productId])
+  @@index([sku])
+}
+
+model WholesalePriceTier {
+  id               String         @id @default(cuid())
+  productVariantId String
+  minQty           Int
+  maxQty           Int?
+  pricePerUnit     Decimal        @db.Decimal(10, 2)
+  createdAt        DateTime       @default(now())
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+
+  @@index([productVariantId])
+  @@index([minQty])
+}
+
+model Inventory {
+  id                String                 @id @default(cuid())
+  productVariantId  String                 @unique
+  stock             Int                    @default(0)
+  lowStockThreshold Int                    @default(5)
+  updatedAt         DateTime               @updatedAt
+  productVariant    ProductVariant         @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
+  transactions      InventoryTransaction[]
+
+  @@index([stock])
+}
+
+model InventoryTransaction {
+  id          String          @id @default(cuid())
+  inventoryId String
+  action      InventoryAction
+  quantity    Int
+  reason      String?
+  adminId     String?
+  orderId     String?
+  createdAt   DateTime        @default(now())
+  admin       Admin?          @relation(fields: [adminId], references: [id])
+  inventory   Inventory       @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+
+  @@index([inventoryId])
+  @@index([createdAt])
+}
+
+model Cart {
+  id         String     @id @default(cuid())
+  customerId String     @unique
+  couponCode String?
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  customer   Customer   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  items      CartItem[]
+}
+
+model CartItem {
+  id               String         @id @default(cuid())
+  cartId           String
+  productVariantId String
+  quantity         Int
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  cart             Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+
+  @@unique([cartId, productVariantId])
+}
+
+model Order {
+  id                   String        @id @default(cuid())
+  orderNumber          String        @unique
+  customerId           String
+  businessName         String?
+  subtotal             Decimal       @db.Decimal(10, 2)
+  bulkDiscount         Decimal       @default(0) @db.Decimal(10, 2)
+  couponDiscount       Decimal       @default(0) @db.Decimal(10, 2)
+  couponCode           String?
+  deliveryFee          Decimal       @default(0) @db.Decimal(10, 2)
+  tax                  Decimal       @default(0) @db.Decimal(10, 2)
+  total                Decimal       @db.Decimal(10, 2)
+  paymentMethod        PaymentMethod @default(COD)
+  paymentStatus        PaymentStatus @default(PENDING)
+  status               OrderStatus   @default(PENDING)
+  shippingAddress      Json
+  billingAddress       Json?
+  gstNumber            String?
+  deliveryInstructions String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  delivery             Delivery?
+  invoice              Invoice?
+  customer             Customer      @relation(fields: [customerId], references: [id])
+  items                OrderItem[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([orderNumber])
+}
+
+model OrderItem {
+  id               String         @id @default(cuid())
+  orderId          String
+  productId        String
+  productVariantId String
+  productName      String
+  variantName      String
+  quantity         Int
+  unitPrice        Decimal        @db.Decimal(10, 2)
+  listPrice        Decimal        @db.Decimal(10, 2)
+  lineTotal        Decimal        @db.Decimal(10, 2)
+  order            Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product          Product        @relation(fields: [productId], references: [id])
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+  @@index([productVariantId])
+}
+
+/// A bill issued against an order. Deliberately minimal: the Order and its
+/// OrderItems already hold immutable price snapshots, so an invoice never
+/// copies money figures — it only fixes an identifier and a date. That keeps
+/// the bill and the order mathematically incapable of disagreeing.
+model Invoice {
+  id            String   @id @default(cuid())
+  invoiceNumber String   @unique
+  orderId       String   @unique
+  invoiceDate   DateTime @default(now())
+  createdAt     DateTime @default(now())
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceNumber])
+  @@index([invoiceDate])
+}
+
+model BulkOrderRequest {
+  id               String          @id @default(cuid())
+  customerId       String?
+  companyName      String
+  contactPerson    String
+  phone            String
+  email            String
+  productsNote     String
+  expectedDate     DateTime?
+  deliveryLocation String
+  additionalNotes  String?
+  quotedAmount     Decimal?        @db.Decimal(10, 2)
+  status           BulkOrderStatus @default(PENDING)
+  convertedOrderId String?
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  customer         Customer?       @relation(fields: [customerId], references: [id])
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Delivery {
+  id                   String         @id @default(cuid())
+  orderId              String         @unique
+  status               DeliveryStatus @default(PENDING)
+  courierName          String?
+  trackingNumber       String?
+  expectedDeliveryDate DateTime?
+  deliveryNotes        String?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+  order                Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model Review {
+  id         String       @id @default(cuid())
+  productId  String
+  customerId String
+  rating     Int
+  comment    String?
+  status     ReviewStatus @default(PENDING)
+  createdAt  DateTime     @default(now())
+  customer   Customer     @relation(fields: [customerId], references: [id])
+  product    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([status])
+}
+
+model ContactMessage {
+  id           String        @id @default(cuid())
+  name         String
+  businessName String?
+  phone        String
+  email        String
+  message      String
+  status       EnquiryStatus @default(UNREAD)
+  createdAt    DateTime      @default(now())
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Coupon {
+  id            String       @id @default(cuid())
+  code          String       @unique
+  discountType  DiscountType
+  discountValue Decimal      @db.Decimal(10, 2)
+  minOrderValue Decimal?     @db.Decimal(10, 2)
+  maxDiscount   Decimal?     @db.Decimal(10, 2)
+  startDate     DateTime
+  endDate       DateTime
+  usageLimit    Int?
+  usageCount    Int          @default(0)
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+
+  @@index([code])
+  @@index([isActive])
+}
 
 enum OrderStatus {
   PENDING
@@ -94,477 +440,4 @@ enum BusinessType {
   ACADEMY
   RETAILER
   OTHER
-}
-
-// ─────────────────────────────────────────────
-// ADMIN
-// ─────────────────────────────────────────────
-
-model Admin {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  inventoryTransactions InventoryTransaction[]
-
-  @@index([email])
-}
-
-// ─────────────────────────────────────────────
-// CUSTOMER
-// ─────────────────────────────────────────────
-
-model Customer {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  phone        String
-  passwordHash String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-
-  businessProfile   BusinessProfile?
-  addresses         Address[]
-  cart              Cart?
-  orders            Order[]
-  bulkOrderRequests BulkOrderRequest[]
-  reviews           Review[]
-
-  @@index([email])
-  @@index([phone])
-}
-
-model BusinessProfile {
-  id           String       @id @default(cuid())
-  customerId   String       @unique
-  customer     Customer     @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  businessName String
-  businessType BusinessType @default(OTHER)
-  gstNumber    String?
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-
-  @@index([businessName])
-}
-
-model Address {
-  id         String   @id @default(cuid())
-  customerId String
-  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  label      String? // "Salon", "Warehouse", etc.
-  line1      String
-  line2      String?
-  city       String
-  state      String
-  pincode    String
-  isDefault  Boolean  @default(false)
-  createdAt  DateTime @default(now())
-
-  @@index([customerId])
-}
-
-// ─────────────────────────────────────────────
-// CATALOG
-// ─────────────────────────────────────────────
-
-model Category {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String   @unique
-  description String?
-  imageUrl    String?
-  isActive    Boolean  @default(true)
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  products Product[]
-
-  @@index([slug])
-  @@index([isActive])
-}
-
-model Product {
-  id                String   @id @default(cuid())
-  name              String
-  slug              String   @unique
-  description       String?
-  specs             Json? // free-form specifications
-  brand             String?
-  sku               String   @unique
-  categoryId        String
-  category          Category @relation(fields: [categoryId], references: [id])
-  images            String[] // array of image URLs
-  basePrice         Decimal  @db.Decimal(10, 2)
-  salePrice         Decimal? @db.Decimal(10, 2)
-  weight            Decimal? @db.Decimal(10, 2)
-  isActive          Boolean  @default(true)
-  allowBackorder    Boolean  @default(false)
-  /// Minimum order quantity. B2B buyers expect to see this up front;
-  /// 1 means "no minimum", which is itself worth stating.
-  moq               Int      @default(1)
-  /// Optional long-form content for the product detail tabs. Null means the
-  /// tab is not rendered — never show an empty tab.
-  ingredients       String?
-  usageInstructions String?
-  ratingAvg         Decimal  @default(0) @db.Decimal(3, 2)
-  ratingCount       Int      @default(0)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
-  variants   ProductVariant[]
-  orderItems OrderItem[]
-  reviews    Review[]
-
-  @@index([categoryId])
-  @@index([isActive])
-  @@index([slug])
-  @@index([sku])
-  @@index([brand])
-}
-
-model ProductVariant {
-  id             String   @id @default(cuid())
-  productId      String
-  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  name           String // e.g. "500ml", "Black", "Medium"
-  sku            String   @unique
-  price          Decimal  @db.Decimal(10, 2) // list price — what a single unit costs before any discount
-  salePrice      Decimal? @db.Decimal(10, 2) // optional markdown; charged when no wholesale tier matches
-  wholesalePrice Decimal? @db.Decimal(10, 2) // legacy/base wholesale reference; real tiers below
-  weight         Decimal? @db.Decimal(10, 2)
-  imageUrl       String?
-  isActive       Boolean  @default(true)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  wholesaleTiers WholesalePriceTier[]
-  inventory      Inventory?
-  cartItems      CartItem[]
-  orderItems     OrderItem[]
-
-  @@index([productId])
-  @@index([sku])
-}
-
-model WholesalePriceTier {
-  id               String         @id @default(cuid())
-  productVariantId String
-  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
-  minQty           Int
-  maxQty           Int? // null = unbounded (10+)
-  pricePerUnit     Decimal        @db.Decimal(10, 2)
-  createdAt        DateTime       @default(now())
-
-  @@index([productVariantId])
-  @@index([minQty])
-}
-
-// ─────────────────────────────────────────────
-// INVENTORY
-// ─────────────────────────────────────────────
-
-model Inventory {
-  id                String         @id @default(cuid())
-  productVariantId  String         @unique
-  productVariant    ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
-  stock             Int            @default(0)
-  lowStockThreshold Int            @default(5)
-  updatedAt         DateTime       @updatedAt
-
-  transactions InventoryTransaction[]
-
-  @@index([stock])
-}
-
-model InventoryTransaction {
-  id          String          @id @default(cuid())
-  inventoryId String
-  inventory   Inventory       @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
-  action      InventoryAction
-  quantity    Int // positive = added, negative = removed
-  reason      String?
-  adminId     String?
-  admin       Admin?          @relation(fields: [adminId], references: [id])
-  orderId     String?
-  createdAt   DateTime        @default(now())
-
-  @@index([inventoryId])
-  @@index([createdAt])
-}
-
-// ─────────────────────────────────────────────
-// CART
-// ─────────────────────────────────────────────
-
-model Cart {
-  id         String   @id @default(cuid())
-  customerId String   @unique
-  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
-  couponCode String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  items CartItem[]
-}
-
-model CartItem {
-  id               String         @id @default(cuid())
-  cartId           String
-  cart             Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  productVariantId String
-  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
-  quantity         Int
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-
-  @@unique([cartId, productVariantId])
-}
-
-// ─────────────────────────────────────────────
-// ORDERS
-// ─────────────────────────────────────────────
-
-model Order {
-  id           String      @id @default(cuid())
-  orderNumber  String      @unique // e.g. SAL-20260808-0001
-  customerId   String
-  customer     Customer    @relation(fields: [customerId], references: [id])
-  businessName String?
-  items        OrderItem[]
-
-  subtotal       Decimal @db.Decimal(10, 2)
-  bulkDiscount   Decimal @default(0) @db.Decimal(10, 2)
-  couponDiscount Decimal @default(0) @db.Decimal(10, 2)
-  couponCode     String?
-  deliveryFee    Decimal @default(0) @db.Decimal(10, 2)
-  tax            Decimal @default(0) @db.Decimal(10, 2)
-  total          Decimal @db.Decimal(10, 2)
-
-  paymentMethod PaymentMethod @default(COD)
-  paymentStatus PaymentStatus @default(PENDING)
-  status        OrderStatus   @default(PENDING)
-
-  shippingAddress      Json
-  billingAddress       Json?
-  gstNumber            String?
-  deliveryInstructions String?
-
-  delivery Delivery?
-  invoice  Invoice?
-  emails   EmailLog[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([customerId])
-  @@index([status])
-  @@index([createdAt])
-  @@index([orderNumber])
-}
-
-model OrderItem {
-  id               String         @id @default(cuid())
-  orderId          String
-  order            Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  productId        String
-  product          Product        @relation(fields: [productId], references: [id])
-  productVariantId String
-  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id])
-  productName      String // snapshot at time of order
-  variantName      String // snapshot
-  quantity         Int
-  unitPrice        Decimal        @db.Decimal(10, 2) // price actually charged (post wholesale tier)
-  listPrice        Decimal        @db.Decimal(10, 2) // undiscounted price, for reporting
-  lineTotal        Decimal        @db.Decimal(10, 2)
-
-  @@index([orderId])
-  @@index([productId])
-  @@index([productVariantId])
-}
-
-// ─────────────────────────────────────────────
-// INVOICES
-// ─────────────────────────────────────────────
-
-/// A bill issued against an order. Deliberately minimal: the Order and its
-/// OrderItems already hold immutable price snapshots, so an invoice never
-/// copies money figures — it only fixes an identifier and a date. That keeps
-/// the bill and the order mathematically incapable of disagreeing.
-model Invoice {
-  id            String   @id @default(cuid())
-  invoiceNumber String   @unique
-  orderId       String   @unique
-  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  invoiceDate   DateTime @default(now())
-  createdAt     DateTime @default(now())
-
-  @@index([invoiceNumber])
-  @@index([invoiceDate])
-}
-
-// ─────────────────────────────────────────────
-// BULK ORDER REQUESTS
-// ─────────────────────────────────────────────
-
-model BulkOrderRequest {
-  id               String          @id @default(cuid())
-  customerId       String?
-  customer         Customer?       @relation(fields: [customerId], references: [id])
-  companyName      String
-  contactPerson    String
-  phone            String
-  email            String
-  productsNote     String // free text: products + qty requested
-  expectedDate     DateTime?
-  deliveryLocation String
-  additionalNotes  String?
-  quotedAmount     Decimal?        @db.Decimal(10, 2)
-  status           BulkOrderStatus @default(PENDING)
-  convertedOrderId String?
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @updatedAt
-
-  @@index([status])
-  @@index([createdAt])
-}
-
-// ─────────────────────────────────────────────
-// DELIVERY
-// ─────────────────────────────────────────────
-
-model Delivery {
-  id                   String         @id @default(cuid())
-  orderId              String         @unique
-  order                Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  status               DeliveryStatus @default(PENDING)
-  courierName          String?
-  trackingNumber       String?
-  expectedDeliveryDate DateTime?
-  deliveryNotes        String?
-  createdAt            DateTime       @default(now())
-  updatedAt            DateTime       @updatedAt
-
-  @@index([status])
-}
-
-// ─────────────────────────────────────────────
-// REVIEWS
-// ─────────────────────────────────────────────
-
-model Review {
-  id         String       @id @default(cuid())
-  productId  String
-  product    Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
-  customerId String
-  customer   Customer     @relation(fields: [customerId], references: [id])
-  rating     Int // 1-5
-  comment    String?
-  status     ReviewStatus @default(PENDING)
-  createdAt  DateTime     @default(now())
-
-  @@index([productId])
-  @@index([status])
-}
-
-// ─────────────────────────────────────────────
-// CONTACT / ENQUIRIES
-// ─────────────────────────────────────────────
-
-model ContactMessage {
-  id           String        @id @default(cuid())
-  name         String
-  businessName String?
-  phone        String
-  email        String
-  message      String
-  status       EnquiryStatus @default(UNREAD)
-  createdAt    DateTime      @default(now())
-
-  @@index([status])
-  @@index([createdAt])
-}
-
-// ─────────────────────────────────────────────
-// COUPONS
-// ─────────────────────────────────────────────
-
-model Coupon {
-  id            String       @id @default(cuid())
-  code          String       @unique
-  discountType  DiscountType
-  discountValue Decimal      @db.Decimal(10, 2)
-  minOrderValue Decimal?     @db.Decimal(10, 2)
-  maxDiscount   Decimal?     @db.Decimal(10, 2)
-  startDate     DateTime
-  endDate       DateTime
-  usageLimit    Int?
-  usageCount    Int          @default(0)
-  isActive      Boolean      @default(true)
-  createdAt     DateTime     @default(now())
-
-  @@index([code])
-  @@index([isActive])
-}
-
-/// One row per customer email the system has tried to send.
-///
-/// Exists for two reasons: a retried request must not send a second copy of the
-/// same message, and a failure has to be recoverable rather than lost. The
-/// unique constraint on (orderId, kind) is what makes the send idempotent — a
-/// second attempt collides and is skipped rather than duplicating.
-model EmailLog {
-  id        String      @id @default(cuid())
-  orderId   String
-  order     Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  kind      EmailKind
-  recipient String
-  subject   String
-  status    EmailStatus @default(PENDING)
-  /// Provider message id when accepted; the error message when it failed.
-  detail    String?
-  attempts  Int         @default(0)
-  sentAt    DateTime?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-
-  @@unique([orderId, kind])
-  @@index([status])
-  @@index([createdAt])
-}
-
-enum EmailKind {
-  ORDER_CONFIRMATION
-  ORDER_CONFIRMED
-  ORDER_SHIPPED
-  ORDER_OUT_FOR_DELIVERY
-  ORDER_DELIVERED
-  ORDER_CANCELLED
-}
-
-enum EmailStatus {
-  PENDING
-  SENT
-  FAILED
-  SKIPPED
-}
-
-/// Failed authentication attempts, for rate limiting.
-///
-/// Kept in the database rather than in memory because the app runs on
-/// serverless functions: an in-process counter protects one instance and lets
-/// an attacker walk straight past it by landing on another. Rows are cheap and
-/// pruned as they expire.
-model LoginAttempt {
-  id        String   @id @default(cuid())
-  /// Either "ip:1.2.3.4" or "user:someone@example.com" — both are limited, so
-  /// one address cannot spray many accounts and one account cannot be ground
-  /// down from many addresses.
-  scope     String
-  createdAt DateTime @default(now())
-
-  @@index([scope, createdAt])
 }

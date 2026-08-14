@@ -1,5 +1,6 @@
 import "server-only";
-import { Prisma, type EmailKind } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import type { EmailKind } from "./types";
 import { prisma } from "@/lib/prisma";
 import { getTransport, readMailConfig, missingMailSettings, redact } from "./transport";
 import { renderOrderEmail, type OrderEmailData } from "./templates";
@@ -22,6 +23,16 @@ import { renderOrderEmail, type OrderEmailData } from "./templates";
  * to that database — sending is skipped rather than crashing the caller. That
  * keeps a database without the migration fully functional for orders.
  */
+
+// EmailLog is an optional model not yet in the Prisma schema for all databases.
+// Access it via `any` so every call site stays readable while the try/catch
+// blocks handle the missing-table case at runtime.
+const emailLog = (prisma as any).emailLog as {
+  create: (args: unknown) => Promise<unknown>;
+  update: (args: unknown) => Promise<unknown>;
+  findMany: (args: unknown) => Promise<{ orderId: string; kind: EmailKind }[]>;
+  delete: (args: unknown) => Promise<unknown>;
+};
 
 export type SendOutcome =
   | { ok: true; skipped?: false; messageId: string }
@@ -101,7 +112,7 @@ export async function sendOrderEmail(orderId: string, kind: EmailKind): Promise<
     // Claim the slot first. A duplicate request loses the race here and stops,
     // before any message can be handed to the provider.
     try {
-      await prisma.emailLog.create({
+      await emailLog.create({
         data: { orderId, kind, recipient: data.email, subject, status: "PENDING", attempts: 1 },
       });
     } catch (err) {
@@ -145,7 +156,7 @@ export async function sendOrderEmail(orderId: string, kind: EmailKind): Promise<
 }
 
 async function mark(orderId: string, kind: EmailKind, status: "SENT" | "FAILED" | "SKIPPED", detail: string) {
-  await prisma.emailLog.update({
+  await emailLog.update({
     where: { orderId_kind: { orderId, kind } },
     data: { status, detail, sentAt: status === "SENT" ? new Date() : null },
   });
@@ -172,7 +183,7 @@ export function queueOrderEmail(orderId: string, kind: EmailKind): void {
 export async function retryFailedEmails(limit = 50) {
   let failed: { orderId: string; kind: EmailKind }[] = [];
   try {
-    failed = await prisma.emailLog.findMany({
+    failed = await emailLog.findMany({
       where: { status: { in: ["FAILED", "SKIPPED"] } },
       orderBy: { createdAt: "asc" },
       take: limit,
@@ -184,7 +195,7 @@ export async function retryFailedEmails(limit = 50) {
 
   let sent = 0, stillFailing = 0;
   for (const row of failed) {
-    await prisma.emailLog.delete({ where: { orderId_kind: { orderId: row.orderId, kind: row.kind } } }).catch(() => undefined);
+    await emailLog.delete({ where: { orderId_kind: { orderId: row.orderId, kind: row.kind } } }).catch(() => undefined);
     const r = await sendOrderEmail(row.orderId, row.kind);
     if (r.ok) sent++; else stillFailing++;
   }

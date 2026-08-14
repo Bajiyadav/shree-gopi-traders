@@ -126,16 +126,16 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-sm text-slate-500" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-brand-700">Home</Link>
-        <span aria-hidden="true">/</span>
-        <Link href="/products" className="hover:text-brand-700">Products</Link>
-        <span aria-hidden="true">/</span>
-        <Link href={`/categories/${product.category.slug}`} className="hover:text-brand-700">
+      <nav className="mb-6 flex flex-wrap items-center gap-1.5 text-sm" aria-label="Breadcrumb">
+        <Link href="/" className="text-slate-400 hover:text-brand-700 transition-colors">Home</Link>
+        <span aria-hidden="true" className="text-slate-300">/</span>
+        <Link href="/products" className="text-slate-400 hover:text-brand-700 transition-colors">Products</Link>
+        <span aria-hidden="true" className="text-slate-300">/</span>
+        <Link href={`/categories/${product.category.slug}`} className="text-slate-400 hover:text-brand-700 transition-colors">
           {product.category.name}
         </Link>
-        <span aria-hidden="true">/</span>
-        <span className="text-slate-900">{product.name}</span>
+        <span aria-hidden="true" className="text-slate-300">/</span>
+        <span className="font-medium text-slate-900">{product.name}</span>
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
@@ -174,30 +174,32 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           {/* Delivery + business info */}
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             {[
-              { icon: Truck, title: "Cash on Delivery", body: "Free delivery above ₹5,000. ₹199 flat below." },
-              { icon: Package, title: "Dispatch in 24–48 hrs", body: "Delivered in 3–7 working days." },
-              { icon: FileText, title: "GST Invoice", body: "Add your GST number at checkout." },
-              { icon: ShieldCheck, title: "Professional Grade", body: "Supplied in salon trade packs." },
+              { icon: Truck, title: "Cash on Delivery", body: "Free delivery above ₹5,000. ₹199 flat below.", color: "bg-emerald-50 text-emerald-700" },
+              { icon: Package, title: "Dispatch in 24–48 hrs", body: "Delivered in 3–7 working days.", color: "bg-blue-50 text-blue-700" },
+              { icon: FileText, title: "GST Invoice", body: "Add your GST number at checkout.", color: "bg-amber-50 text-amber-700" },
+              { icon: ShieldCheck, title: "Professional Grade", body: "Supplied in salon trade packs.", color: "bg-brand-50 text-brand-700" },
             ].map((item) => (
-              <div key={item.title} className="flex gap-3 rounded-lg border border-slate-200 p-3">
-                <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" aria-hidden="true" />
+              <div key={item.title} className="flex gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${item.color}`}>
+                  <item.icon className="h-4 w-4" aria-hidden="true" />
+                </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-900">{item.title}</p>
-                  <p className="text-xs text-slate-600">{item.body}</p>
+                  <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+                  <p className="mt-0.5 text-xs leading-relaxed text-slate-500">{item.body}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-5 rounded-lg border border-brand-200 bg-brand-50 p-4">
-            <p className="text-sm font-medium text-brand-900">Buying in larger quantities?</p>
-            <p className="mt-1 text-sm text-brand-800">
+          <div className="mt-5 rounded-2xl border border-brand-200 bg-gradient-to-br from-brand-50 to-white p-5 shadow-sm">
+            <p className="text-sm font-bold text-brand-900">📦 Buying in larger quantities?</p>
+            <p className="mt-1.5 text-sm text-brand-700">
               Raise a bulk enquiry for a custom quotation on orders beyond the listed tiers.
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap gap-2">
               <Link
                 href="/bulk-orders"
-                className="rounded-lg bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-800"
+                className="rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-brand-800 transition-colors"
               >
                 Request Bulk Quote
               </Link>

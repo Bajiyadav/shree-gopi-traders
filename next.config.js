@@ -37,8 +37,10 @@ const nextConfig = {
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline'",
               "style-src 'self' 'unsafe-inline'",
-              // Cloudinary is the single remote image host allowed above.
+              // Cloudinary is the single remote host for images and videos.
               "img-src 'self' data: blob: https://res.cloudinary.com",
+              // Allow the Cloudinary promotional video to stream.
+              "media-src 'self' https://res.cloudinary.com",
               "font-src 'self' data:",
               "connect-src 'self'",
               // Payment is cash on delivery; nothing is embedded.

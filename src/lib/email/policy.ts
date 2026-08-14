@@ -1,4 +1,5 @@
-import type { EmailKind, OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@prisma/client";
+import type { EmailKind } from "./types";
 
 /**
  * WHICH STATUS CHANGES EMAIL THE CUSTOMER

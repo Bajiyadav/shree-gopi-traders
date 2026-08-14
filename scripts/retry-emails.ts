@@ -24,9 +24,9 @@ async function main() {
     console.log(`  SMTP     : ${v.ok ? "credentials accepted" : "rejected — " + v.detail}`);
   }
 
-  // Let Prisma infer the shape — annotating it fights the generated types.
-  try {
-    const counts = await prisma.emailLog.groupBy({ by: ["status"], _count: { _all: true } });
+    // Cast through `any` so the try/catch handles the missing table at runtime.
+    // The EmailLog model is optional — not all databases have it yet.
+    const counts = await (prisma as any).emailLog.groupBy({ by: ["status"], _count: { _all: true } });
     console.log(`  Emails   : ${counts.map((c) => `${c.status}=${c._count._all}`).join("  ") || "none yet"}`);
   } catch {
     console.log("  EmailLog table not present on this database — nothing to report.\n");

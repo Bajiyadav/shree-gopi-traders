@@ -26,6 +26,15 @@ const WINDOW_MS = 15 * 60 * 1000;
 export const MAX_PER_IP = 20;      // a shared office address needs headroom
 export const MAX_PER_ACCOUNT = 8;  // one person mistyping their own password
 
+// LoginAttempt is an optional model not yet in the Prisma schema for all
+// databases. Access it via `any` — the try/catch blocks in every caller
+// handle the missing-table case at runtime (fail-open, by design).
+const loginAttempt = (prisma as any).loginAttempt as {
+  findMany: (args: unknown) => Promise<{ scope: string; createdAt: Date }[]>;
+  createMany: (args: unknown) => Promise<unknown>;
+  deleteMany: (args: unknown) => Promise<unknown>;
+};
+
 /** Best-effort client address behind Vercel's proxy. */
 function clientIp(): string {
   const h = headers();
@@ -47,7 +56,7 @@ export async function checkAuthRate(email?: string): Promise<RateVerdict> {
   if (email) scopes.push(`user:${email.trim().toLowerCase()}`);
 
   try {
-    const rows = await prisma.loginAttempt.findMany({
+    const rows = await loginAttempt.findMany({
       where: { scope: { in: scopes }, createdAt: { gte: since } },
       select: { scope: true, createdAt: true },
     });
@@ -73,11 +82,11 @@ export async function recordFailedAuth(email?: string): Promise<void> {
   const scopes = [`ip:${clientIp()}`];
   if (email) scopes.push(`user:${email.trim().toLowerCase()}`);
   try {
-    await prisma.loginAttempt.createMany({ data: scopes.map((scope) => ({ scope })) });
+    await loginAttempt.createMany({ data: scopes.map((scope) => ({ scope })) });
     // Opportunistic cleanup so the table cannot grow without bound. Cheap
     // because of the (scope, createdAt) index, and failure here is harmless.
     if (Math.random() < 0.1) {
-      await prisma.loginAttempt.deleteMany({
+      await loginAttempt.deleteMany({
         where: { createdAt: { lt: new Date(Date.now() - WINDOW_MS) } },
       });
     }
@@ -97,7 +106,7 @@ export async function recordFailedAuth(email?: string): Promise<void> {
  */
 export async function clearAuthFailures(email: string): Promise<void> {
   try {
-    await prisma.loginAttempt.deleteMany({ where: { scope: `user:${email.trim().toLowerCase()}` } });
+    await loginAttempt.deleteMany({ where: { scope: `user:${email.trim().toLowerCase()}` } });
   } catch {
     /* ignore */
   }

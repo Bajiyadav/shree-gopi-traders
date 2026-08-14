@@ -103,14 +103,15 @@ export async function Header() {
         {/* A plain GET form — search needs no client JavaScript. The category
             select posts as `category`, which /products already understands. */}
         <form action="/products" className="mx-auto hidden max-w-2xl flex-1 lg:block">
-          <div className="flex h-11 rounded-lg border-2 border-slate-200 focus-within:border-brand-600">
+          <div className="flex h-12 rounded-xl border-2 border-slate-200 bg-white shadow-sm transition-colors focus-within:border-brand-500 focus-within:shadow-md">
             <div className="relative flex-1">
+              <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden="true" />
               <input
                 type="search"
                 name="q"
-                placeholder="Search for products, categories…"
+                placeholder="Search products, brands, categories…"
                 aria-label="Search products"
-                className="h-full w-full rounded-l-md border-0 bg-transparent px-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-0"
+                className="h-full w-full rounded-l-xl border-0 bg-transparent pl-10 pr-4 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-0"
               />
             </div>
             <select
@@ -129,7 +130,7 @@ export async function Header() {
             <button
               type="submit"
               aria-label="Search"
-              className="flex w-14 items-center justify-center rounded-r-md bg-brand-700 text-white transition-colors hover:bg-brand-800"
+              className="flex w-14 items-center justify-center rounded-r-xl bg-brand-700 text-white transition-colors hover:bg-brand-800"
             >
               <Search className="h-4 w-4" aria-hidden="true" />
             </button>
