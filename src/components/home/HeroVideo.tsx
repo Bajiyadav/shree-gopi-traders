@@ -1,10 +1,9 @@
 "use client";
 
-// NOTE: This component is loaded with `dynamic(..., { ssr: false })` in
-// page.tsx. That is intentional — React does not serialize the `muted`
-// attribute during SSR (known upstream bug), which causes browsers to treat
-// the video as unmuted and block autoplay. Client-only rendering sidesteps
-// this completely.
+// Loaded with `dynamic(..., { ssr: false })` in page.tsx.
+// React does not serialise the `muted` attribute during SSR (known upstream
+// bug), which causes browsers to treat the video as unmuted and block
+// autoplay. Client-only rendering sidesteps this completely.
 
 import { useEffect, useRef } from "react";
 
@@ -16,29 +15,36 @@ const POSTER_URL =
 
 export function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
-    const overlay = overlayRef.current;
-    if (!video || !overlay) return;
+    if (!video) return;
 
-    // Muted set as a DOM property — the HTML attribute is not reliably
+    // Set muted as a DOM property — the HTML attribute is not reliably
     // serialised by React, so this guarantees the browser sees it as muted.
     video.muted = true;
     video.play().catch(() => {});
 
-    function showBrand() {
-      overlay!.style.opacity = "1";
-      setTimeout(() => {
-        overlay!.style.opacity = "0";
-        video!.currentTime = 0;
-        video!.play().catch(() => {});
-      }, 5000);
-    }
+    // Pause/resume as the hero scrolls in and out of view.
+    // Once the video has ended, isIntersecting will be true but the video
+    // will already be paused at the final frame — play() is not called again
+    // because ended videos do not restart from play() without resetting
+    // currentTime first, which we deliberately never do.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!video.ended) {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        }
+      },
+      { threshold: 0.1 }
+    );
 
-    video.addEventListener("ended", showBrand);
-    return () => video.removeEventListener("ended", showBrand);
+    observer.observe(video);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -58,23 +64,7 @@ export function HeroVideo() {
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      {/* Brand card — fades in for 5 s at the end of each play-through */}
-      <div
-        ref={overlayRef}
-        className="pointer-events-none absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-slate-900/80 backdrop-blur-sm"
-        style={{ opacity: 0, transition: "opacity 0.5s ease" }}
-      >
-        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-violet-300">
-          B2B Salon &amp; Parlour Supplies
-        </p>
-        <p className="text-2xl font-bold text-white sm:text-3xl">
-          Sree Gopi Traders
-        </p>
-        <p className="text-sm text-slate-300">
-          Wholesale · Cash on Delivery · Pan India
-        </p>
-      </div>
-
+      {/* Bottom gradient for visual blending */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900/40 to-transparent z-10" />
     </div>
   );
