@@ -1,10 +1,5 @@
 "use client";
 
-// Loaded with `dynamic(..., { ssr: false })` in page.tsx.
-// React does not serialise the `muted` attribute during SSR (known upstream
-// bug), which causes browsers to treat the video as unmuted and block
-// autoplay. Client-only rendering sidesteps this completely.
-
 import { useEffect, useRef } from "react";
 
 const VIDEO_URL =
@@ -20,16 +15,16 @@ export function HeroVideo() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Set muted as a DOM property — the HTML attribute is not reliably
-    // serialised by React, so this guarantees the browser sees it as muted.
     video.muted = true;
-    video.play().catch(() => {});
+    video.playsInline = true;
+    video.loop = false;
 
-    // Pause/resume as the hero scrolls in and out of view.
-    // Once the video has ended, isIntersecting will be true but the video
-    // will already be paused at the final frame — play() is not called again
-    // because ended videos do not restart from play() without resetting
-    // currentTime first, which we deliberately never do.
+    const handleEnded = () => {
+      video.pause();
+    };
+
+    video.addEventListener("ended", handleEnded);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!video.ended) {
@@ -44,13 +39,15 @@ export function HeroVideo() {
     );
 
     observer.observe(video);
-    return () => observer.disconnect();
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+      observer.disconnect();
+    };
   }, []);
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-2xl shadow-xl ring-1 ring-slate-200 bg-slate-900"
-      style={{ aspectRatio: "16 / 9" }}
+      className="absolute inset-0 -z-10 h-full w-full overflow-hidden bg-slate-900 pointer-events-none select-none"
       aria-hidden="true"
     >
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -61,11 +58,11 @@ export function HeroVideo() {
         muted
         playsInline
         preload="auto"
-        className="absolute inset-0 h-full w-full object-cover"
+        className="h-full w-full object-cover opacity-25 filter brightness-90"
       />
-
-      {/* Bottom gradient for visual blending */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-900/40 to-transparent z-10" />
+      {/* High-legibility gradient overlay protecting all hero typography and controls */}
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-50/95 via-white/90 to-slate-50/80 backdrop-blur-[1px]" />
     </div>
   );
 }
+

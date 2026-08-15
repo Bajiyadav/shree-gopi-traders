@@ -149,9 +149,10 @@ export default async function HomePage() {
   return (
     <>
       {/* ── Hero ───────────────────────────────────────────── */}
-      <section className="border-b border-slate-200 bg-gradient-to-br from-brand-50 via-white to-slate-50">
-        <div className="container-page grid items-center gap-10 py-14 lg:grid-cols-2 lg:py-20">
-          <div>
+      <section className="relative isolate overflow-hidden border-b border-slate-200 bg-slate-900">
+        <HeroVideo />
+        <div className="container-page relative z-10 py-14 lg:py-20">
+          <div className="max-w-2xl">
             <h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem]">
               Your One Stop
               <br />
@@ -159,7 +160,7 @@ export default async function HomePage() {
               <br />
               Supply Partner
             </h1>
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-600 sm:text-lg">
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-700 sm:text-lg font-medium">
               {siteConfig.supportingText} Order at wholesale rates, pay cash on
               delivery, and restock without chasing five different suppliers.
             </p>
@@ -170,7 +171,7 @@ export default async function HomePage() {
               </ButtonLink>
               {siteConfig.whatsappNumber && (
                 <WhatsAppButton
-                  className="h-12 rounded-lg border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 hover:bg-slate-50"
+                  className="h-12 rounded-lg border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 hover:bg-slate-50 shadow-sm"
                   message={`Hello ${siteConfig.brandName}, I'd like to know more about your wholesale rates.`}
                 >
                   Chat on WhatsApp
@@ -198,9 +199,7 @@ export default async function HomePage() {
               </button>
             </form>
 
-            {/* Counts, not claims — each is a live query against the catalogue.
-                Orders and businesses are shown only once there are some, so a
-                new store never advertises "0+ Orders Fulfilled". */}
+            {/* Counts, not claims — each is a live query against the catalogue. */}
             <dl className="mt-10 grid max-w-lg grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
               {[
                 { label: "Products", value: `${productCount}+` },
@@ -212,16 +211,13 @@ export default async function HomePage() {
                   ? [{ label: "Orders Fulfilled", value: `${orderCount}+` }]
                   : []),
               ].map((stat) => (
-                <div key={stat.label}>
-                  <dt className="text-xs uppercase tracking-wide text-slate-500">{stat.label}</dt>
-                  <dd className="mt-1 text-2xl font-semibold text-slate-900">{stat.value}</dd>
+                <div key={stat.label} className="rounded-lg bg-white/60 backdrop-blur-sm p-2 border border-slate-200/50">
+                  <dt className="text-xs uppercase font-medium tracking-wide text-slate-600">{stat.label}</dt>
+                  <dd className="mt-0.5 text-2xl font-bold text-slate-900">{stat.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
-
-          {/* Cloudinary promotional video — autoplay, muted, loop, no controls */}
-          <HeroVideo />
         </div>
       </section>
 
