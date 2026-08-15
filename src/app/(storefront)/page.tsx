@@ -21,27 +21,8 @@ import { ProductGrid } from "@/components/products/ProductCard";
 import { ButtonLink, Card, Rating, SectionHeading } from "@/components/ui";
 import { WhatsAppBanner, WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatCurrency } from "@/lib/utils";
-import dynamic from "next/dynamic";
-const HeroVideo = dynamic(
-  () => import("@/components/home/HeroVideo").then((m) => m.HeroVideo),
-  {
-    ssr: false,
-    loading: () => (
-      <div
-        className="absolute inset-0 -z-10 h-full w-full bg-slate-900 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://res.cloudinary.com/dg8z7pxju/video/upload/so_0.0/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.jpg')",
-        }}
-      />
-    ),
-  }
-);
-
-const ShowcasePromoVideo = dynamic(
-  () => import("@/components/home/ShowcasePromoVideo").then((m) => m.ShowcasePromoVideo),
-  { ssr: false }
-);
+import { HeroVideo } from "@/components/home/HeroVideo";
+import { ShowcasePromoVideo } from "@/components/home/ShowcasePromoVideo";
 
 export const revalidate = 300;
 
