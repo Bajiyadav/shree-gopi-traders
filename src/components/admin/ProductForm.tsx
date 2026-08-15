@@ -123,13 +123,13 @@ export function ProductForm({
             </Field>
 
             <Field
-              label="Image URLs"
+              label="3-Image Product Gallery (Front, 3/4 Angle, Label/Detail)"
               htmlFor="images"
               error={error("images")}
-              hint="One per line. Local paths (/products/hair-care/shampoo.svg) or Cloudinary URLs (https://res.cloudinary.com/…). Other remote hosts are blocked."
+              hint="Enter up to 3 URLs (one per line): Line 1 = Front View, Line 2 = 3/4 Angle View, Line 3 = Label/Detail Close-up. Supports Cloudinary and local assets."
               className="sm:col-span-2"
             >
-              <Textarea id="images" name="images" rows={3} defaultValue={values.images} />
+              <Textarea id="images" name="images" rows={4} defaultValue={values.images} placeholder="https://res.cloudinary.com/.../front-photo.png&#10;https://res.cloudinary.com/.../angle-photo.png&#10;https://res.cloudinary.com/.../detail-photo.png" />
             </Field>
           </div>
 

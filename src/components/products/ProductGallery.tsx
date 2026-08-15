@@ -1,20 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FALLBACK_IMAGE = "/images/categories/placeholder.svg";
 
+const VIEW_LABELS = ["Front View", "3/4 Angle", "Detail / Label"];
+
 /**
- * Main image + thumbnail strip + lightbox zoom.
- * Clicking the main image opens a full-screen lightbox.
+ * 3-Image Product Gallery System with touch swipe, thumbnail selector, and lightbox zoom.
  */
 export function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
   const [active, setActive] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
 
   const uniqueImages = Array.from(new Set(images.filter(Boolean)));
   const gallery = uniqueImages.length > 0 ? uniqueImages : [FALLBACK_IMAGE];
@@ -30,14 +34,62 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
     });
   };
 
-  const prev = () => setActive((i) => (i - 1 + gallery.length) % gallery.length);
-  const next = () => setActive((i) => (i + 1) % gallery.length);
+  const prev = useCallback(
+    () => setActive((i) => (i - 1 + gallery.length) % gallery.length),
+    [gallery.length]
+  );
+
+  const next = useCallback(
+    () => setActive((i) => (i + 1) % gallery.length),
+    [gallery.length]
+  );
+
+  // Touch swipe support for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const diff = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 40;
+
+    if (diff > minSwipeDistance) {
+      next();
+    } else if (diff < -minSwipeDistance) {
+      prev();
+    }
+
+    touchStartX.current = null;
+    touchEndX.current = null;
+  };
+
+  // Keyboard navigation when lightbox is open
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "Escape") setLightboxOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen, prev, next]);
 
   return (
     <>
       <div className="flex flex-col gap-3 sm:flex-row-reverse">
         {/* Main image */}
-        <div className="group relative aspect-square flex-1 cursor-zoom-in overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm">
+        <div
+          className="group relative aspect-square flex-1 cursor-zoom-in overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-sm select-none"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <Image
             key={displaySrc}
             src={displaySrc}
@@ -50,11 +102,18 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             onClick={() => setLightboxOpen(true)}
           />
 
+          {/* Current view badge */}
+          {gallery.length > 1 && (
+            <div className="absolute left-3 top-3 z-10 rounded-md bg-slate-900/70 px-2 py-1 text-[11px] font-medium text-white backdrop-blur-sm shadow">
+              {VIEW_LABELS[activeIndex] || `View ${activeIndex + 1}`}
+            </div>
+          )}
+
           {/* Zoom hint */}
           <button
             type="button"
             onClick={() => setLightboxOpen(true)}
-            className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow-md backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-white"
+            className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow-md backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-white"
             aria-label="Zoom image"
           >
             <ZoomIn className="h-4 w-4" />
@@ -65,16 +124,22 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             <>
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); prev(); }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow-md backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prev();
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow-md backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-white sm:flex"
                 aria-label="Previous image"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); next(); }}
-                className="absolute right-12 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow-md backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  next();
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow-md backdrop-blur-sm transition-opacity group-hover:opacity-100 hover:bg-white sm:flex"
                 aria-label="Next image"
               >
                 <ChevronRight className="h-4 w-4" />
@@ -82,10 +147,10 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             </>
           )}
 
-          {/* Dot indicators */}
+          {/* Dot indicators for mobile */}
           {gallery.length > 1 && (
-            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
-              {gallery.slice(0, 5).map((_, i) => (
+            <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 sm:hidden">
+              {gallery.map((_, i) => (
                 <button
                   key={i}
                   type="button"
@@ -101,37 +166,41 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
           )}
         </div>
 
-        {/* Thumbnails */}
+        {/* Thumbnails strip (Desktop vertical / Mobile horizontal) */}
         {gallery.length > 1 && (
           <div
-            className="flex gap-2 overflow-x-auto sm:w-20 sm:shrink-0 sm:flex-col sm:overflow-visible"
+            className="flex gap-2.5 overflow-x-auto pb-1 sm:w-24 sm:shrink-0 sm:flex-col sm:overflow-visible sm:pb-0"
             role="group"
-            aria-label="Product images"
+            aria-label="Product image gallery"
           >
-            {gallery.slice(0, 5).map((image, index) => {
+            {gallery.map((image, index) => {
               const thumbSrc = failedImages.has(image) ? FALLBACK_IMAGE : image;
+              const isSelected = index === activeIndex;
               return (
                 <button
                   key={image + index}
                   type="button"
                   onClick={() => setActive(index)}
-                  aria-label={`Show image ${index + 1} of ${gallery.length}`}
-                  aria-current={index === activeIndex}
+                  aria-label={`Show ${VIEW_LABELS[index] || `Image ${index + 1}`} of ${gallery.length}`}
+                  aria-current={isSelected}
                   className={cn(
-                    "relative aspect-square w-20 shrink-0 overflow-hidden rounded-xl border-2 bg-slate-50 transition-all",
-                    index === activeIndex
+                    "group relative aspect-square w-20 shrink-0 overflow-hidden rounded-xl border-2 bg-slate-50 transition-all sm:w-full",
+                    isSelected
                       ? "border-brand-600 shadow-md ring-2 ring-brand-500/20"
-                      : "border-slate-200 hover:border-slate-400 hover:shadow-sm"
+                      : "border-slate-200 opacity-75 hover:opacity-100 hover:border-slate-400 hover:shadow-sm"
                   )}
                 >
                   <Image
                     src={thumbSrc}
                     alt=""
                     fill
-                    sizes="80px"
+                    sizes="96px"
                     className="object-cover"
                     onError={() => handleImageError(image)}
                   />
+                  <span className="absolute bottom-0 inset-x-0 bg-slate-950/70 py-0.5 text-[9px] font-medium text-white text-center">
+                    {index === 0 ? "1. Front" : index === 1 ? "2. Angle" : "3. Detail"}
+                  </span>
                 </button>
               );
             })}
@@ -149,7 +218,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
             className="relative max-h-[90vh] max-w-4xl w-full"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
+            <div className="relative aspect-square w-full overflow-hidden rounded-2xl bg-black/40">
               <Image
                 src={displaySrc}
                 alt={alt}
@@ -165,7 +234,7 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
               type="button"
               onClick={() => setLightboxOpen(false)}
               className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-slate-800 shadow-lg hover:bg-slate-100"
-              aria-label="Close"
+              aria-label="Close lightbox"
             >
               <X className="h-5 w-5" />
             </button>
@@ -192,9 +261,9 @@ export function ProductGallery({ images, alt }: { images: string[]; alt: string 
               </>
             )}
 
-            {/* Image counter */}
-            <p className="mt-3 text-center text-sm text-white/70">
-              {activeIndex + 1} / {gallery.length}
+            {/* Image counter and view label */}
+            <p className="mt-3 text-center text-sm text-white/80 font-medium">
+              {VIEW_LABELS[activeIndex] || `View ${activeIndex + 1}`} ({activeIndex + 1} / {gallery.length})
             </p>
           </div>
         </div>
