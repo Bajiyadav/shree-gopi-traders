@@ -24,7 +24,18 @@ import { formatCurrency } from "@/lib/utils";
 import dynamic from "next/dynamic";
 const HeroVideo = dynamic(
   () => import("@/components/home/HeroVideo").then((m) => m.HeroVideo),
-  { ssr: false, loading: () => <div style={{ aspectRatio: "16/9" }} className="w-full rounded-2xl bg-slate-900" /> }
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="absolute inset-0 -z-10 h-full w-full bg-slate-900 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://res.cloudinary.com/dg8z7pxju/video/upload/so_0.0/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.jpg')",
+        }}
+      />
+    ),
+  }
 );
 
 export const revalidate = 300;
