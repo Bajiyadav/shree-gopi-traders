@@ -171,26 +171,29 @@ async function run() {
     console.log("Hero Video Playback State:", heroAfterPlay);
 
     console.log("\n==================================================");
-    console.log("3. AUDITING SECOND PROMOTIONAL VIDEO SECTION");
+    console.log("3. AUDITING ALL 5 HOMEPAGE VIDEOS");
     console.log("==================================================");
-    const secondVideoInfo = await client.eval(`
+    const allVideosInfo = await client.eval(`
       (() => {
-        const videos = document.querySelectorAll('video');
-        if (videos.length < 2) return { exists: false, count: videos.length };
-        const v2 = videos[1];
-        const rect = v2.getBoundingClientRect();
+        const videos = Array.from(document.querySelectorAll('video'));
         return {
-          exists: true,
           count: videos.length,
-          src: v2.src,
-          muted: v2.muted,
-          loop: v2.loop,
-          width: rect.width,
-          height: rect.height
+          videos: videos.map((v, i) => {
+            const rect = v.getBoundingClientRect();
+            return {
+              index: i + 1,
+              src: v.src,
+              poster: v.poster,
+              muted: v.muted,
+              loop: v.loop,
+              width: Math.round(rect.width),
+              height: Math.round(rect.height)
+            };
+          })
         };
       })()
     `);
-    console.log("Second Promotional Video Audit:", secondVideoInfo);
+    console.log("All 5 Homepage Videos Audit:", JSON.stringify(allVideosInfo, null, 2));
 
     console.log("\n==================================================");
     console.log("4. AUDITING PRODUCT CATALOGUE (/products)");

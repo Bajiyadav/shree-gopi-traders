@@ -23,6 +23,9 @@ import { WhatsAppBanner, WhatsAppButton } from "@/components/layout/WhatsApp";
 import { formatCurrency } from "@/lib/utils";
 import { HeroVideo } from "@/components/home/HeroVideo";
 import { ShowcasePromoVideo } from "@/components/home/ShowcasePromoVideo";
+import { HairCareVideoShowcase } from "@/components/home/HairCareVideoShowcase";
+import { SkincareVideoShowcase } from "@/components/home/SkincareVideoShowcase";
+import { CompleteSalonSupplyVideo } from "@/components/home/CompleteSalonSupplyVideo";
 
 export const revalidate = 300;
 
@@ -276,6 +279,9 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ── Video 2: Promotional Showcase Video ────────────── */}
+      <ShowcasePromoVideo />
+
       {/* ── Wholesale pricing explainer ────────────────────── */}
       <section className="border-y border-slate-200 bg-slate-50">
         <div className="container-page grid gap-10 py-14 sm:py-16 lg:grid-cols-2 lg:items-center">
@@ -376,6 +382,9 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* ── Video 3: Hair Care & Hair Spa Showcase ──────────── */}
+      <HairCareVideoShowcase />
+
       {/* ── Professional equipment ─────────────────────────── */}
       {equipment.length > 0 && (
         <section className="border-y border-slate-200 bg-slate-50">
@@ -438,8 +447,8 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ── B2B Supplier Showcase Video ────────────────────── */}
-      <ShowcasePromoVideo />
+      {/* ── Video 4: Skincare & Facial Showcase ─────────────── */}
+      <SkincareVideoShowcase />
 
       {/* ── Why us ─────────────────────────────────────────── */}
       <section className="container-page py-14 sm:py-16">
@@ -459,6 +468,9 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* ── Video 5: Complete Salon Supply Showcase ──────────── */}
+      <CompleteSalonSupplyVideo />
 
       {/* ── Newest products ────────────────────────────────── */}
       {newest.length > 0 && (
