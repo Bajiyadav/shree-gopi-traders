@@ -38,6 +38,11 @@ const HeroVideo = dynamic(
   }
 );
 
+const ShowcasePromoVideo = dynamic(
+  () => import("@/components/home/ShowcasePromoVideo").then((m) => m.ShowcasePromoVideo),
+  { ssr: false }
+);
+
 export const revalidate = 300;
 
 const BENEFITS = [
@@ -451,6 +456,9 @@ export default async function HomePage() {
           <ProductGrid products={essentials} />
         </section>
       )}
+
+      {/* ── B2B Supplier Showcase Video ────────────────────── */}
+      <ShowcasePromoVideo />
 
       {/* ── Why us ─────────────────────────────────────────── */}
       <section className="container-page py-14 sm:py-16">
