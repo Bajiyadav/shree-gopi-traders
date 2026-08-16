@@ -6,9 +6,10 @@ import { Play, Pause, Volume2, VolumeX, Sparkles, CheckCircle2, ArrowRight } fro
 import { siteConfig } from "@/lib/config";
 
 const PROMO_VIDEO_URL =
-  "https://res.cloudinary.com/dg8z7pxju/video/upload/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.mp4";
+  "https://res.cloudinary.com/dg8z7pxju/video/upload/v1786852671/shree-gopi-traders/videos/salon-wholesale-b2b-showcase.mp4";
 
-const PROMO_POSTER_URL = "/images/banners/spa-equipment-banner-premium.png";
+const PROMO_POSTER_URL =
+  "https://res.cloudinary.com/dg8z7pxju/video/upload/so_0.0/v1786852671/shree-gopi-traders/videos/salon-wholesale-b2b-showcase.jpg";
 
 const SHOWCASE_PILLARS = [
   "Hair Care & Professional Styling",

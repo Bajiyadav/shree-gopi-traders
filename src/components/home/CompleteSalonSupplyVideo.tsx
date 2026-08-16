@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Play, Pause, Volume2, VolumeX, Building2, Package, Truck, ArrowRight, CheckCircle } from "lucide-react";
 
 const VIDEO_URL =
-  "https://res.cloudinary.com/dg8z7pxju/video/upload/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.mp4";
+  "https://res.cloudinary.com/dg8z7pxju/video/upload/v1786852677/shree-gopi-traders/videos/complete-salon-supply-turnkey.mp4";
 const POSTER_URL =
-  "https://res.cloudinary.com/dg8z7pxju/video/upload/so_0.0/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.jpg";
+  "https://res.cloudinary.com/dg8z7pxju/video/upload/so_0.0/v1786852677/shree-gopi-traders/videos/complete-salon-supply-turnkey.jpg";
 
 export function CompleteSalonSupplyVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);

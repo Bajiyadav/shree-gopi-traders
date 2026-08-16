@@ -77,12 +77,12 @@ class ChromeClient {
         } catch {}
       };
       this.ws.addEventListener("message", handler);
-      setTimeout(resolve, 4000);
+      setTimeout(resolve, 5000);
     });
 
     await this.send("Page.navigate", { url });
     await loadPromise;
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 1500));
   }
 
   close() {
@@ -92,11 +92,11 @@ class ChromeClient {
 
 async function auditViewport(width: number, height: number, label: string) {
   console.log(`\n==================================================`);
-  console.log(`AUDITING 5 VIDEOS ON ${label} (${width}x${height})`);
+  console.log(`AUDITING 5 UNIQUE VIDEOS ON ${label} (${width}x${height})`);
   console.log(`==================================================`);
 
   const chrome = exec(
-    `"${CHROME_BIN}" --headless=new --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-cdp-profile-${width} --disable-gpu --window-size=${width},${height} http://localhost:3000`
+    `"${CHROME_BIN}" --headless=new --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-cdp-unique-${width} --disable-gpu --window-size=${width},${height} http://localhost:3000`
   );
 
   let tabs: any = null;
@@ -121,7 +121,7 @@ async function auditViewport(width: number, height: number, label: string) {
   await client.send("Page.enable");
 
   await client.navigate("http://localhost:3000");
-  await new Promise((r) => setTimeout(r, 1500));
+  await new Promise((r) => setTimeout(r, 2000));
 
   // Get audit for each of the 5 videos
   const report = await client.eval(`
@@ -144,7 +144,6 @@ async function auditViewport(width: number, height: number, label: string) {
         } catch (e) {}
 
         const t0 = v.currentTime;
-        const readyState0 = v.readyState;
         
         // Wait 1.5 seconds to check frame advancement
         await new Promise(r => setTimeout(r, 1500));
@@ -158,7 +157,7 @@ async function auditViewport(width: number, height: number, label: string) {
           poster: v.poster,
           videoWidth: v.videoWidth,
           videoHeight: v.videoHeight,
-          duration: v.duration,
+          duration: Number(v.duration.toFixed(2)),
           readyState: v.readyState,
           muted: v.muted,
           autoplay: v.autoplay,
@@ -190,11 +189,16 @@ async function run() {
     await new Promise((r) => setTimeout(r, 2000));
     const mobileReport = await auditViewport(390, 844, "MOBILE");
 
+    const urls = desktopReport.map((v: any) => v.src);
+    const uniqueUrls = new Set(urls);
+
     console.log("\n==================================================");
-    console.log("FINAL VIDEO PLAYBACK SUMMARY");
+    console.log("FINAL UNIQUE VIDEO MEDIA SUMMARY");
     console.log("==================================================");
-    console.log("Desktop Videos Verified:", desktopReport?.length === 5 ? "5/5 PASS" : "FAIL");
-    console.log("Mobile Videos Verified:", mobileReport?.length === 5 ? "5/5 PASS" : "FAIL");
+    console.log("Total Videos Rendered:", desktopReport?.length, "/ 5");
+    console.log("Unique Video URLs:", uniqueUrls.size, "/ 5");
+    console.log("Desktop Frame Advancement (5/5):", desktopReport?.every((v: any) => v.framesAdvanced) ? "PASS" : "FAIL");
+    console.log("Mobile Frame Advancement (5/5):", mobileReport?.every((v: any) => v.framesAdvanced) ? "PASS" : "FAIL");
   } catch (err) {
     console.error("Audit error:", err);
   }

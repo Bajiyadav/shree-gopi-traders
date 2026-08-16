@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Play, Pause, Volume2, VolumeX, Sparkles, HeartHandshake, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const VIDEO_URL =
-  "https://res.cloudinary.com/dg8z7pxju/video/upload/so_3.0,eo_10.0/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.mp4";
+  "https://res.cloudinary.com/dg8z7pxju/video/upload/v1786852675/shree-gopi-traders/videos/skincare-facial-treatment-showcase.mp4";
 const POSTER_URL =
-  "https://res.cloudinary.com/dg8z7pxju/video/upload/so_4.5/v1786658125/Create_a_premium_photorealisti_1_y9p2y9.jpg";
+  "https://res.cloudinary.com/dg8z7pxju/video/upload/so_0.0/v1786852675/shree-gopi-traders/videos/skincare-facial-treatment-showcase.jpg";
 
 export function SkincareVideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
