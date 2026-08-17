@@ -8,7 +8,9 @@ import { Badge, ButtonLink, Rating } from "@/components/ui";
 import type { CatalogCard } from "@/lib/catalog";
 import { discountPercent, formatCurrency } from "@/lib/utils";
 
-const FALLBACK_IMAGE = "/images/categories/placeholder.svg";
+// Inline SVG fallback — no hardcoded local file path
+const FALLBACK_IMAGE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Cpath d='M160 100h80v80h-80z' fill='none' stroke='%23cbd5e1' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='180' cy='120' r='8' fill='%23cbd5e1'/%3E%3Cpath d='M160 170l30-30 20 20 15-15 35 35' fill='none' stroke='%23cbd5e1' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E";
 
 export function ProductCard({ product }: { product: CatalogCard }) {
   const outOfStock = product.totalStock <= 0;
@@ -53,16 +55,16 @@ export function ProductCard({ product }: { product: CatalogCard }) {
               Wholesale
             </Badge>
           )}
+          {/* Availability is one more badge, not a wash over the photograph.
+              A product nobody can buy today is still a product the customer
+              should want tomorrow — greying out the image only makes the
+              catalogue look broken. */}
+          {outOfStock && (
+            <Badge tone="neutral" className="bg-white/95 shadow-sm backdrop-blur-sm">
+              Currently Unavailable
+            </Badge>
+          )}
         </div>
-
-        {/* Out of stock */}
-        {outOfStock && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-[2px]">
-            <span className="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold tracking-wide text-white">
-              Out of Stock
-            </span>
-          </div>
-        )}
       </Link>
 
       {/* ── Body ──────────────────────────────────────────── */}

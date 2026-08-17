@@ -261,7 +261,7 @@ export default async function HomePage() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                 <Image
-                  src={c.imageUrl || "/images/categories/placeholder.svg"}
+                  src={c.imageUrl || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Cpath d='M160 100h80v80h-80z' fill='none' stroke='%23cbd5e1' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='180' cy='120' r='8' fill='%23cbd5e1'/%3E%3Cpath d='M160 170l30-30 20 20 15-15 35 35' fill='none' stroke='%23cbd5e1' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"}
                   alt={c.name}
                   fill
                   sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
@@ -317,7 +317,7 @@ export default async function HomePage() {
           <Card className="overflow-hidden">
             <div className="relative aspect-[16/7] w-full overflow-hidden">
               <Image
-                src="/images/banners/b2b-warehouse-banner-premium.png"
+                src="https://res.cloudinary.com/dg8z7pxju/image/upload/v1786898108/shree-gopi-traders/banners/b2b-warehouse-banner-premium.jpg"
                 alt="Shree Gopi Traders B2B Wholesale Warehouse"
                 fill
                 className="object-cover"
@@ -391,7 +391,7 @@ export default async function HomePage() {
           <div className="container-page py-14 sm:py-16">
             <div className="mb-8 relative aspect-[21/9] w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
               <Image
-                src="/images/banners/spa-equipment-banner-premium.png"
+                src="https://res.cloudinary.com/dg8z7pxju/image/upload/v1786898110/shree-gopi-traders/banners/spa-equipment-banner-premium.jpg"
                 alt="Luxury Salon Equipment & Furniture Showcase"
                 fill
                 priority

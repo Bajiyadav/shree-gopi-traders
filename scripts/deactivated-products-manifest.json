@@ -1,0 +1,422 @@
+[
+  {
+    "id": "cmsuf61yl0031j4kzr58a76y2",
+    "sku": "RCH-ALOE-WAX-800",
+    "name": "Richelon Aloe Vera Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5zga002xj4kz2uo2mvyg",
+    "sku": "RCH-DC-WAX-800",
+    "name": "Richelon Dark Chocolate Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf632g0033j4kzcjo0nsgr",
+    "sku": "RCH-PRE-WAX-500",
+    "name": "Richelon Pre Wax Gel",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf60ig002zj4kzav6w28b4",
+    "sku": "RCH-STR-WAX-800",
+    "name": "Richelon Strawberry Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5ybt002vj4kz8jo4aw8r",
+    "sku": "RCH-WC-WAX-800",
+    "name": "Richelon White Chocolate Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5sot002lj4kzbzqwop9n",
+    "sku": "SGT-AM-BRIDAL-FACIAL-1",
+    "name": "Aroma Magic Bridal Glow Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5x6z002tj4kzaajfkiy8",
+    "sku": "SGT-AM-DIA-FACIAL-1",
+    "name": "Aroma Magic Diamond Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5ttn002nj4kztqrc4lja",
+    "sku": "SGT-AM-GLOW-FACIAL-1",
+    "name": "Aroma Magic Skin Glow Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5w44002rj4kz0j8sblh4",
+    "sku": "SGT-AM-GOLD-FACIAL-1",
+    "name": "Aroma Magic Gold Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5rmr002jj4kznfnl3ptc",
+    "sku": "SGT-AM-PEARL-FACIAL-1",
+    "name": "Aroma Magic Pearl Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5uy7002pj4kz1hl40xpj",
+    "sku": "SGT-AM-SILVER-FACIAL-1",
+    "name": "Aroma Magic Silver Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5kqj0027j4kzrom81jon",
+    "sku": "SGT-AST-DETAN-100",
+    "name": "Asta Berry De-Tan Sun Block",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5g7w001zj4kz2z3qa5cq",
+    "sku": "SGT-AST-DIA-FACIAL-1",
+    "name": "Asta Berry Diamond Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5hc90021j4kz5nhsj94g",
+    "sku": "SGT-AST-GOLD-FACIAL-1",
+    "name": "Asta Berry Gold Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5ihv0023j4kz9q1mllvi",
+    "sku": "SGT-AST-PAP-FACIAL-1",
+    "name": "Asta Berry Papaya Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5jlc0025j4kzo2tqh3qh",
+    "sku": "SGT-AST-WINE-FACIAL-1",
+    "name": "Asta Berry Wine Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4sht000tj4kzbrjgrkv1",
+    "sku": "SGT-BIO-COLOR-SHAMP-200",
+    "name": "Biolage Colorlast Color Protecting Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4p5e000nj4kz84cpjff4",
+    "sku": "SGT-BIO-FIBER-COND-98",
+    "name": "Biolage Advanced Fiberstrong Conditioner",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4o1u000lj4kzpkqinhpe",
+    "sku": "SGT-BIO-FIBER-SHAMP-200",
+    "name": "Biolage Advanced Fiberstrong Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4qba000pj4kzik36xtc9",
+    "sku": "SGT-BIO-SCALP-SHAMP-200",
+    "name": "Biolage Scalppure Anti-Dandruff Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4rfc000rj4kz7ub13tlj",
+    "sku": "SGT-BIO-SMOOTH-SERUM-100",
+    "name": "Biolage Deep Smoothing Serum",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5f5y001xj4kzo610noxd",
+    "sku": "SGT-BK-COL-SHAMP-300",
+    "name": "Bio Keratin Color Protect Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5bkg001rj4kzdsdf8qx0",
+    "sku": "SGT-BK-LUX-MASK-250",
+    "name": "Bio Keratin Luxury Masque",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5agr001pj4kzowi46yju",
+    "sku": "SGT-BK-LUX-SHAMP-300",
+    "name": "Bio Keratin Luxury Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5cwy001tj4kz81hdwxej",
+    "sku": "SGT-BK-SERUM-100",
+    "name": "Bio Keratin Hair Serum",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5e2k001vj4kzzk5swg9z",
+    "sku": "SGT-BK-SMOOTH-1000",
+    "name": "Bio Keratin Smoothening Treatment",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf59cx001nj4kzlv1b7x0u",
+    "sku": "SGT-DRE-AD-SHAMP-500",
+    "name": "Dreamron Anti-Dandruff Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5504001fj4kz672gosa3",
+    "sku": "SGT-DRE-COLOR-60",
+    "name": "Dreamron Professional Hair Color Cream",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5650001hj4kz38gy6bfz",
+    "sku": "SGT-DRE-DEV-20-1000",
+    "name": "Dreamron Developer Cream 20 Vol",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5783001jj4kzo1weebwc",
+    "sku": "SGT-DRE-KER-TREAT-500",
+    "name": "Dreamron Keratin Hair Treatment",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf589i001lj4kz7208pecy",
+    "sku": "SGT-DRE-SPA-COND-500",
+    "name": "Dreamron Spa Nourishing Conditioner",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf53ym001dj4kzj1h983qn",
+    "sku": "SGT-KRO-CLIPPER-1",
+    "name": "Krone Professional Hair Clipper",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf51u80019j4kzpial0qff",
+    "sku": "SGT-KRO-GEL-250",
+    "name": "Krone Professional Hair Styling Gel",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf50qw0017j4kzws7ur3s3",
+    "sku": "SGT-KRO-KER-MASK-200",
+    "name": "Krone Professional Keratin Smooth Masque",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4zbn0015j4kz77eo2ixe",
+    "sku": "SGT-KRO-KER-SHAMP-250",
+    "name": "Krone Professional Keratin Infused Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf52vo001bj4kzrr8g7ue7",
+    "sku": "SGT-KRO-SPRAY-300",
+    "name": "Krone Professional Volume Hair Spray",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5pfl002fj4kzj89s8fu7",
+    "sku": "SGT-LIL-DIA-FACIAL-1",
+    "name": "Lilium Diamond Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5lud0029j4kz3g4vqu6k",
+    "sku": "SGT-LIL-FRUIT-FACIAL-1",
+    "name": "Lilium Fruit Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5myw002bj4kz1lxz4hb1",
+    "sku": "SGT-LIL-GOLD-FACIAL-1",
+    "name": "Lilium Gold Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5o0m002dj4kz3wvycwty",
+    "sku": "SGT-LIL-PAP-FACIAL-1",
+    "name": "Lilium Papaya Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf5qi7002hj4kzz8avyzmt",
+    "sku": "SGT-LIL-PEARL-FACIAL-1",
+    "name": "Lilium Pearl Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4dvy0003j4kzn27o7vzm",
+    "sku": "SGT-LOR-SERIE-ABS-MASK-250",
+    "name": "L'Oreal Professionnel Serie Expert Absolut Repair Mask",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4cu00001j4kzja9phb4w",
+    "sku": "SGT-LOR-SERIE-ABS-SHAMP-300",
+    "name": "L'Oreal Professionnel Serie Expert Absolut Repair Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4h7s0009j4kz8h4amfgx",
+    "sku": "SGT-LOR-TECNI-WEB-150",
+    "name": "L'Oreal Professionnel Tecni Art Web Design Sculpting Paste",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4g1j0007j4kzt48tqa74",
+    "sku": "SGT-LOR-XTENSO-MASK-196",
+    "name": "L'Oreal Professionnel X-Tenso Care Masque",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4exr0005j4kzmw1p7xy9",
+    "sku": "SGT-LOR-XTENSO-SHAMP-250",
+    "name": "L'Oreal Professionnel X-Tenso Care Pro-Keratin Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4lkm000hj4kzao3s8huq",
+    "sku": "SGT-MAT-BIOL-SERUM-100",
+    "name": "Matrix Biolage Smoothproof Smoothing Serum",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4jfd000dj4kz30b0kf3p",
+    "sku": "SGT-MAT-OPTI-COND-98",
+    "name": "Matrix Opti Care Professional Smooth Straight Conditioner",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4kgp000fj4kz5sc732gk",
+    "sku": "SGT-MAT-OPTI-MASK-490",
+    "name": "Matrix Opti Care Professional Smooth Straight Masque",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4idv000bj4kzd1n3gh6i",
+    "sku": "SGT-MAT-OPTI-SHAMP-200",
+    "name": "Matrix Opti Care Professional Smooth Straight Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4mof000jj4kzdumxcx8i",
+    "sku": "SGT-MAT-SOCOLOR-90",
+    "name": "Matrix SoColor Beauty Permanent Hair Color",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4vtd000zj4kzzbn0h7w7",
+    "sku": "SGT-RAA-DETAN-500",
+    "name": "Raaga Professional De-Tan Cream",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4uom000xj4kzsrbwhdcb",
+    "sku": "SGT-RAA-EXP-FACIAL-1",
+    "name": "Raaga Professional Express Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4y4y0013j4kzmlr50gaf",
+    "sku": "SGT-RAA-FAIR-FACIAL-1",
+    "name": "Raaga Professional Fairness Facial Kit",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4tj7000vj4kz0oosp1oe",
+    "sku": "SGT-RAA-PRO-AD-SHAMP-200",
+    "name": "Raaga Professional Pro Botanix Anti-Dandruff Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf4wyy0011j4kzhigycojy",
+    "sku": "SGT-RAA-WAX-WC-800",
+    "name": "Raaga Professional Liposoluble Wax - White Chocolate",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf67p8003bj4kzbi22yg2u",
+    "sku": "SGT-RICA-ALOE-WAX-800",
+    "name": "Rica Aloe Vera Liposoluble Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf68zb003dj4kzdeaibqbj",
+    "sku": "SGT-RICA-ARGAN-WAX-800",
+    "name": "Rica Argan Oil Liposoluble Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf65fs0037j4kzkdxn9lbc",
+    "sku": "SGT-RICA-DC-WAX-800",
+    "name": "Rica Dark Chocolate Liposoluble Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6a3k003fj4kz1783f3gb",
+    "sku": "SGT-RICA-POST-WAX-250",
+    "name": "Rica Cotton Milk Post Wax Lotion",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf66jm0039j4kze8bxqxej",
+    "sku": "SGT-RICA-STR-WAX-800",
+    "name": "Rica Strawberry Liposoluble Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf64960035j4kzhvrsnigx",
+    "sku": "SGT-RICA-WC-WAX-800",
+    "name": "Rica White Chocolate Liposoluble Wax",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6hql003tj4kz3gppxpcx",
+    "sku": "SGT-SCH-BC-REPAIR-MASK-200",
+    "name": "Schwarzkopf Professional Bonacure Peptide Repair Rescue Treatment",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6glw003rj4kzc09xz3td",
+    "sku": "SGT-SCH-BC-REPAIR-SHAMP-250",
+    "name": "Schwarzkopf Professional Bonacure Peptide Repair Rescue Shampoo",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6ldd003zj4kz6riqu93x",
+    "sku": "SGT-SCH-IGORA-ROYAL-60",
+    "name": "Schwarzkopf Professional Igora Royal Hair Color",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6k49003xj4kzqith0wvg",
+    "sku": "SGT-SCH-OSIS-DUST-10",
+    "name": "Schwarzkopf Professional Osis+ Dust It Mattifying Powder",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6iy7003vj4kza0vrxmpa",
+    "sku": "SGT-SCH-OSIS-SPRAY-500",
+    "name": "Schwarzkopf Professional Osis+ Session Extreme Hold Hairspray",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6d99003lj4kza9z1f11y",
+    "sku": "SGT-STR-ARGAN-COL-100",
+    "name": "Streax Professional Argan Secret Hair Colour",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6c6p003jj4kz9eet2m06",
+    "sku": "SGT-STR-REPAIR-MASK-200",
+    "name": "Streax Professional Vitariche Care Repair Max Masque",
+    "wasActive": true
+  },
+  {
+    "id": "cmsuf6b55003hj4kzyenqc8p9",
+    "sku": "SGT-STR-REPAIR-SHAMP-300",
+    "name": "Streax Professional Vitariche Care Repair Max Shampoo",
+    "wasActive": true
+  }
+]

@@ -29,7 +29,10 @@
     "images:verify": "node scripts/imaging/verify-images.mjs",
     "demo:inventory": "tsx scripts/scale-demo-inventory.ts",
     "email:retry": "NODE_OPTIONS=--conditions=react-server tsx scripts/retry-emails.ts",
-    "email:status": "NODE_OPTIONS=--conditions=react-server tsx scripts/retry-emails.ts --status"
+    "email:status": "NODE_OPTIONS=--conditions=react-server tsx scripts/retry-emails.ts --status",
+    "test:unit": "vitest run",
+    "test:browser": "playwright test",
+    "test": "npm run test:unit && npm run test:browser"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -48,11 +51,13 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.19.43",
     "@types/nodemailer": "^8.0.1",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
+    "@vitest/coverage-v8": "^4.1.10",
     "autoprefixer": "^10.5.4",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.0",
@@ -61,6 +66,7 @@
     "sharp": "^0.35.3",
     "tailwindcss": "^3.4.19",
     "tsx": "^4.16.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
   }
 }

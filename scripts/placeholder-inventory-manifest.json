@@ -1,0 +1,812 @@
+[
+  {
+    "productId": "cmsuf6ppw0047j4kz254u98uf",
+    "productName": "Wella Professionals EIMI Thermal Image Heat Protection Spray",
+    "productIsActive": false,
+    "variantId": "cmsvu8tp9004x129ns31phup2",
+    "sku": "SGT-WEL-EIMI-THERM-150-STD",
+    "inventoryId": "cmsvu8u5n004z129n25bmfkrx",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6omm0045j4kzi3ck92bw",
+    "productName": "Wella Professionals Elements Renewing Shampoo",
+    "productIsActive": false,
+    "variantId": "cmsvu8yi90054129ncnw6ifgi",
+    "sku": "SGT-WEL-ELEM-SHAMP-250-STD",
+    "inventoryId": "cmsvu8yy50056129nk7xtmckv",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6nh30043j4kz2nby0mkq",
+    "productName": "Wella Professionals Invigo Nutri Enrich Deep Nourishing Mask",
+    "productIsActive": false,
+    "variantId": "cmsvu92we005b129nqwlc7cah",
+    "sku": "SGT-WEL-INV-MASK-150-STD",
+    "inventoryId": "cmsvu93cl005d129ngwftdetz",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6mf10041j4kz74mrf77r",
+    "productName": "Wella Professionals Invigo Nutri Enrich Deep Nourishing Shampoo",
+    "productIsActive": false,
+    "variantId": "cmsvu973t005i129nzh763g8e",
+    "sku": "SGT-WEL-INV-SHAMP-250-STD",
+    "inventoryId": "cmsvu97jj005k129nlze31ot9",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5sot002lj4kzbzqwop9n",
+    "productName": "Aroma Magic Bridal Glow Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtxhgj00022h9mllojt4us",
+    "sku": "SGT-AM-BRIDAL-FACIAL-1-STD",
+    "inventoryId": "cmsvtxhw000042h9m0dmduikn",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5uy7002pj4kz1hl40xpj",
+    "productName": "Aroma Magic Silver Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvty40p00112h9mhq2nxsek",
+    "sku": "SGT-AM-SILVER-FACIAL-1-STD",
+    "inventoryId": "cmsvty4gk00132h9m4rxoopfe",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5g7w001zj4kz2z3qa5cq",
+    "productName": "Asta Berry Diamond Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtycp4001f2h9m8qoosspr",
+    "sku": "SGT-AST-DIA-FACIAL-1-STD",
+    "inventoryId": "cmsvtyd5h001h2h9mdkmo3kjf",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5hc90021j4kz5nhsj94g",
+    "productName": "Asta Berry Gold Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtyhd9001m2h9m8z2984b2",
+    "sku": "SGT-AST-GOLD-FACIAL-1-STD",
+    "inventoryId": "cmsvtyhsw001o2h9mynw9kcqf",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5ihv0023j4kz9q1mllvi",
+    "productName": "Asta Berry Papaya Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtylli001t2h9mezm5bqv9",
+    "sku": "SGT-AST-PAP-FACIAL-1-STD",
+    "inventoryId": "cmsvtym1e001v2h9mf8wdb1cl",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5jlc0025j4kzo2tqh3qh",
+    "productName": "Asta Berry Wine Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtypxh00202h9mo9dd12zx",
+    "sku": "SGT-AST-WINE-FACIAL-1-STD",
+    "inventoryId": "cmsvtyqdj00222h9mvhlwlr2p",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5f5y001xj4kzo610noxd",
+    "productName": "Bio Keratin Color Protect Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvtzhcc00362h9mfy18b6j0",
+    "sku": "SGT-BK-COL-SHAMP-300-STD",
+    "inventoryId": "cmsvtzhs800382h9m9il7a7q1",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5bkg001rj4kzdsdf8qx0",
+    "productName": "Bio Keratin Luxury Masque",
+    "productIsActive": true,
+    "variantId": "cmsvtzlqh003d2h9mhoerwlcj",
+    "sku": "SGT-BK-LUX-MASK-250-STD",
+    "inventoryId": "cmsvtzm64003f2h9mzqllelqk",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5e2k001vj4kzzk5swg9z",
+    "productName": "Bio Keratin Smoothening Treatment",
+    "productIsActive": true,
+    "variantId": "cmsvtzz3y003y2h9mzmwnnqx6",
+    "sku": "SGT-BK-SMOOTH-1000-STD",
+    "inventoryId": "cmsvtzzjb00402h9mxoogi8ke",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5650001hj4kz38gy6bfz",
+    "productName": "Dreamron Developer Cream 20 Vol",
+    "productIsActive": true,
+    "variantId": "cmsvu0cks004j2h9mtd8rm7r8",
+    "sku": "SGT-DRE-DEV-20-1000-STD",
+    "inventoryId": "cmsvu0d0a004l2h9m80e7qv5a",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5783001jj4kzo1weebwc",
+    "productName": "Dreamron Keratin Hair Treatment",
+    "productIsActive": true,
+    "variantId": "cmsvu0gun004q2h9meihpo2hs",
+    "sku": "SGT-DRE-KER-TREAT-500-STD",
+    "inventoryId": "cmsvu0hbo004s2h9m1vw3eock",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf589i001lj4kz7208pecy",
+    "productName": "Dreamron Spa Nourishing Conditioner",
+    "productIsActive": true,
+    "variantId": "cmsvu0l3d004x2h9m6bsz9cau",
+    "sku": "SGT-DRE-SPA-COND-500-STD",
+    "inventoryId": "cmsvu0liz004z2h9muadrblin",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf53ym001dj4kzj1h983qn",
+    "productName": "Krone Professional Hair Clipper",
+    "productIsActive": true,
+    "variantId": "cmsvu0pjs00542h9msepnfy2a",
+    "sku": "SGT-KRO-CLIPPER-1-STD",
+    "inventoryId": "cmsvu0pzu00562h9m0zal1jp7",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf51u80019j4kzpial0qff",
+    "productName": "Krone Professional Hair Styling Gel",
+    "productIsActive": true,
+    "variantId": "cmsvu0tod005b2h9maomncots",
+    "sku": "SGT-KRO-GEL-250-STD",
+    "inventoryId": "cmsvu0u7k005d2h9mv09pztyk",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf50qw0017j4kzws7ur3s3",
+    "productName": "Krone Professional Keratin Smooth Masque",
+    "productIsActive": true,
+    "variantId": "cmsvu0y17005i2h9mwoydxxhn",
+    "sku": "SGT-KRO-KER-MASK-200-STD",
+    "inventoryId": "cmsvu0ygz005k2h9mr2fz1khk",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4zbn0015j4kz77eo2ixe",
+    "productName": "Krone Professional Keratin Infused Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu12e6005p2h9m2pj7iksl",
+    "sku": "SGT-KRO-KER-SHAMP-250-STD",
+    "inventoryId": "cmsvu12ug005r2h9m4me8fkma",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5lud0029j4kz3g4vqu6k",
+    "productName": "Lilium Fruit Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu1flq006a2h9mxgkkd4t1",
+    "sku": "SGT-LIL-FRUIT-FACIAL-1-STD",
+    "inventoryId": "cmsvu1g18006c2h9mymwore5o",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4dvy0003j4kzn27o7vzm",
+    "productName": "L'Oreal Professionnel Serie Expert Absolut Repair Mask",
+    "productIsActive": true,
+    "variantId": "cmsvu1xrb00722h9mt30xnxto",
+    "sku": "SGT-LOR-SERIE-ABS-MASK-250-STD",
+    "inventoryId": "cmsvu1y6l00742h9mk14ftajj",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5x6z002tj4kzaajfkiy8",
+    "productName": "Aroma Magic Diamond Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtxltt00092h9mzpl1eztx",
+    "sku": "SGT-AM-DIA-FACIAL-1-STD",
+    "inventoryId": "cmsvtxm9t000b2h9mi9k1mzoe",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5ttn002nj4kztqrc4lja",
+    "productName": "Aroma Magic Skin Glow Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtxqj2000g2h9mfnxzv10n",
+    "sku": "SGT-AM-GLOW-FACIAL-1-STD",
+    "inventoryId": "cmsvtxqyy000i2h9m6k9hsr72",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5w44002rj4kz0j8sblh4",
+    "productName": "Aroma Magic Gold Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtxupw000n2h9mccqrp9ku",
+    "sku": "SGT-AM-GOLD-FACIAL-1-STD",
+    "inventoryId": "cmsvtxv5c000p2h9mrop6l84t",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5rmr002jj4kznfnl3ptc",
+    "productName": "Aroma Magic Pearl Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvtxz40000u2h9m4hf8r91l",
+    "sku": "SGT-AM-PEARL-FACIAL-1-STD",
+    "inventoryId": "cmsvtxzlu000w2h9m0z79o34o",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5kqj0027j4kzrom81jon",
+    "productName": "Asta Berry De-Tan Sun Block",
+    "productIsActive": true,
+    "variantId": "cmsvty8db00182h9mt98de2rk",
+    "sku": "SGT-AST-DETAN-100-STD",
+    "inventoryId": "cmsvty8tc001a2h9m05zyoxa7",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4sht000tj4kzbrjgrkv1",
+    "productName": "Biolage Colorlast Color Protecting Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvtyuk300272h9mr2j09yi8",
+    "sku": "SGT-BIO-COLOR-SHAMP-200-STD",
+    "inventoryId": "cmsvtyv5900292h9my1ihreqh",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4p5e000nj4kz84cpjff4",
+    "productName": "Biolage Advanced Fiberstrong Conditioner",
+    "productIsActive": true,
+    "variantId": "cmsvtyzi5002e2h9mwvb1wyw2",
+    "sku": "SGT-BIO-FIBER-COND-98-STD",
+    "inventoryId": "cmsvtyzyg002g2h9msxsbb9i6",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4o1u000lj4kzpkqinhpe",
+    "productName": "Biolage Advanced Fiberstrong Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvtz3tq002l2h9madn1sv73",
+    "sku": "SGT-BIO-FIBER-SHAMP-200-STD",
+    "inventoryId": "cmsvtz4ai002n2h9mcni2d1g1",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4qba000pj4kzik36xtc9",
+    "productName": "Biolage Scalppure Anti-Dandruff Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvtz8gi002s2h9mhcacl6om",
+    "sku": "SGT-BIO-SCALP-SHAMP-200-STD",
+    "inventoryId": "cmsvtz8wg002u2h9makormy0d",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4rfc000rj4kz7ub13tlj",
+    "productName": "Biolage Deep Smoothing Serum",
+    "productIsActive": true,
+    "variantId": "cmsvtzcmi002z2h9mlb5rv4g1",
+    "sku": "SGT-BIO-SMOOTH-SERUM-100-STD",
+    "inventoryId": "cmsvtzd2e00312h9mb51u5f2q",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5agr001pj4kzowi46yju",
+    "productName": "Bio Keratin Luxury Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvtzq1j003k2h9m3yd90udw",
+    "sku": "SGT-BK-LUX-SHAMP-300-STD",
+    "inventoryId": "cmsvtzqhg003m2h9mb7asgly0",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5cwy001tj4kz81hdwxej",
+    "productName": "Bio Keratin Hair Serum",
+    "productIsActive": true,
+    "variantId": "cmsvtzugj003r2h9mqpefa198",
+    "sku": "SGT-BK-SERUM-100-STD",
+    "inventoryId": "cmsvtzuxm003t2h9mdh5t90jw",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf59cx001nj4kzlv1b7x0u",
+    "productName": "Dreamron Anti-Dandruff Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu03m400452h9mrv7tilp7",
+    "sku": "SGT-DRE-AD-SHAMP-500-STD",
+    "inventoryId": "cmsvu041z00472h9muqkl71mf",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5504001fj4kz672gosa3",
+    "productName": "Dreamron Professional Hair Color Cream",
+    "productIsActive": true,
+    "variantId": "cmsvu07wc004c2h9m1wxhbdai",
+    "sku": "SGT-DRE-COLOR-60-STD",
+    "inventoryId": "cmsvu08c6004e2h9mwzs0raut",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf52vo001bj4kzrr8g7ue7",
+    "productName": "Krone Professional Volume Hair Spray",
+    "productIsActive": true,
+    "variantId": "cmsvu16mc005w2h9m7d9icf4p",
+    "sku": "SGT-KRO-SPRAY-300-STD",
+    "inventoryId": "cmsvu171u005y2h9mpnq49m6a",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5pfl002fj4kzj89s8fu7",
+    "productName": "Lilium Diamond Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu1atc00632h9m9wdiklpj",
+    "sku": "SGT-LIL-DIA-FACIAL-1-STD",
+    "inventoryId": "cmsvu1b8o00652h9mj88zvscg",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5myw002bj4kz1lxz4hb1",
+    "productName": "Lilium Gold Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu1k48006h2h9mecn7bnc9",
+    "sku": "SGT-LIL-GOLD-FACIAL-1-STD",
+    "inventoryId": "cmsvu1kjz006j2h9m8eq4hcsg",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5o0m002dj4kz3wvycwty",
+    "productName": "Lilium Papaya Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu1ohr006o2h9maf6x4z59",
+    "sku": "SGT-LIL-PAP-FACIAL-1-STD",
+    "inventoryId": "cmsvu1oxj006q2h9m0j809ius",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5qi7002hj4kzz8avyzmt",
+    "productName": "Lilium Pearl Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu1tbl006v2h9mjx6pn3d6",
+    "sku": "SGT-LIL-PEARL-FACIAL-1-STD",
+    "inventoryId": "cmsvu1tr2006x2h9m7tkgrkj8",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4cu00001j4kzja9phb4w",
+    "productName": "L'Oreal Professionnel Serie Expert Absolut Repair Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu22do00792h9mn0f5vwwp",
+    "sku": "SGT-LOR-SERIE-ABS-SHAMP-300-STD",
+    "inventoryId": "cmsvu22ta007b2h9m6pzpr9ws",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4lkm000hj4kzao3s8huq",
+    "productName": "Matrix Biolage Smoothproof Smoothing Serum",
+    "productIsActive": true,
+    "variantId": "cmsvu2k7200812h9miucwhwel",
+    "sku": "SGT-MAT-BIOL-SERUM-100-STD",
+    "inventoryId": "cmsvu2kmq00832h9m7slbykpt",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4jfd000dj4kz30b0kf3p",
+    "productName": "Matrix Opti Care Professional Smooth Straight Conditioner",
+    "productIsActive": true,
+    "variantId": "cmsvu2odx00882h9mikgejbl5",
+    "sku": "SGT-MAT-OPTI-COND-98-STD",
+    "inventoryId": "cmsvu2our008a2h9m0lm108e6",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4kgp000fj4kz5sc732gk",
+    "productName": "Matrix Opti Care Professional Smooth Straight Masque",
+    "productIsActive": true,
+    "variantId": "cmsvu2ssq008f2h9mx34xyq4i",
+    "sku": "SGT-MAT-OPTI-MASK-490-STD",
+    "inventoryId": "cmsvu2t82008h2h9maj8734nf",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4wyy0011j4kzhigycojy",
+    "productName": "Raaga Professional Liposoluble Wax - White Chocolate",
+    "productIsActive": true,
+    "variantId": "cmsvu3ne4009s2h9mlm7uy652",
+    "sku": "SGT-RAA-WAX-WC-800-STD",
+    "inventoryId": "cmsvu3ntk009u2h9m6w7w4zc1",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf68zb003dj4kzdeaibqbj",
+    "productName": "Rica Argan Oil Liposoluble Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu5oyc0002129n3ntxvlsz",
+    "sku": "SGT-RICA-ARGAN-WAX-800-STD",
+    "inventoryId": "cmsvu5pfv0004129nr0osv36a",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf65fs0037j4kzkdxn9lbc",
+    "productName": "Rica Dark Chocolate Liposoluble Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu5tao0009129n5dfma99e",
+    "sku": "SGT-RICA-DC-WAX-800-STD",
+    "inventoryId": "cmsvu5tq0000b129ny3tgvmhg",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf64960035j4kzhvrsnigx",
+    "productName": "Rica White Chocolate Liposoluble Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu67aw000u129n8019k6qb",
+    "sku": "SGT-RICA-WC-WAX-800-STD",
+    "inventoryId": "cmsvu67qv000w129nafbr7rdy",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf61yl0031j4kzr58a76y2",
+    "productName": "Richelon Aloe Vera Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu6bk90011129nj3q7njz3",
+    "sku": "RCH-ALOE-WAX-800-STD",
+    "inventoryId": "cmsvu6c0p0013129n1l6tveph",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5zga002xj4kz2uo2mvyg",
+    "productName": "Richelon Dark Chocolate Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu6g3g0018129net8l7clr",
+    "sku": "RCH-DC-WAX-800-STD",
+    "inventoryId": "cmsvu6gjo001a129nw5r9iu82",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf632g0033j4kzcjo0nsgr",
+    "productName": "Richelon Pre Wax Gel",
+    "productIsActive": true,
+    "variantId": "cmsvu6kno001f129n3l1wbrsk",
+    "sku": "RCH-PRE-WAX-500-STD",
+    "inventoryId": "cmsvu6l3o001h129nckywqf25",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf60ig002zj4kzav6w28b4",
+    "productName": "Richelon Strawberry Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu6p3w001m129ndxstw1e3",
+    "sku": "RCH-STR-WAX-800-STD",
+    "inventoryId": "cmsvu6pl1001o129nfsaf2dy5",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf5ybt002vj4kz8jo4aw8r",
+    "productName": "Richelon White Chocolate Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu6tek001t129nqlzdukku",
+    "sku": "RCH-WC-WAX-800-STD",
+    "inventoryId": "cmsvu6tua001v129n4kpf0tov",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6hql003tj4kz3gppxpcx",
+    "productName": "Schwarzkopf Professional Bonacure Peptide Repair Rescue Treatment",
+    "productIsActive": true,
+    "variantId": "cmsvu6yba0020129njeguagn8",
+    "sku": "SGT-SCH-BC-REPAIR-MASK-200-STD",
+    "inventoryId": "cmsvu6yrg0022129nnec9fq8p",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6k49003xj4kzqith0wvg",
+    "productName": "Schwarzkopf Professional Osis+ Dust It Mattifying Powder",
+    "productIsActive": true,
+    "variantId": "cmsvu7bws002l129nzryxtqj6",
+    "sku": "SGT-SCH-OSIS-DUST-10-STD",
+    "inventoryId": "cmsvu7ccm002n129nwhl1h3gn",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6wei004jj4kzkqg6w3j7",
+    "productName": "Wella SP Color Save Mask",
+    "productIsActive": false,
+    "variantId": "cmsvu7t82003d129n058e914z",
+    "sku": "SGT-SP-COL-MASK-200-STD",
+    "inventoryId": "cmsvu7tox003f129nnwvyp5f8",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6u7l004fj4kzcmpu9ef4",
+    "productName": "Wella SP Hydrate Mask",
+    "productIsActive": false,
+    "variantId": "cmsvu7xih003k129ny0lvnx0j",
+    "sku": "SGT-SP-HYD-MASK-200-STD",
+    "inventoryId": "cmsvu7xye003m129nhg7lnln5",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6s0m004bj4kztnfv3gtc",
+    "productName": "Wella SP LuxeOil Reconstructive Elixir",
+    "productIsActive": false,
+    "variantId": "cmsvu8211003r129n6ew0hirw",
+    "sku": "SGT-SP-LUXE-ELIXIR-100-STD",
+    "inventoryId": "cmsvu82hm003t129ntrvnb04t",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4h7s0009j4kz8h4amfgx",
+    "productName": "L'Oreal Professionnel Tecni Art Web Design Sculpting Paste",
+    "productIsActive": true,
+    "variantId": "cmsvu26yu007g2h9m3xotugt1",
+    "sku": "SGT-LOR-TECNI-WEB-150-STD",
+    "inventoryId": "cmsvu27e7007i2h9m9w4w6p59",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4g1j0007j4kzt48tqa74",
+    "productName": "L'Oreal Professionnel X-Tenso Care Masque",
+    "productIsActive": true,
+    "variantId": "cmsvu2b9e007n2h9m5n20l9rd",
+    "sku": "SGT-LOR-XTENSO-MASK-196-STD",
+    "inventoryId": "cmsvu2bor007p2h9mnw5qik7r",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4exr0005j4kzmw1p7xy9",
+    "productName": "L'Oreal Professionnel X-Tenso Care Pro-Keratin Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu2fem007u2h9mqsaeb9wm",
+    "sku": "SGT-LOR-XTENSO-SHAMP-250-STD",
+    "inventoryId": "cmsvu2fuo007w2h9mtzwgaiss",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4idv000bj4kzd1n3gh6i",
+    "productName": "Matrix Opti Care Professional Smooth Straight Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu2xj2008m2h9m7q0txa15",
+    "sku": "SGT-MAT-OPTI-SHAMP-200-STD",
+    "inventoryId": "cmsvu2xym008o2h9mi8sx034t",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4mof000jj4kzdumxcx8i",
+    "productName": "Matrix SoColor Beauty Permanent Hair Color",
+    "productIsActive": true,
+    "variantId": "cmsvu31qw008t2h9ml8fpjy02",
+    "sku": "SGT-MAT-SOCOLOR-90-STD",
+    "inventoryId": "cmsvu326k008v2h9mis3fenlf",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4vtd000zj4kzzbn0h7w7",
+    "productName": "Raaga Professional De-Tan Cream",
+    "productIsActive": true,
+    "variantId": "cmsvu362b00902h9ml2ladsma",
+    "sku": "SGT-RAA-DETAN-500-STD",
+    "inventoryId": "cmsvu36ib00922h9mpwr0ca9s",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4uom000xj4kzsrbwhdcb",
+    "productName": "Raaga Professional Express Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu3aiw00972h9m3zphe9ck",
+    "sku": "SGT-RAA-EXP-FACIAL-1-STD",
+    "inventoryId": "cmsvu3b0000992h9mct3y82u4",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4y4y0013j4kzmlr50gaf",
+    "productName": "Raaga Professional Fairness Facial Kit",
+    "productIsActive": true,
+    "variantId": "cmsvu3eox009e2h9m8wxlftaj",
+    "sku": "SGT-RAA-FAIR-FACIAL-1-STD",
+    "inventoryId": "cmsvu3f4n009g2h9m13rcijaw",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf4tj7000vj4kz0oosp1oe",
+    "productName": "Raaga Professional Pro Botanix Anti-Dandruff Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu3iyi009l2h9mbqjilexe",
+    "sku": "SGT-RAA-PRO-AD-SHAMP-200-STD",
+    "inventoryId": "cmsvu3jdy009n2h9mdx9zyku8",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6a3k003fj4kz1783f3gb",
+    "productName": "Rica Cotton Milk Post Wax Lotion",
+    "productIsActive": true,
+    "variantId": "cmsvu5y4g000g129nxjtncxhp",
+    "sku": "SGT-RICA-POST-WAX-250-STD",
+    "inventoryId": "cmsvu5ymm000i129nxby4bm35",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf66jm0039j4kze8bxqxej",
+    "productName": "Rica Strawberry Liposoluble Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu62ik000n129nrkty2sdk",
+    "sku": "SGT-RICA-STR-WAX-800-STD",
+    "inventoryId": "cmsvu62yu000p129ngpti0qaf",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6glw003rj4kzc09xz3td",
+    "productName": "Schwarzkopf Professional Bonacure Peptide Repair Rescue Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu72m20027129n9c7y7bei",
+    "sku": "SGT-SCH-BC-REPAIR-SHAMP-250-STD",
+    "inventoryId": "cmsvu73240029129n2hf9gusx",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6ldd003zj4kz6riqu93x",
+    "productName": "Schwarzkopf Professional Igora Royal Hair Color",
+    "productIsActive": true,
+    "variantId": "cmsvu7724002e129npp5ijkox",
+    "sku": "SGT-SCH-IGORA-ROYAL-60-STD",
+    "inventoryId": "cmsvu77ls002g129n3rnwl9a5",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6iy7003vj4kza0vrxmpa",
+    "productName": "Schwarzkopf Professional Osis+ Session Extreme Hold Hairspray",
+    "productIsActive": true,
+    "variantId": "cmsvu7gd6002s129njtvqm5g2",
+    "sku": "SGT-SCH-OSIS-SPRAY-500-STD",
+    "inventoryId": "cmsvu7gt7002u129n7ys755cu",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf67p8003bj4kzbi22yg2u",
+    "productName": "Rica Aloe Vera Liposoluble Wax",
+    "productIsActive": true,
+    "variantId": "cmsvu7jm2002z129nvfy2ro55",
+    "sku": "SGT-RICA-ALOE-WAX-800-STD",
+    "inventoryId": "cmsvu7k380031129nnoncc8nv",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6t55004dj4kzpznj63jq",
+    "productName": "Wella SP Clear Scalp Shampoo",
+    "productIsActive": false,
+    "variantId": "cmsvu7oma0036129n01zh1cki",
+    "sku": "SGT-SP-CLEAR-SHAMP-250-STD",
+    "inventoryId": "cmsvu7p490038129n42ueazy9",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6vai004hj4kz2hxjwce4",
+    "productName": "Wella SP Volumize Shampoo",
+    "productIsActive": false,
+    "variantId": "cmsvu86va003y129nbdgg2x8w",
+    "sku": "SGT-SP-VOL-SHAMP-250-STD",
+    "inventoryId": "cmsvu87fw0040129no2qynudr",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6d99003lj4kza9z1f11y",
+    "productName": "Streax Professional Argan Secret Hair Colour",
+    "productIsActive": true,
+    "variantId": "cmsvu8bjd0045129nanwwxqp5",
+    "sku": "SGT-STR-ARGAN-COL-100-STD",
+    "inventoryId": "cmsvu8bz60047129nocn7nadx",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6eib003nj4kzct3q1g81",
+    "productName": "Streax Professional Canvoline Straightening Cream",
+    "productIsActive": false,
+    "variantId": "cmsvu8fvq004c129n0kt0vxx0",
+    "sku": "SGT-STR-CANV-STR-500-STD",
+    "inventoryId": "cmsvu8gbp004e129n4wlgwcs7",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6c6p003jj4kz9eet2m06",
+    "productName": "Streax Professional Vitariche Care Repair Max Masque",
+    "productIsActive": true,
+    "variantId": "cmsvu8kdq004j129nykp8o64z",
+    "sku": "SGT-STR-REPAIR-MASK-200-STD",
+    "inventoryId": "cmsvu8l6g004l129nlurw12it",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6b55003hj4kzyenqc8p9",
+    "productName": "Streax Professional Vitariche Care Repair Max Shampoo",
+    "productIsActive": true,
+    "variantId": "cmsvu8pcz004q129nt3ntcd8q",
+    "sku": "SGT-STR-REPAIR-SHAMP-300-STD",
+    "inventoryId": "cmsvu8pvb004s129nmbg4v70y",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  },
+  {
+    "productId": "cmsuf6qyv0049j4kz61cy5pb7",
+    "productName": "Wella Professionals Koleston Perfect Me+ Hair Color",
+    "productIsActive": false,
+    "variantId": "cmsvu9bfu005p129n8lsonshd",
+    "sku": "SGT-WEL-KOL-PERF-60-STD",
+    "inventoryId": "cmsvu9bw0005r129nrizpi9n9",
+    "currentStock": 25,
+    "transactionReason": "Variant backfill — opening balance, pending physical stock count"
+  }
+]

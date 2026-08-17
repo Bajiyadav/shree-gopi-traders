@@ -63,7 +63,7 @@ function CategoryForm({ category, onDone }: { category?: CategoryRow; onDone: ()
                   id="cat-image"
                   name="imageUrl"
                   defaultValue={category?.imageUrl}
-                  placeholder="/images/categories/hair-care.svg"
+                  placeholder="https://res.cloudinary.com/your-cloud/image/upload/category.jpg"
                 />
               </Field>
 

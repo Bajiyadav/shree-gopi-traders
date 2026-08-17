@@ -85,8 +85,16 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
     v.wholesaleTiers.some((t) => t.minQty > 1 && Number(t.pricePerUnit) < Number(v.price))
   );
 
-  const images = product.images.length > 0 ? product.images : ["/images/categories/placeholder.svg"];
+  const images = product.images.length > 0 ? product.images : ["data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f1f5f9'/%3E%3Cpath d='M160 100h80v80h-80z' fill='none' stroke='%23cbd5e1' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='180' cy='120' r='8' fill='%23cbd5e1'/%3E%3Cpath d='M160 170l30-30 20 20 15-15 35 35' fill='none' stroke='%23cbd5e1' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"];
   const specs = (product.specs ?? {}) as Record<string, string>;
+
+  // Prices that can honestly be quoted: a finite number from a real variant.
+  // A product with no active variant contributes nothing here, which is what
+  // keeps the offer block below out of the markup entirely.
+  const offerPrices = variants
+    .map((v) => v.salePrice ?? v.price)
+    .filter((p) => Number.isFinite(p));
+  const listPrices = variants.map((v) => v.price).filter((p) => Number.isFinite(p));
 
   // Structured data helps the product surface in search results.
   const jsonLd = {
@@ -107,16 +115,25 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
           },
         }
       : {}),
-    offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "INR",
-      lowPrice: Math.min(...variants.map((v) => v.salePrice ?? v.price)),
-      highPrice: Math.max(...variants.map((v) => v.price)),
-      offerCount: variants.length,
-      availability: variants.some((v) => v.stock > 0)
-        ? "https://schema.org/InStock"
-        : "https://schema.org/OutOfStock",
-    },
+    // Only quote a price when a variant actually carries one. Spreading an
+    // empty array into Math.min/max yields ±Infinity, which JSON.stringify
+    // writes as null — invalid structured data. A product with nothing
+    // purchasable omits the offer block entirely rather than publishing a
+    // price it cannot honour.
+    ...(offerPrices.length > 0
+      ? {
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: "INR",
+            lowPrice: Math.min(...offerPrices),
+            highPrice: Math.max(...listPrices),
+            offerCount: offerPrices.length,
+            availability: variants.some((v) => v.stock > 0)
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+          },
+        }
+      : {}),
   };
 
   return (

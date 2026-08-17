@@ -157,24 +157,46 @@ async function main() {
       }
       console.log(`Tiers updated for ${mainVar.sku}.`);
 
-      // Clean up extra 0-stock variants safely
+      // Retire extra 0-stock variants.
+      //
+      // "Zero stock" does NOT mean "never sold". A variant that appears on any
+      // past order is deactivated, never deleted — deleting it means deleting
+      // its OrderItems, which silently rewrites a real customer's bill: the
+      // order keeps its total but loses the lines that justify it, and the
+      // invoice then prints a figure with nothing behind it.
+      //
+      // This is exactly how deleteVariantAction in src/actions/products.ts
+      // already behaves, and the rule the foreign key is there to enforce.
       const extraVariants = product.variants.filter(v => v.id !== mainVar!.id);
       for (const ev of extraVariants) {
-        if (!ev.inventory || ev.inventory.stock === 0) {
-          try {
-            await prisma.cartItem.deleteMany({ where: { productVariantId: ev.id } });
-            await prisma.orderItem.deleteMany({ where: { productVariantId: ev.id } });
-            await prisma.wholesalePriceTier.deleteMany({ where: { productVariantId: ev.id } });
-            await prisma.inventory.deleteMany({ where: { productVariantId: ev.id } });
-            await prisma.productVariant.delete({ where: { id: ev.id } });
-            console.log(`Removed unused variant [${ev.sku}]`);
-          } catch (e) {
-            console.warn(`Could not remove variant ${ev.sku}, deactivating instead:`, (e as Error).message);
-            await prisma.productVariant.update({
-              where: { id: ev.id },
-              data: { isActive: false }
-            });
-          }
+        if (ev.inventory && ev.inventory.stock !== 0) continue;
+
+        const orderCount = await prisma.orderItem.count({
+          where: { productVariantId: ev.id }
+        });
+        if (orderCount > 0) {
+          await prisma.productVariant.update({
+            where: { id: ev.id },
+            data: { isActive: false }
+          });
+          console.log(
+            `Variant [${ev.sku}] appears on ${orderCount} past order line(s) — deactivated, not deleted.`
+          );
+          continue;
+        }
+
+        try {
+          await prisma.cartItem.deleteMany({ where: { productVariantId: ev.id } });
+          await prisma.wholesalePriceTier.deleteMany({ where: { productVariantId: ev.id } });
+          await prisma.inventory.deleteMany({ where: { productVariantId: ev.id } });
+          await prisma.productVariant.delete({ where: { id: ev.id } });
+          console.log(`Removed unused variant [${ev.sku}]`);
+        } catch (e) {
+          console.warn(`Could not remove variant ${ev.sku}, deactivating instead:`, (e as Error).message);
+          await prisma.productVariant.update({
+            where: { id: ev.id },
+            data: { isActive: false }
+          });
         }
       }
     }

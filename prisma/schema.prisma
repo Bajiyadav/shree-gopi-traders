@@ -20,6 +20,18 @@ model Admin {
   @@index([email])
 }
 
+/// One failed sign-in, counted against a scope — either `ip:<address>` or
+/// `user:<email>`. src/lib/rate-limit.ts reads a rolling 15-minute window over
+/// these rows to throttle brute-force attempts, and prunes expired ones as it
+/// goes. Holds no credentials: a scope string and a timestamp, nothing else.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  scope     String
+  createdAt DateTime @default(now())
+
+  @@index([scope, createdAt])
+}
+
 model Customer {
   id                String             @id @default(cuid())
   name              String

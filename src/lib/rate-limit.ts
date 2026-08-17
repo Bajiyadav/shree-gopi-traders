@@ -26,14 +26,11 @@ const WINDOW_MS = 15 * 60 * 1000;
 export const MAX_PER_IP = 20;      // a shared office address needs headroom
 export const MAX_PER_ACCOUNT = 8;  // one person mistyping their own password
 
-// LoginAttempt is an optional model not yet in the Prisma schema for all
-// databases. Access it via `any` — the try/catch blocks in every caller
-// handle the missing-table case at runtime (fail-open, by design).
-const loginAttempt = (prisma as any).loginAttempt as {
-  findMany: (args: unknown) => Promise<{ scope: string; createdAt: Date }[]>;
-  createMany: (args: unknown) => Promise<unknown>;
-  deleteMany: (args: unknown) => Promise<unknown>;
-};
+// LoginAttempt is a real model in schema.prisma, so this is the generated,
+// type-checked client. It was previously reached through `prisma as any`,
+// which compiled fine while the table did not exist at all — every call threw,
+// every catch swallowed it, and the limits below silently never applied.
+const loginAttempt = prisma.loginAttempt;
 
 /** Best-effort client address behind Vercel's proxy. */
 function clientIp(): string {
